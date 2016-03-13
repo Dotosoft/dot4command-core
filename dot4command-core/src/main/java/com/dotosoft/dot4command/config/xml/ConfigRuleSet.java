@@ -77,11 +77,11 @@ public class ConfigRuleSet extends RuleSetBase {
 
     // ----------------------------------------------------- Instance Variables
 
-    private String catalogClass = "org.apache.commons.chain2.impl.CatalogBase";
+    private String catalogClass = "com.dotosoft.dot4command.impl.CatalogBase";
 
     private String catalogElement = "catalog";
 
-    private String chainClass = "org.apache.commons.chain2.impl.ChainBase";
+    private String chainClass = "com.dotosoft.dot4command.impl.ChainBase";
 
     private String chainElement = "chain";
 

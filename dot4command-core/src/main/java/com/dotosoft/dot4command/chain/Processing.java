@@ -29,6 +29,14 @@ package com.dotosoft.dot4command.chain;
  */
 public enum Processing {
 
+	/**
+     * Commands should return continue if the processing of the given 
+     * context should be delegated to a subsequent command in an enclosing chain.
+     *
+     * @since Chain 2.0
+     */
+    BREAK,
+    
     /**
      * Commands should return continue if the processing of the given 
      * context should be delegated to a subsequent command in an enclosing chain.

@@ -75,8 +75,8 @@ public class XmlConfigParserTestCase {
     public static List<Object[]> data() {
         return Arrays.asList(new Object[][]
             {
-                {"/org/apache/commons/chain2/config/xml/test-config.xml"},
-                {"/org/apache/commons/chain2/config/xml/test-config-2.xml"}
+                {"/com/dotosoft/dot4command/config/xml/test-config.xml"},
+                {"/com/dotosoft/dot4command/config/xml/test-config-2.xml"}
             }
         );
     }

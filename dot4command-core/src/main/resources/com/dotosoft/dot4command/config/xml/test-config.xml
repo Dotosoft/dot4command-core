@@ -12,90 +12,90 @@
 
 	<!-- Single command "chains" from CatalogBaseTestCase -->
 	<command name="AddingCommand"
-		className="org.apache.commons.chain2.testutils.AddingCommand" />
+		className="com.dotosoft.dot4command.testutils.AddingCommand" />
 	<command name="DelegatingCommand"
-		className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+		className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 	<command name="DelegatingFilter"
-		className="org.apache.commons.chain2.testutils.DelegatingFilter" />
+		className="com.dotosoft.dot4command.testutils.DelegatingFilter" />
 	<command name="ExceptionCommand"
-		className="org.apache.commons.chain2.testutils.ExceptionCommand" />
+		className="com.dotosoft.dot4command.testutils.ExceptionCommand" />
 	<command name="ExceptionFilter"
-		className="org.apache.commons.chain2.testutils.ExceptionFilter" />
+		className="com.dotosoft.dot4command.testutils.ExceptionFilter" />
 	<command name="NonDelegatingCommand"
-		className="org.apache.commons.chain2.testutils.NonDelegatingCommand" />
+		className="com.dotosoft.dot4command.testutils.NonDelegatingCommand" />
 	<command name="NonDelegatingFilter"
-		className="org.apache.commons.chain2.testutils.NonDelegatingFilter" />
-	<chain name="ChainBase" className="org.apache.commons.chain2.config.xml.TestChain" />
+		className="com.dotosoft.dot4command.testutils.NonDelegatingFilter" />
+	<chain name="ChainBase" className="com.dotosoft.dot4command.config.xml.TestChain" />
 
 	<!-- Configurable command with settable properties -->
 	<command name="Configurable"
-		className="org.apache.commons.chain2.config.xml.TestCommand" foo="Foo Value"
+		className="com.dotosoft.dot4command.config.xml.TestCommand" foo="Foo Value"
 		bar="Bar Value" />
 
 	<!-- Chains with nested commands -->
 	<chain name="Execute2a">
 		<command id="1"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="2"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="3"
-			className="org.apache.commons.chain2.testutils.NonDelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.NonDelegatingCommand" />
 	</chain>
 	<chain name="Execute2b">
 		<command id="1"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="2"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="3"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 	</chain>
 	<chain name="Execute2c">
 		<command id="1"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="2"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="3"
-			className="org.apache.commons.chain2.testutils.ExceptionCommand" />
+			className="com.dotosoft.dot4command.testutils.ExceptionCommand" />
 	</chain>
 	<chain name="Execute2d">
 		<command id="1"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="2"
-			className="org.apache.commons.chain2.testutils.ExceptionCommand" />
+			className="com.dotosoft.dot4command.testutils.ExceptionCommand" />
 		<command id="3"
-			className="org.apache.commons.chain2.testutils.NonDelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.NonDelegatingCommand" />
 	</chain>
 	<chain name="Execute4a">
 		<command id="1" id2="a"
-			className="org.apache.commons.chain2.testutils.DelegatingFilter" />
+			className="com.dotosoft.dot4command.testutils.DelegatingFilter" />
 		<command id="2"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="3" id2="c"
-			className="org.apache.commons.chain2.testutils.NonDelegatingFilter" />
+			className="com.dotosoft.dot4command.testutils.NonDelegatingFilter" />
 	</chain>
 	<chain name="Execute4b">
 		<command id="1"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 		<command id="2" id2="b"
-			className="org.apache.commons.chain2.testutils.DelegatingFilter" />
+			className="com.dotosoft.dot4command.testutils.DelegatingFilter" />
 		<command id="3"
-			className="org.apache.commons.chain2.testutils.DelegatingCommand" />
+			className="com.dotosoft.dot4command.testutils.DelegatingCommand" />
 	</chain>
 	<chain name="Execute4c">
 		<command id="1" id2="a"
-			className="org.apache.commons.chain2.testutils.DelegatingFilter" />
+			className="com.dotosoft.dot4command.testutils.DelegatingFilter" />
 		<command id="2" id2="b"
-			className="org.apache.commons.chain2.testutils.DelegatingFilter" />
+			className="com.dotosoft.dot4command.testutils.DelegatingFilter" />
 		<command id="3" id2="c"
-			className="org.apache.commons.chain2.testutils.ExceptionFilter" />
+			className="com.dotosoft.dot4command.testutils.ExceptionFilter" />
 	</chain>
 	<chain name="Execute4d">
 		<command id="1" id2="a"
-			className="org.apache.commons.chain2.testutils.DelegatingFilter" />
+			className="com.dotosoft.dot4command.testutils.DelegatingFilter" />
 		<command id="2" id2="b"
-			className="org.apache.commons.chain2.testutils.ExceptionFilter" />
+			className="com.dotosoft.dot4command.testutils.ExceptionFilter" />
 		<command id="3" id2="c"
-			className="org.apache.commons.chain2.testutils.NonDelegatingFilter" />
+			className="com.dotosoft.dot4command.testutils.NonDelegatingFilter" />
 	</chain>
 
 </catalog>
