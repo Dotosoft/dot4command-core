@@ -8,11 +8,11 @@ import org.apache.commons.beanutils.PropertyUtils;
 import com.dotosoft.dot4command.chain.Filter;
 import com.dotosoft.dot4command.chain.Processing;
 
-public abstract class BaseCommand<K, V, C extends Map<K, V>> implements Filter<K, V, C> {
+public abstract class CommandBase<K, V, C extends Map<K, V>> implements Filter<K, V, C> {
 
 	private Logger log;
 	
-	public BaseCommand() {
+	public CommandBase() {
 		log = Logger.getLogger(getClass().getName());
 	}
 	

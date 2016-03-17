@@ -21,7 +21,6 @@ import java.util.Map;
 import com.dotosoft.dot4command.chain.Catalog;
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Command;
-import com.dotosoft.dot4command.chain.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Filter;
 import com.dotosoft.dot4command.chain.Processing;

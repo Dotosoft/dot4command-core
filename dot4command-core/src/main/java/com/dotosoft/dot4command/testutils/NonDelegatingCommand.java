@@ -17,8 +17,8 @@
 package com.dotosoft.dot4command.testutils;
 
 
+import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Command;
-import com.dotosoft.dot4command.chain.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
 

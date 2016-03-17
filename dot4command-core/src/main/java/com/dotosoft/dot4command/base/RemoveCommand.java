@@ -16,7 +16,6 @@
  */
 package com.dotosoft.dot4command.base;
 
-import com.dotosoft.dot4command.chain.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
 

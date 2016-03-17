@@ -30,7 +30,7 @@ import com.dotosoft.dot4command.chain.Processing;
  *
  * @version $Id$
  */
-public class CopyCommand<K, V, C extends Map<K, V>> extends BaseCommand<K, V, C> {
+public class CopyCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Properties
 
