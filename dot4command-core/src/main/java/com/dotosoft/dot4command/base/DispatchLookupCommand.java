@@ -57,7 +57,7 @@ import java.util.WeakHashMap;
  * @since Chain 1.1
  */
 public class DispatchLookupCommand<K, V, C extends Context<K, V>>
-    extends LookupCommand<K, V, C> implements Filter<K, V, C> {
+    extends LookupCommand<K, V, C> {
 
     // -------------------------------------------------------------- Constructors
 
@@ -140,7 +140,7 @@ public class DispatchLookupCommand<K, V, C extends Context<K, V>>
      *  <code>optional</code> property is set to <code>false</code>
      */
     @Override
-    public Processing execute(C context) {
+    public Processing onExecute(C context) {
         if (this.getMethod() == null && this.getMethodKey() == null) {
             throw new IllegalStateException("Neither 'method' nor 'methodKey' properties are defined");
         }

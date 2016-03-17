@@ -29,8 +29,7 @@ import com.dotosoft.dot4command.chain.Processing;
  * @version $Id$
  */
 
-public class NonDelegatingFilter
-    extends NonDelegatingCommand implements Filter<String, Object, Context<String, Object>> {
+public class NonDelegatingFilter extends NonDelegatingCommand {
 
 
     // ------------------------------------------------------------- Constructor
@@ -65,9 +64,9 @@ public class NonDelegatingFilter
 
     // Execution method for this Command
     @Override
-    public Processing execute(Context<String, Object> context) {
+    public Processing onExecute(Context<String, Object> context) {
 
-        super.execute(context);
+        super.onExecute(context);
         return Processing.FINISHED;
 
     }

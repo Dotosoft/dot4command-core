@@ -19,8 +19,7 @@ package com.dotosoft.dot4command.base;
 
 import java.util.Map;
 
-import com.dotosoft.dot4command.chain.Command;
-import com.dotosoft.dot4command.chain.Context;
+import com.dotosoft.dot4command.chain.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
 
 /**
@@ -32,7 +31,7 @@ import com.dotosoft.dot4command.chain.Processing;
  *
  * @version $Id$
  */
-public class OverrideCommand<K, V, C extends Map<K, V>> implements Command<K, V, C> {
+public class OverrideCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Properties
 
@@ -83,7 +82,7 @@ public class OverrideCommand<K, V, C extends Map<K, V>> implements Command<K, V,
      * @return {@link Processing#CONTINUE} so that {@link Processing} will continue.
      * @throws com.dotosoft.dot4command.chain.ChainException if and error occurs.
      */
-    public Processing execute(C context) {
+    public Processing onExecute(C context) {
         if (context.containsKey(getKey())) {
             context.put(getKey(), getValue());
         }

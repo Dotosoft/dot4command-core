@@ -18,6 +18,7 @@ package com.dotosoft.dot4command.testutils;
 
 
 import com.dotosoft.dot4command.chain.Command;
+import com.dotosoft.dot4command.chain.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
 
@@ -29,7 +30,7 @@ import com.dotosoft.dot4command.chain.Processing;
  * @version $Id$
  */
 
-public class NonDelegatingCommand implements Command<String, Object, Context<String, Object>> {
+public class NonDelegatingCommand extends CommandBase<String, Object, Context<String, Object>> {
 
 
     // ------------------------------------------------------------ Constructor
@@ -65,7 +66,7 @@ public class NonDelegatingCommand implements Command<String, Object, Context<Str
 
 
     // Execution method for this Command
-    public Processing execute(Context<String, Object> context) {
+    public Processing onExecute(Context<String, Object> context) {
 
         if (context == null) {
             throw new IllegalArgumentException();

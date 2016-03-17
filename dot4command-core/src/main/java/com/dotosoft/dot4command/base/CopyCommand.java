@@ -18,7 +18,7 @@ package com.dotosoft.dot4command.base;
 
 import java.util.Map;
 
-import com.dotosoft.dot4command.chain.Command;
+import com.dotosoft.dot4command.chain.BaseCommand;
 import com.dotosoft.dot4command.chain.Processing;
 
 /**
@@ -31,7 +31,7 @@ import com.dotosoft.dot4command.chain.Processing;
  *
  * @version $Id$
  */
-public class CopyCommand<K, V, C extends Map<K, V>> implements Command<K, V, C> {
+public class CopyCommand<K, V, C extends Map<K, V>> extends BaseCommand<K, V, C> {
 
     // -------------------------------------------------------------- Properties
 
@@ -84,7 +84,7 @@ public class CopyCommand<K, V, C extends Map<K, V>> implements Command<K, V, C> 
      * @return {@link Processing#CONTINUE} so that processing will continue.
      * @throws com.dotosoft.dot4command.chain.ChainException in the if an error occurs during execution.
      */
-    public Processing execute(C context) {
+    public Processing onExecute(C context) {
         if (containsKeys(context)) {
             V value = context.get(getFromKey());
             context.put(getToKey(), value);

@@ -48,12 +48,12 @@ public class NullReturningCommand extends DelegatingCommand {
     // -------------------------------------------------------- Command Methods
     
     @Override
-    public Processing execute(Context<String, Object> context) {
+    public Processing onExecute(Context<String, Object> context) {
         return null;
     }
     
     
-    public Processing execute(Context<String, Object> context, Chain<String, Object, Context<String, Object>> chain) {
+    public Processing onExecute(Context<String, Object> context, Chain<String, Object, Context<String, Object>> chain) {
         return null;
     }
 

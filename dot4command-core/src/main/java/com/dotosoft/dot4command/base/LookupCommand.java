@@ -19,6 +19,7 @@ package com.dotosoft.dot4command.base;
 import com.dotosoft.dot4command.chain.Catalog;
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Command;
+import com.dotosoft.dot4command.chain.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Filter;
 import com.dotosoft.dot4command.chain.Processing;
@@ -48,7 +49,7 @@ import java.util.Map;
  *
  * @version $Id$
  */
-public class LookupCommand<K, V, C extends Map<K, V>> implements Filter<K, V, C> {
+public class LookupCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Constructors
 
@@ -272,7 +273,7 @@ public class LookupCommand<K, V, C extends Map<K, V>> implements Filter<K, V, C>
      * instance is <code>true</code>
      * @throws com.dotosoft.dot4command.chain.ChainException if and error occurs in the looked-up Command.
      */
-    public Processing execute(C context) {
+    public Processing onExecute(C context) {
         Command<K, V, C> command = getCommand(context);
         if (command != null) {
             Processing result = command.execute(context);

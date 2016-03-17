@@ -27,8 +27,7 @@ import com.dotosoft.dot4command.chain.Filter;
  *
  * @version $Id$
  */
-public class ExceptionFilter
-    extends ExceptionCommand implements Filter<String, Object, Context<String, Object>> {
+public class ExceptionFilter extends ExceptionCommand {
 
 
     // ------------------------------------------------------------- Constructor

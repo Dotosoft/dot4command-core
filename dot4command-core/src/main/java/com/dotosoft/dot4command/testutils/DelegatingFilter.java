@@ -51,9 +51,9 @@ public class DelegatingFilter extends NonDelegatingFilter {
 
     // Execution method for this Command
     @Override
-    public Processing execute(Context<String, Object> context) {
+    public Processing onExecute(Context<String, Object> context) {
 
-        super.execute(context);
+        super.onExecute(context);
         return Processing.CONTINUE;
 
     }
