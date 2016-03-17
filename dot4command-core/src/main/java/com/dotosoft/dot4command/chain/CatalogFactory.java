@@ -19,6 +19,8 @@ package com.dotosoft.dot4command.chain;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.dotosoft.dot4command.impl.CatalogFactoryBase;
+
 /**
  * A <code>CatalogFactory</code> stores and retrieves catalogs. 
  * <p>

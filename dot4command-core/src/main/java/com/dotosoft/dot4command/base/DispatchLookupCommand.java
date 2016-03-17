@@ -16,15 +16,15 @@
  */
 package com.dotosoft.dot4command.base;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.WeakHashMap;
+
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Command;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Filter;
 import com.dotosoft.dot4command.chain.Processing;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.WeakHashMap;
 
 /**
  * <p>This command combines elements of the {@link LookupCommand} with the

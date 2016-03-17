@@ -18,8 +18,6 @@ package com.dotosoft.dot4command.chain;
 
 import java.util.Map;
 
-import com.dotosoft.dot4command.chain.Processing;
-
 /**
  * Builder that allows continue adding a command in the target chain and execute it.
  *

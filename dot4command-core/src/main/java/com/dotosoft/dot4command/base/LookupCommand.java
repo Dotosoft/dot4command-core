@@ -16,6 +16,8 @@
  */
 package com.dotosoft.dot4command.base;
 
+import java.util.Map;
+
 import com.dotosoft.dot4command.chain.Catalog;
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Command;
@@ -24,8 +26,6 @@ import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Filter;
 import com.dotosoft.dot4command.chain.Processing;
 import com.dotosoft.dot4command.impl.CatalogFactoryBase;
-
-import java.util.Map;
 
 /**
  * <p>Look up a specified {@link Command} (which could also be a

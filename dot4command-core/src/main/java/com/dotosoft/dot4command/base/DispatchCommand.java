@@ -16,15 +16,14 @@
  */
 package com.dotosoft.dot4command.base;
 
-import com.dotosoft.dot4command.chain.Command;
-import com.dotosoft.dot4command.chain.CommandBase;
-import com.dotosoft.dot4command.chain.Context;
-import com.dotosoft.dot4command.chain.Processing;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.WeakHashMap;
+
+import com.dotosoft.dot4command.chain.CommandBase;
+import com.dotosoft.dot4command.chain.Context;
+import com.dotosoft.dot4command.chain.Processing;
 
 /**
  * An abstract base command which uses introspection to look up a method to execute.

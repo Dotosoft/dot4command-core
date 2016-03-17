@@ -1,9 +1,12 @@
-package com.dotosoft.dot4command.chain;
+package com.dotosoft.dot4command.base;
 
 import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.PropertyUtils;
+
+import com.dotosoft.dot4command.chain.Filter;
+import com.dotosoft.dot4command.chain.Processing;
 
 public abstract class BaseCommand<K, V, C extends Map<K, V>> implements Filter<K, V, C> {
 

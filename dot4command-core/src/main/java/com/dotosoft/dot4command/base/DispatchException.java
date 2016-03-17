@@ -16,10 +16,10 @@
  */
 package com.dotosoft.dot4command.base;
 
+import java.util.Map;
+
 import com.dotosoft.dot4command.chain.ChainException;
 import com.dotosoft.dot4command.chain.Command;
-
-import java.util.Map;
 
 /**
  * Runtime Exception that wraps an underlying exception thrown during the

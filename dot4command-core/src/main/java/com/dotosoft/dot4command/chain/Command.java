@@ -18,8 +18,6 @@ package com.dotosoft.dot4command.chain;
 
 import java.util.Map;
 
-import com.dotosoft.dot4command.chain.Processing;
-
 /**
  * <p>A {@link Command} encapsulates a unit of processing work to be
  * performed, whose purpose is to examine and/or modify the state of a
