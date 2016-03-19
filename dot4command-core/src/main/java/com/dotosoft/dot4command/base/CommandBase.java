@@ -34,15 +34,19 @@ public abstract class CommandBase<K extends String, V extends Object, C extends 
 	
 	@Override
 	public final Processing execute(C context) {
-		log.info(getClass().getName() + " is processing");
+		// log.info(">> START");
 		onStart(context);
 		Processing result = Processing.CONTINUE;
 		try {
+			log.info(">> EXECUTE");
 			result = onExecute(context);
+			// log.info(">> SUCCESS");
 			onSuccess(context);
-		} catch (Exception ex) { 
+		} catch (Exception ex) {
+			// log.info(">> ERROR");
 			onError(context, ex);
 		}
+		// log.info(">> LEAVE");
 		onLeave(context);
 		return result;
 	}
