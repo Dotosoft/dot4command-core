@@ -1,9 +1,10 @@
 package com.dotosoft.dot4command.base;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.dotosoft.dot4command.chain.Filter;
 import com.dotosoft.dot4command.chain.Processing;
@@ -16,7 +17,7 @@ public abstract class CommandBase<K extends String, V extends Object, C extends 
 	}
 	
 	public CommandBase() {
-		log = Logger.getLogger(getClass().getName());
+		log = LoggerFactory.getLogger(getClass().getName());
 	}
 	
 	public void onStart(C context)	{ /* DO NOTHING */ }
