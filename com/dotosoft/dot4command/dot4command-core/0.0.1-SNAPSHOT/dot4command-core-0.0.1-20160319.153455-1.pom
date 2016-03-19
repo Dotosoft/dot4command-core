@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  		<github.global.server>github</github.global.server>
+		<github.global.server>github</github.global.server>
 	</properties>
 
 	<dependencies>
@@ -21,18 +21,21 @@
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
 		</dependency>
-
 		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.1.3</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.19</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-digester3</artifactId>
 			<version>3.0</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-core</artifactId>
@@ -57,33 +60,28 @@
 		</dependency>
 
 	</dependencies>
-	
+
 	<distributionManagement>
-		<!-- <repository>
-			<id>dot4command-core</id>
-			<name>Dotoquiz Dot4Command Repository</name>
-			<url>https://github.com/Dotosoft/dotoquiz-dot4command/raw/master/releases</url>
+		<!-- <repository> <id>dot4command-core</id> <name>Dotoquiz Dot4Command 
+			Repository</name> <url>https://github.com/Dotosoft/dotoquiz-dot4command/raw/master/releases</url> 
+			</repository> <snapshotRepository> <id>snapshot-dot4command-core</id> <url>https://github.com/Dotosoft/dotoquiz-dot4command/raw/master/snapshots</url> 
+			</snapshotRepository> -->
+		<repository>
+			<id>internal.repo</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/mvn-repo</url>
 		</repository>
-		<snapshotRepository>
-			<id>snapshot-dot4command-core</id>
-			<url>https://github.com/Dotosoft/dotoquiz-dot4command/raw/master/snapshots</url>
-		</snapshotRepository> -->
-    	<repository>
-        	<id>internal.repo</id>
-        	<name>Temporary Staging Repository</name>
-        	<url>file://${project.build.directory}/mvn-repo</url>
-    	</repository>
 	</distributionManagement>
-	
+
 	<build>
 		<plugins>
 			<plugin>
-        		<artifactId>maven-deploy-plugin</artifactId>
-        		<version>2.8.2</version>
-        		<configuration>
-            		<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
-        		</configuration>
-    		</plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+				<configuration>
+					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -117,22 +115,25 @@
 				<version>0.12</version>
 				<configuration>
 					<message>Maven artifacts for ${project.version}</message>  						<!-- git commit message -->
-	                <noJekyll>true</noJekyll>                                  						<!-- disable webpage processing -->
-	                <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> 			<!-- matches distribution management repository url above -->
-	                <branch>refs/heads/mvn-repo</branch>                       						<!-- remote branch name -->
-	                <includes><include>**/*</include></includes>
-	                <repositoryName>dot4command-core</repositoryName>      							<!-- github repo name -->
-	                <repositoryOwner>Dotosoft</repositoryOwner>    									<!-- github username  -->
+					<noJekyll>true</noJekyll>                                  						<!-- disable webpage processing -->
+					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> 			<!-- matches distribution management repository url above -->
+					<branch>refs/heads/mvn-repo</branch>                       						<!-- remote branch name -->
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<repositoryName>dot4command-core</repositoryName>      							<!-- github repo name -->
+					<repositoryOwner>Dotosoft</repositoryOwner>    									<!-- github username -->
 				</configuration>
 				<executions>
-              		<!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
-              		<execution>
-	                	<goals>
-	                  		<goal>site</goal>
-	                	</goals>
-	                	<phase>deploy</phase>
-              		</execution>
-            	</executions>
+					<!-- run site-maven-plugin's 'site' target as part of the build's normal 
+						'deploy' phase -->
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<finalName>${project.artifactId}-${project.version}</finalName>
