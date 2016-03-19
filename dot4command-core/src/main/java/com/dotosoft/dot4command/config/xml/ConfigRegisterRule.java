@@ -83,8 +83,8 @@ class ConfigRegisterRule extends Rule {
         /* All commands can consume a generic context. Here we depend on
          * the configuration being correct because the rule binding is
          * dynamic. */
-        Command<Object, Object, Map<Object, Object>> command =
-                (Command<Object, Object, Map<Object, Object>>) top;
+        Command<String, Object, Map<String, Object>> command =
+                (Command<String, Object, Map<String, Object>>) top;
 
         // Is the next object a Catalog or a Chain?
         Object next = getDigester().peek(1);
@@ -98,14 +98,14 @@ class ConfigRegisterRule extends Rule {
             if (nameValue != null) {
                 /* We are dynamically building a catalog and assigning
                  * generics to the most base types possible. */
-                Catalog<Object, Object, Map<Object, Object>> catalog =
-                        (Catalog<Object, Object, Map<Object, Object>>) next;
+                Catalog<String, Object, Map<String, Object>> catalog =
+                        (Catalog<String, Object, Map<String, Object>>) next;
                 catalog.addCommand(nameValue, command);
             }
         } else if (next instanceof Chain) {
             /* Like above - the chain is being dynamically generated,
              * so we can add a generic context signature at compile-time. */
-            Chain<Object, Object, Map<Object, Object>> chain = (Chain<Object, Object, Map<Object, Object>>) next;
+            Chain<String, Object, Map<String, Object>> chain = (Chain<String, Object, Map<String, Object>>) next;
             chain.addCommand(command);
         }
     }

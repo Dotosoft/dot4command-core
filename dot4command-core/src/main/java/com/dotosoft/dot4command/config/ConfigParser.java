@@ -49,6 +49,6 @@ public interface ConfigParser {
      * @return a CatalogFactory instance parsed from the given location
      * @exception ChainConfigurationException if a parsing error occurs
      */
-    <K, V, C extends Map<K, V>> CatalogFactory<K, V, C> parse(URL url) throws ChainConfigurationException;
+	<K extends String, V extends Object, C extends Map<K, V>> CatalogFactory<K, V, C> parse(URL url) throws ChainConfigurationException;
 
 }

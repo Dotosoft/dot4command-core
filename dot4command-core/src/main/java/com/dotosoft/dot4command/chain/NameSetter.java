@@ -27,7 +27,7 @@ import java.util.Map;
  * @since 2.0
  * @version $Id$
  */
-public interface NameSetter<K, V, C extends Map<K, V>> {
+public interface NameSetter<K extends String, V extends Object, C extends Map<K, V>> {
 
     /**
      * Specifies a name for a {@link Command} in a {@link Catalog} instance.

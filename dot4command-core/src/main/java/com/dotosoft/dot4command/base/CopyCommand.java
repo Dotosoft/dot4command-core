@@ -30,7 +30,7 @@ import com.dotosoft.dot4command.chain.Processing;
  *
  * @version $Id$
  */
-public class CopyCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V, C> {
+public class CopyCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Properties
 
@@ -83,7 +83,8 @@ public class CopyCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V, C>
      * @return {@link Processing#CONTINUE} so that processing will continue.
      * @throws com.dotosoft.dot4command.chain.ChainException in the if an error occurs during execution.
      */
-    public Processing onExecute(C context) {
+    @Override
+    public Processing onExecute(C context) throws Exception {
         if (containsKeys(context)) {
             V value = context.get(getFromKey());
             context.put(getToKey(), value);

@@ -86,8 +86,8 @@ class ConfigCatalogRule extends Rule {
     @Override
     public void begin(String namespace, String name, Attributes attributes) throws Exception {
         // Retrieve any current Catalog with the specified name
-        Catalog<Object, Object, Map<Object, Object>> catalog;
-        CatalogFactory<Object, Object, Map<Object, Object>> factory = CatalogFactoryBase.getInstance();
+        Catalog<String, Object, Map<String, Object>> catalog;
+        CatalogFactory<String, Object, Map<String, Object>> factory = CatalogFactoryBase.getInstance();
         String nameValue = attributes.getValue(nameAttribute);
         if (nameValue == null) {
             catalog = factory.getCatalog();
@@ -103,8 +103,8 @@ class ConfigCatalogRule extends Rule {
              * with the assumption that the Catalog returned from digester will
              * comply with the the historic chain contract. */
             @SuppressWarnings("unchecked")
-            Catalog<Object, Object, Map<Object, Object>> digesterCatalog =
-                    (Catalog<Object, Object, Map<Object, Object>>) clazz.newInstance();
+            Catalog<String, Object, Map<String, Object>> digesterCatalog =
+                    (Catalog<String, Object, Map<String, Object>>) clazz.newInstance();
 
             catalog = digesterCatalog;
 

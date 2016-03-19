@@ -27,7 +27,7 @@ import java.util.Map;
  * @version $Id$
  * @since 2.0
  */
-public interface ChainExecutor<K, V, C extends Map<K, V>> extends CommandSetter<K, V, C, ChainExecutor<K, V, C>> {
+public interface ChainExecutor<K extends String, V extends Object, C extends Map<K, V>> extends CommandSetter<K, V, C, ChainExecutor<K, V, C>> {
 
     /**
      * Execute the processing represented by the target chain.

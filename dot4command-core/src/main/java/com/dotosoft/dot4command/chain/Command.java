@@ -80,7 +80,7 @@ import java.util.Map;
  *
  * @version $Id$
  */
-public interface Command<K, V, C extends Map<K, V>> {
+public interface Command<K extends String, V extends Object, C extends Map<K, V>> {
 
     /**
      * Execute a unit of processing work to be performed. 

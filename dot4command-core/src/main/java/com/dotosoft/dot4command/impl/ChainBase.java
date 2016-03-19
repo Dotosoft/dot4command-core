@@ -37,7 +37,7 @@ import java.util.Map;
  *
  * @version $Id$
  */
-public class ChainBase<K, V, C extends Map<K, V>> implements Chain<K, V, C> {
+public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> implements Chain<K, V, C> {
 
     // ----------------------------------------------------------- Constructors
 

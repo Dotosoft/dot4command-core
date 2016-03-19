@@ -32,7 +32,7 @@ import java.util.Map;
  *
  * @version $Id$
  */
-public interface Catalog<K, V, C extends Map<K, V>> {
+public interface Catalog<K extends String, V extends Object, C extends Map<K, V>> {
 
     /**
      * <p>A default context attribute for storing a default {@link Catalog},

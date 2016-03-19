@@ -37,7 +37,7 @@ import com.dotosoft.dot4command.chain.Command;
  * @param <C> Type of the context associated with this command
  * @version $Id$
  */
-public class CatalogFactoryBase<K, V, C extends Map<K, V>> implements CatalogFactory<K, V, C> {
+public class CatalogFactoryBase<K extends String, V extends Object, C extends Map<K, V>> implements CatalogFactory<K, V, C> {
 
     // ----------------------------------------------------------- Constructors
 
@@ -181,7 +181,7 @@ public class CatalogFactoryBase<K, V, C extends Map<K, V>> implements CatalogFac
      * @param <C> Type of the context associated with this command
      * @return the per-application singleton instance of {@link CatalogFactoryBase}
      */
-    public static <K, V, C extends Map<K, V>> CatalogFactory<K, V, C> getInstance() {
+    public static <K extends String, V extends Object, C extends Map<K, V>> CatalogFactory<K, V, C> getInstance() {
         CatalogFactoryBase<?, ?, ? extends Map<?, ?>> factory;
         ClassLoader cl = getClassLoader();
         synchronized (factories) {

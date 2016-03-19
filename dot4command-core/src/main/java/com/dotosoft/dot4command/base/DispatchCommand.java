@@ -36,7 +36,7 @@ import com.dotosoft.dot4command.chain.Processing;
  * @since Chain 1.1
  * @version $Id$
  */
-public abstract class DispatchCommand<K, V, C extends Context<K, V>> extends CommandBase<K, V, C> {
+public abstract class DispatchCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     /** Cache of methods */
     private final Map<String, Method> methods = new WeakHashMap<String, Method>();
@@ -64,7 +64,8 @@ public abstract class DispatchCommand<K, V, C extends Context<K, V>> extends Com
      * the exception itself, unless the cause is an <code>Error</code> or other <code>Throwable</code>
      * which is not an <code>Exception</code>.
      */
-    public Processing onExecute(C context) {
+    @Override
+    public Processing onExecute(C context) throws Exception {
         if (this.getMethod() == null && this.getMethodKey() == null) {
             throw new IllegalStateException("Neither 'method' nor 'methodKey' properties are defined ");
         }

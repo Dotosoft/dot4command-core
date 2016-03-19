@@ -27,7 +27,7 @@ import java.util.Map;
  * @since 2.0
  * @version $Id$
  */
-public interface NamedCommandSetter<K, V, C extends Map<K, V>>
+public interface NamedCommandSetter<K extends String, V extends Object, C extends Map<K, V>>
     extends CommandSetter<K, V, C, NameSetter<K, V, C>> {
 
 }

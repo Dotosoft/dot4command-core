@@ -28,7 +28,7 @@ import java.util.Map;
  * @since 2.0
  * @version $Id$
  */
-public interface CommandSetter<K, V, C extends Map<K, V>, R> {
+public interface CommandSetter<K extends String, V extends Object, C extends Map<K, V>, R> {
 
     /**
      * Add the given command to the target {@link Chain} has to be executed.

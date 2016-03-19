@@ -37,7 +37,7 @@ import com.dotosoft.dot4command.chain.Command;
  *
  * @version $Id$
  */
-public class CatalogBase<K, V, C extends Map<K, V>> implements Catalog<K, V, C> {
+public class CatalogBase<K extends String, V extends Object, C extends Map<K, V>> implements Catalog<K, V, C> {
 
     // ----------------------------------------------------- Instance Variables
 

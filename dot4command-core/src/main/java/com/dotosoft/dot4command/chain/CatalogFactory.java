@@ -36,7 +36,7 @@ import com.dotosoft.dot4command.impl.CatalogFactoryBase;
  *
  * @version $Id: CatalogFactory.java 1486528 2013-05-27 07:38:38Z simonetripodi $
  */
-public interface CatalogFactory<K, V, C extends Map<K, V>> {
+public interface CatalogFactory<K extends String, V extends Object, C extends Map<K, V>> {
 
     /**
      * <p>Values passed to the <code>getCommand(String)</code> method should
@@ -111,7 +111,6 @@ public interface CatalogFactory<K, V, C extends Map<K, V>> {
      *
      * @since Chain 1.1
      */
-    public abstract <CMD extends Command<K, V, C>> CMD getCommand(
-            String commandID);
+    public abstract <CMD extends Command<K, V, C>> CMD getCommand(String commandID);
 
 }

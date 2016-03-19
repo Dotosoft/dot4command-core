@@ -44,7 +44,7 @@ import java.util.Map;
  *
  * @version $Id$
  */
-public interface Filter<K, V, C extends Map<K, V>> extends Command<K, V, C> {
+public interface Filter<K extends String, V extends Object, C extends Map<K, V>> extends Command<K, V, C> {
 
     /**
      * <p>Execute any cleanup activities, such as releasing resources that

@@ -11,7 +11,7 @@ import com.dotosoft.dot4command.chain.Context;
 /**
  * @version $Id$
  */
-public class TestCatalog<K, V, C extends Context<K, V>> implements Catalog<K, V, C> {
+public class TestCatalog<K extends String, V extends Object, C extends Map<K, V>> implements Catalog<K, V, C> {
 
     Map<String, Command> commands = new HashMap<String, Command>();
 

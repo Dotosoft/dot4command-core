@@ -18,6 +18,7 @@ package com.dotosoft.dot4command.base;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 import com.dotosoft.dot4command.chain.CatalogFactory;
@@ -56,7 +57,7 @@ import com.dotosoft.dot4command.chain.Processing;
  * @version $Id$
  * @since Chain 1.1
  */
-public class DispatchLookupCommand<K, V, C extends Context<K, V>>
+public class DispatchLookupCommand<K extends String, V extends Object, C extends Map<K, V>>
     extends LookupCommand<K, V, C> {
 
     // -------------------------------------------------------------- Constructors
@@ -140,7 +141,7 @@ public class DispatchLookupCommand<K, V, C extends Context<K, V>>
      *  <code>optional</code> property is set to <code>false</code>
      */
     @Override
-    public Processing onExecute(C context) {
+    public Processing onExecute(C context) throws Exception {
         if (this.getMethod() == null && this.getMethodKey() == null) {
             throw new IllegalStateException("Neither 'method' nor 'methodKey' properties are defined");
         }

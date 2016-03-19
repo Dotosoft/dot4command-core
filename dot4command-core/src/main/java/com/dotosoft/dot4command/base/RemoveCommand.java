@@ -16,6 +16,8 @@
  */
 package com.dotosoft.dot4command.base;
 
+import java.util.Map;
+
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
 
@@ -28,7 +30,7 @@ import com.dotosoft.dot4command.chain.Processing;
  *
  * @version $Id$
  */
-public class RemoveCommand<K, V, C extends Context<K, V>> extends CommandBase<K, V, C> {
+public class RemoveCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Properties
 
@@ -62,7 +64,8 @@ public class RemoveCommand<K, V, C extends Context<K, V>> extends CommandBase<K,
      * @return {@link Processing#CONTINUE} so that processing will continue.
      * @throws com.dotosoft.dot4command.chain.ChainException if and error occurs.
      */
-    public Processing onExecute(C context) {
+    @Override
+    public Processing onExecute(C context) throws Exception {
         context.remove(getFromKey());
         return Processing.CONTINUE;
     }

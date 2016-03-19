@@ -42,8 +42,8 @@ public class DispatchException extends ChainException {
         super(message, cause);
     }
 
-    public <K, V, C extends Map<K, V>> DispatchException(String message, Throwable cause,
-                                                         C context, Command<K, V, C> failedCommand) {
+    public <K extends String, V extends Object, C extends Map<K, V>> DispatchException(String message, Throwable cause,
+    		C context, Command<K, V, C> failedCommand) {
         super(message, cause, context, failedCommand);
     }
 

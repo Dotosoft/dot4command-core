@@ -48,7 +48,7 @@ import com.dotosoft.dot4command.impl.CatalogFactoryBase;
  *
  * @version $Id$
  */
-public class LookupCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V, C> {
+public class LookupCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Constructors
 
@@ -272,7 +272,8 @@ public class LookupCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V, 
      * instance is <code>true</code>
      * @throws com.dotosoft.dot4command.chain.ChainException if and error occurs in the looked-up Command.
      */
-    public Processing onExecute(C context) {
+    @Override
+    public Processing onExecute(C context)  throws Exception {
         Command<K, V, C> command = getCommand(context);
         if (command != null) {
             Processing result = command.execute(context);

@@ -38,7 +38,7 @@ public final class Chains {
      * @param chain the chain instance reference to execute
      * @return next chain builder
      */
-    public static <K, V, C extends Map<K, V>, CH extends Chain<K, V, C>> ToExecutorCommandSetter<K, V, C> on(CH chain) {
+    public static <K extends String, V extends Object, C extends Map<K, V>, CH extends Chain<K, V, C>> ToExecutorCommandSetter<K, V, C> on(CH chain) {
         return new DefaultCommandSetter<K, V, C>(checkNotNullArgument(chain, "Null Chain can not be executed"));
     }
 
@@ -52,7 +52,7 @@ public final class Chains {
      * @param catalog the catalog instance reference to be setup
      * @return next chain builder
      */
-    public static <K, V, C extends Map<K, V>, CA extends Catalog<K, V, C>> NamedCommandSetter<K, V, C> on(CA catalog) {
+    public static <K extends String, V extends Object, C extends Map<K, V>, CA extends Catalog<K, V, C>> NamedCommandSetter<K, V, C> on(CA catalog) {
         return new DefaultNamedCommandSetter<K, V, C>(checkNotNullArgument(catalog, "Null Catalog can not be setup"));
     }
 
@@ -63,7 +63,7 @@ public final class Chains {
         // do nothing
     }
 
-    private static class DefaultCommandSetter<K, V, C extends Map<K, V>> implements ToExecutorCommandSetter<K, V, C> {
+    private static class DefaultCommandSetter<K extends String, V extends Object, C extends Map<K, V>> implements ToExecutorCommandSetter<K, V, C> {
 
         private final Chain<K, V, C> chain;
 
@@ -78,7 +78,7 @@ public final class Chains {
 
     }
 
-    private static final class DefaultChainExecutor<K, V, C extends Map<K, V>> implements ChainExecutor<K, V, C> {
+    private static final class DefaultChainExecutor<K extends String, V extends Object, C extends Map<K, V>> implements ChainExecutor<K, V, C> {
 
         private final Chain<K, V, C> chain;
 
@@ -97,7 +97,7 @@ public final class Chains {
 
     }
 
-    private static final class DefaultNamedCommandSetter<K, V, C extends Map<K, V>>
+    private static final class DefaultNamedCommandSetter<K extends String, V extends Object, C extends Map<K, V>>
         implements NamedCommandSetter<K, V, C> {
 
         private final Catalog<K, V, C> catalog;
@@ -113,7 +113,7 @@ public final class Chains {
 
     }
 
-    private static final class DefaultNameSetter<K, V, C extends Map<K, V>> implements NameSetter<K, V, C> {
+    private static final class DefaultNameSetter<K extends String, V extends Object, C extends Map<K, V>> implements NameSetter<K, V, C> {
 
         private final Catalog<K, V, C> catalog;
 

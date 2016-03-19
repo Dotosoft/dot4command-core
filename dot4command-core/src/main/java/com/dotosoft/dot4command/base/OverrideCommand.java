@@ -30,7 +30,7 @@ import com.dotosoft.dot4command.chain.Processing;
  *
  * @version $Id$
  */
-public class OverrideCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V, C> {
+public class OverrideCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Properties
 
@@ -81,7 +81,8 @@ public class OverrideCommand<K, V, C extends Map<K, V>> extends CommandBase<K, V
      * @return {@link Processing#CONTINUE} so that {@link Processing} will continue.
      * @throws com.dotosoft.dot4command.chain.ChainException if and error occurs.
      */
-    public Processing onExecute(C context) {
+    @Override
+    public Processing onExecute(C context) throws Exception {
         if (context.containsKey(getKey())) {
             context.put(getKey(), getValue());
         }

@@ -54,7 +54,7 @@ import java.util.Map;
  *
  * @version $Id$
  */
-public interface Chain<K, V, C extends Map<K, V>> extends Command<K, V, C> {
+public interface Chain<K extends String, V extends Object, C extends Map<K, V>> extends Command<K, V, C> {
 
     /**
      * <p>Add a {@link Command} to the list of {@link Command}s that will
@@ -111,6 +111,6 @@ public interface Chain<K, V, C extends Map<K, V>> extends Command<K, V, C> {
      *  of this context should be delegated to a subsequent command in an 
      *  enclosing chain.
      */
-    Processing execute(C context);
+     Processing execute(C context);
 
 }
