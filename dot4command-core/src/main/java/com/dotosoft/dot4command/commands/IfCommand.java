@@ -21,7 +21,7 @@ public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> 
 	}
 	
 	public static boolean getIfCommandKey() {
-		return IfCommand.ifFlag;
+		return ifFlag;
 	}
 
 	@Override

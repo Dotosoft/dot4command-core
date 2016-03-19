@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanPropertyValueEqualsPredicate;
+import org.apache.commons.collections.CollectionUtils;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
@@ -27,24 +28,24 @@ import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class FilterCollectionCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C>{
 
-	private String fromKey;
-	private String toKey;
-	private String filterExpression;
-	private String filterValue;
+	private K fromKey;
+	private K toKey;
+	private K filterExpression;
+	private K filterValue;
 
-	public void setFromKey(String fromKey) {
+	public void setFromKey(K fromKey) {
 		this.fromKey = fromKey;
 	}
 
-	public void setToKey(String toKey) {
+	public void setToKey(K toKey) {
 		this.toKey = toKey;
 	}
 
-	public void setFilterExpression(String filterExpression) {
+	public void setFilterExpression(K filterExpression) {
 		this.filterExpression = filterExpression;
 	}
 
-	public void setFilterValue(String filterValue) {
+	public void setFilterValue(K filterValue) {
 		this.filterValue = filterValue;
 	}
 
@@ -54,13 +55,13 @@ public class FilterCollectionCommand<K extends String, V extends Object, C exten
 		Collection dataCollection = (Collection) BeanUtils.getProperty(context, fromKey);
 		BeanPropertyValueEqualsPredicate predicate = new BeanPropertyValueEqualsPredicate(
 				filterExpression, filterValue);
-//		CollectionUtils.filter(dataCollection, predicate);
-//		
-//		if(dataCollection.isEmpty()) {
-//			context.remove(toKey);
-//		} else {
-//			context.put(toKey, dataCollection);
-//		}
+		CollectionUtils.filter(dataCollection, predicate);
+		
+		if(dataCollection.isEmpty()) {
+			context.remove(toKey);
+		} else {
+			context.put(toKey, (V) dataCollection);
+		}
 
 		return Processing.CONTINUE;
 	}

@@ -3,7 +3,6 @@ package com.dotosoft.dot4command.commands;
 import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
-import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
 
 public class ArithmeticCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {

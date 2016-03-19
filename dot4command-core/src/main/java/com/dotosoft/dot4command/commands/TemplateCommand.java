@@ -14,24 +14,25 @@
 	limitations under the License.
  */
 
-//package com.dotosoft.dot4command.commands;
-//
-//import java.util.Map;
-//
-//import org.apache.commons.chain.Context;
-//import org.apache.commons.chain.impl.ChainBase;
-//
-//import com.google.common.base.Splitter;
-//
-//public class TemplateCommand extends ChainBase {
-//
-//	private Map keyMap;
-//	public void setKeyMap(String inputString) {
-//		keyMap = Splitter.on(",").withKeyValueSeparator(":").split(inputString);
-//	}
-//
-//	@Override
-//	public boolean execute(Context context) throws Exception {
-//		return false;
-//	}
-//}
+package com.dotosoft.dot4command.commands;
+
+import static com.dotosoft.dot4command.chain.Processing.CONTINUE;
+
+import java.util.Map;
+
+import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.impl.ChainBase;
+import com.google.common.base.Splitter;
+
+public class TemplateCommand<K extends String, V extends Object, C extends Map<K, V>> extends ChainBase<K, V, C> {
+
+	private Map keyMap;
+	public void setKeyMap(String inputString) {
+		keyMap = Splitter.on(",").withKeyValueSeparator(":").split(inputString);
+	}
+
+	@Override
+	public Processing execute(C context) {
+		return CONTINUE;
+	}
+}

@@ -7,7 +7,6 @@ import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
 import com.dotosoft.dot4command.utils.BeanUtils;
 
-
 public class GetPropertyCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Properties
