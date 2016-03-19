@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.dotosoft.dot4command</groupId>
+  <artifactId>dot4command-core</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20160319.144415</timestamp>
+      <buildNumber>1</buildNumber>
+    </snapshot>
+    <lastUpdated>20160319144415</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.0.1-20160319.144415-1</value>
+        <updated>20160319144415</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.0.1-20160319.144415-1</value>
+        <updated>20160319144415</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

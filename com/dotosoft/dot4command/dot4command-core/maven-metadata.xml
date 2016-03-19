@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.dotosoft.dot4command</groupId>
+  <artifactId>dot4command-core</artifactId>
+  <versioning>
+    <versions>
+      <version>0.0.1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20160319144415</lastUpdated>
+  </versioning>
+</metadata>
