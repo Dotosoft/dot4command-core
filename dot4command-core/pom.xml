@@ -56,4 +56,84 @@
 		</dependency>
 
 	</dependencies>
+	
+	<distributionManagement>
+		<!-- <repository>
+			<id>dot4command-core</id>
+			<name>Dotoquiz Dot4Command Repository</name>
+			<url>https://github.com/Dotosoft/dotoquiz-dot4command/raw/master/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-dot4command-core</id>
+			<url>https://github.com/Dotosoft/dotoquiz-dot4command/raw/master/snapshots</url>
+		</snapshotRepository> -->
+    	<repository>
+        	<id>internal.repo</id>
+        	<name>Temporary Staging Repository</name>
+        	<url>file://${project.build.directory}/mvn-repo</url>
+    	</repository>
+	</distributionManagement>
+	
+	<build>
+		<plugins>
+			<plugin>
+        		<artifactId>maven-deploy-plugin</artifactId>
+        		<version>2.8.2</version>
+        		<configuration>
+            		<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+        		</configuration>
+    		</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.3</version>
+				<configuration>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					</filters>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.12</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>  						<!-- git commit message -->
+	                <noJekyll>true</noJekyll>                                  						<!-- disable webpage processing -->
+	                <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> 			<!-- matches distribution management repository url above -->
+	                <branch>refs/heads/mvn-repo</branch>                       						<!-- remote branch name -->
+	                <includes><include>**/*</include></includes>
+	                <repositoryName>doto4command-core</repositoryName>      							<!-- github repo name -->
+	                <repositoryOwner>Dotosoft</repositoryOwner>    									<!-- github username  -->
+				</configuration>
+				<executions>
+              		<!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+              		<execution>
+	                	<goals>
+	                  		<goal>site</goal>
+	                	</goals>
+	                	<phase>deploy</phase>
+              		</execution>
+            	</executions>
+			</plugin>
+		</plugins>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+	</build>
 </project>
