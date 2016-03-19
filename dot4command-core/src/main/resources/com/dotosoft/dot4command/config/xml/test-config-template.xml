@@ -1,0 +1,9 @@
+<catalog name="foo">
+
+	<!-- Define command and chain aliases -->
+	<define name="print" className="com.dotosoft.dot4command.commands.PrintCommand" />
+
+	<!-- Single command "chains" from CatalogBaseTestCase -->
+	<print name="testPrint" message="test"/>
+
+</catalog>
