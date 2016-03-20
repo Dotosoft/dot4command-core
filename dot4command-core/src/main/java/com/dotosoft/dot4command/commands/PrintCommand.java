@@ -58,9 +58,9 @@ public class PrintCommand<K extends String, V extends Object, C extends Map<K, V
 		}
 		
 		if(StringUtils.hasValue(messageInfo)) {
-			getLog().info ( String.format(messageInfo, paramMessages.toArray()) );
+			print( String.format(messageInfo, paramMessages.toArray()) );
 		} else {
-			getLog().info ( Arrays.toString(paramMessages.toArray() ));
+			print( Arrays.toString(paramMessages.toArray() ));
 		}
 
 		return Processing.CONTINUE;

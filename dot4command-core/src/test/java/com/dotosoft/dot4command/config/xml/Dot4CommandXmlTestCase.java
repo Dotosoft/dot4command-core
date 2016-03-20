@@ -45,7 +45,7 @@ import com.dotosoft.dot4command.impl.ContextBase;
  * @version $Id$
  */
 @RunWith(Parameterized.class)
-public class Doto4CommandXmlTestCase {
+public class Dot4CommandXmlTestCase {
 
     private Catalog<String, Object, Context<String, Object>> catalog = null;
     private Context<String, Object> context = null;
@@ -61,7 +61,7 @@ public class Doto4CommandXmlTestCase {
         );
     }
 
-    public Doto4CommandXmlTestCase(String configLocation) {
+    public Dot4CommandXmlTestCase(String configLocation) {
         this.configLocation = configLocation;
     }
 

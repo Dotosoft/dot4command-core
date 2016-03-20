@@ -19,9 +19,11 @@ package com.dotosoft.dot4command.impl;
 import static java.util.Collections.unmodifiableMap;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.dotosoft.dot4command.base.BaseObject;
 import com.dotosoft.dot4command.chain.Catalog;
 import com.dotosoft.dot4command.chain.Command;
 
@@ -37,8 +39,8 @@ import com.dotosoft.dot4command.chain.Command;
  *
  * @version $Id$
  */
-public class CatalogBase<K extends String, V extends Object, C extends Map<K, V>> implements Catalog<K, V, C> {
-
+public class CatalogBase<K extends String, V extends Object, C extends Map<K, V>> extends BaseObject implements Catalog<K, V, C> {
+	
     // ----------------------------------------------------- Instance Variables
 
     /**
@@ -84,6 +86,7 @@ public class CatalogBase<K extends String, V extends Object, C extends Map<K, V>
      *  for later lookups on this name
      */
     public <CMD extends Command<K, V, C>> void addCommand(String name, CMD command) {
+    	setCommandAttribute(command);
         commands.put(name, command);
     }
 
@@ -99,7 +102,22 @@ public class CatalogBase<K extends String, V extends Object, C extends Map<K, V>
     public <CMD extends Command<K, V, C>> CMD getCommand(String name) {
         @SuppressWarnings("unchecked") // it would throw ClassCastException if users try to cast to a different type
         CMD command = (CMD) commands.get(name);
+        setCommandAttribute(command);
         return command;
+    }
+    
+    private <CMD extends Command<K, V, C>> void setCommandAttribute(CMD command) {
+    	setPropertyValue(command, "showLog", isShowLog());
+    	
+    	if(command instanceof ChainBase) {
+    		ChainBase chain = (ChainBase) command;
+    		List<CMD> listCommandInChain = chain.getCommands();
+    		if(listCommandInChain != null && !listCommandInChain.isEmpty()) {
+    			for(CMD comm : listCommandInChain) {
+    				setCommandAttribute(comm);
+    			}
+    		}
+    	}
     }
 
     /**

@@ -1,4 +1,4 @@
-<catalog name="foo">
+<catalog name="foo" showLog="true">
 
 	<!-- Define command and chain aliases -->
 	<define name="print" className="com.dotosoft.dot4command.commands.PrintCommand" />

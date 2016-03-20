@@ -3,22 +3,17 @@ package com.dotosoft.dot4command.base;
 import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 
 import com.dotosoft.dot4command.chain.Filter;
 import com.dotosoft.dot4command.chain.Processing;
 
-public abstract class CommandBase<K extends String, V extends Object, C extends Map<K, V>> implements Filter<K, V, C> {
-
-	private Logger log;
-	public Logger getLog() {
-		return log;
-	}
+public abstract class CommandBase<K extends String, V extends Object, C extends Map<K, V>> extends BaseObject implements Filter<K, V, C> {
 	
-	public CommandBase() {
-		log = LoggerFactory.getLogger(getClass().getName());
-	}
+	public CommandBase() {}
 	
 	public void onStart(C context)	{ /* DO NOTHING */ }
 	public void onLeave(C context)	{ /* DO NOTHING */ }
@@ -34,35 +29,20 @@ public abstract class CommandBase<K extends String, V extends Object, C extends 
 	
 	@Override
 	public final Processing execute(C context) {
-		// log.info(">> START");
+		// log(">> START");
 		onStart(context);
 		Processing result = Processing.CONTINUE;
 		try {
-			log.info(">> EXECUTE");
+			// log(">> EXECUTE");
 			result = onExecute(context);
-			// log.info(">> SUCCESS");
+			// log(">> SUCCESS");
 			onSuccess(context);
 		} catch (Exception ex) {
-			// log.info(">> ERROR");
+			// log(">> ERROR");
 			onError(context, ex);
 		}
-		// log.info(">> LEAVE");
+		// log(">> LEAVE");
 		onLeave(context);
 		return result;
-	}
-	
-	public final Object getProperty(Object data, String expression) {
-		return getProperty(data, expression, null);
-	}
-	
-	public final Object getProperty(Object data, String expression, Object defaultValue) {
-		try {
-			Object returnValue = PropertyUtils.getProperty(data, expression);
-			if(returnValue != null) {
-				return returnValue;
-			}
-		} catch (Exception ex) {}
-		
-		return defaultValue;
 	}
 }
