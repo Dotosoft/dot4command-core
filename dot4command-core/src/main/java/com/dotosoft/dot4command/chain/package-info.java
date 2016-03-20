@@ -18,9 +18,9 @@
 /**
  * The fundamental API contracts for the Chain of Responsibilty Pattern as
  * implemented in this package.  See
- * <a href="impl/package-summary.html">org.apache.commons.chain2.impl</a> for
+ * <a href="impl/package-summary.html">com.dotosoft.dot4command.chain.impl</a> for
  * convenient base implementations of <code>Chain</code> and <code>Context</code>,
- * and see <a href="web/package-summary.html">org.apache.commons.chain2.web</a> for
+ * and see <a href="web/package-summary.html">com.dotosoft.dot4command.chain.web</a> for
  * specialized <code>Context</code> implementations suitable for use in web
  * applications.
  */

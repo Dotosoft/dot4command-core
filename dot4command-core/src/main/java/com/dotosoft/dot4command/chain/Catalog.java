@@ -38,7 +38,7 @@ public interface Catalog<K extends String, V extends Object, C extends Map<K, V>
      * <p>A default context attribute for storing a default {@link Catalog},
      * provided as a convenience only.</p>
      */
-    String CATALOG_KEY = "org.apache.commons.chain2.CATALOG";
+    String CATALOG_KEY = "com.dotosoft.dot4command.chain.CATALOG";
 
     /**
      * <p>Add a new name and associated {@link Command} or {@link Chain}

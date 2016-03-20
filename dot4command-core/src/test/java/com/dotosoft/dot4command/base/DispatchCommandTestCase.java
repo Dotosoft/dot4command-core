@@ -25,7 +25,7 @@ import com.dotosoft.dot4command.impl.ContextBase;
 
 import static org.junit.Assert.*;
 
-/* JUnitTest case for class: org.apache.commons.chain2.base.DispatchCommand */
+/* JUnitTest case for class: com.dotosoft.dot4command.chain.base.DispatchCommand */
 public class DispatchCommandTestCase {
 
     @Test
@@ -39,8 +39,6 @@ public class DispatchCommandTestCase {
         assertEquals(Processing.FINISHED, result);
         assertNotNull(context.get("foo"));
         assertEquals("foo", context.get("foo"));
-
-
     }
 
 
@@ -71,14 +69,11 @@ public class DispatchCommandTestCase {
         assertEquals(Processing.FINISHED, result);
         assertNotNull(context.get("elephant"));
         assertEquals("elephant", context.get("elephant"));
-
-
     }
 
 
     class TestCommand extends DispatchCommand<String, Object, Context<String, Object>> {
-
-
+    	
         public Processing testMethod(Context<String, Object> context) {
             context.put("foo", "foo");
             return Processing.FINISHED;
@@ -89,7 +84,7 @@ public class DispatchCommandTestCase {
             context.put("bar", "bar");
             return Processing.CONTINUE;
         }
-
+        
     }
 
     /**
@@ -97,7 +92,6 @@ public class DispatchCommandTestCase {
      * @version 0.2-dev
      */
     class TestAlternateContextCommand extends DispatchCommand<String, Object, Context<String, Object>> {
-
 
         @Override
         protected Class<?>[] getSignature() {

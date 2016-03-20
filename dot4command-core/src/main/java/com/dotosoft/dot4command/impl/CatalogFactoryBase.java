@@ -132,8 +132,7 @@ public class CatalogFactoryBase<K extends String, V extends Object, C extends Ma
                 commandName = commandID.substring(splitPos + DELIMITER.length());
                 if (commandName.contains(DELIMITER)) {
                     throw new IllegalArgumentException("commandID [" +
-                                                       commandID +
-                                                       "] has too many delimiters (reserved for future use)");
+                    	commandID + "] has too many delimiters (reserved for future use)");
                 }
             }
         }
@@ -235,7 +234,7 @@ public class CatalogFactoryBase<K extends String, V extends Object, C extends Ma
     public static void checkForValidConfigurationModule() {
         try {
             ClassLoader cl = getClassLoader();
-            cl.loadClass("org.apache.commons.chain2.config.ConfigParser");
+            cl.loadClass("com.dotosoft.dot4command.chain.config.ConfigParser");
         } catch (ClassNotFoundException e) {
             String msg = "Couldn't not find a configuration implementation. " +
                     "Load a chain configuration module such as xml-configuration " +

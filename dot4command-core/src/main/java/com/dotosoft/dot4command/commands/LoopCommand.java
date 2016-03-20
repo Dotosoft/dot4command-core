@@ -61,8 +61,11 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 		}
 		
 		Processing result = Processing.CONTINUE;
-		Integer index = (Integer) BeanUtils.getProperty(context, indexKey, 0);
-		context.put(indexKey, (V) index);
+		Integer index = 0;
+		if(StringUtils.hasValue(indexKey)) {
+			index = (Integer) BeanUtils.getProperty(context, indexKey, 0);
+			context.put(indexKey, (V) index);
+		}
 		
 		int loopTimeCheck = loopTime;
 		
@@ -70,19 +73,27 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 		if (doWhile) {
 			result = super.execute(context);
 			if(isLoopTime) loopTimeCheck -= 1;
-			index++;
-			context.put(indexKey, (V) index);
+			
+			if(StringUtils.hasValue(indexKey)) {
+				index++;
+				context.put(indexKey, (V) index);
+			}
 		}
 		while((isLoopTime && loopTimeCheck > 0) || (StringUtils.hasValue(checkKey) && BeanUtils.getProperty(context, checkKey) != null)) {
 			result = super.execute(context);
 			if (isLoopTime) loopTimeCheck -= 1;
 			if (result == Processing.BREAK) break;
 			if (result == Processing.CONTINUE) continue;
-			index++;
-			context.put(indexKey, (V) index);
+			
+			if(StringUtils.hasValue(indexKey)) {
+				index++;
+				context.put(indexKey, (V) index);
+			}
 		}
 		
-		context.remove(indexKey);
+		if(StringUtils.hasValue(indexKey)) {
+			context.remove(indexKey);
+		}
 		
 		return result;
 	}

@@ -17,6 +17,6 @@
 
 /**
  * Convenient base implementations of Chain of Responsibility Pattern
- * contracts from <code>org.apache.commons.chain2</code>.
+ * contracts from <code>com.dotosoft.dot4command.chain</code>.
  */
 package com.dotosoft.dot4command.impl;

@@ -31,7 +31,7 @@ import org.apache.commons.digester3.RuleSetBase;
  *     implementation class used to create new
  *     {@link com.dotosoft.dot4command.chain.Catalog} instances.
  *     If not specified, the default value is
- *     <code>org.apache.commons.chain2.impl.CatalogBsae</code>.</li>
+ *     <code>com.dotosoft.dot4command.chain.impl.CatalogBsae</code>.</li>
  * <li><strong>catalogElement</strong> -- Name of the XML element representing
  *     the addition of a {@link com.dotosoft.dot4command.chain.Catalog}.
  *     Any such catalog that is created will be registered with the
@@ -42,13 +42,13 @@ import org.apache.commons.digester3.RuleSetBase;
  * <li><strong>chainClass</strong> -- Fully qualified name of the implementation
  *     class used to create new {@link com.dotosoft.dot4command.chain.Chain} instances.
  *     If not specified, the default value is
- *     <code>org.apache.commons.chain2.impl.ChainBase</code>.
+ *     <code>com.dotosoft.dot4command.chain.impl.ChainBase</code>.
  *     </li>
  * <li><strong>chainElement</strong> -- Name of the XML element representing
  *     the addition of a {@link com.dotosoft.dot4command.chain.Chain}.  A chain
  *     element has the same functionality as a command element, except that
  *     it defaults the implementation class to
- *     <code>org.apache.commons.chain2.impl.ChainBase</code>.  [chain]</li>
+ *     <code>com.dotosoft.dot4command.chain.impl.ChainBase</code>.  [chain]</li>
  * <li><strong>classAttribute</strong> -- Attribute on a chain (optional) or
  *     command (required) element that specifies the fully qualified class
  *     name of the implementation class that should be instantiated.
