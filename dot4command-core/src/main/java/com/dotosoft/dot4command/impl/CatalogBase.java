@@ -86,7 +86,6 @@ public class CatalogBase<K extends String, V extends Object, C extends Map<K, V>
      *  for later lookups on this name
      */
     public <CMD extends Command<K, V, C>> void addCommand(String name, CMD command) {
-    	setCommandAttribute(command);
         commands.put(name, command);
     }
 
@@ -102,22 +101,7 @@ public class CatalogBase<K extends String, V extends Object, C extends Map<K, V>
     public <CMD extends Command<K, V, C>> CMD getCommand(String name) {
         @SuppressWarnings("unchecked") // it would throw ClassCastException if users try to cast to a different type
         CMD command = (CMD) commands.get(name);
-        setCommandAttribute(command);
         return command;
-    }
-    
-    private <CMD extends Command<K, V, C>> void setCommandAttribute(CMD command) {
-    	setPropertyValue(command, "showLog", isShowLog());
-    	
-    	if(command instanceof ChainBase) {
-    		ChainBase chain = (ChainBase) command;
-    		List<CMD> listCommandInChain = chain.getCommands();
-    		if(listCommandInChain != null && !listCommandInChain.isEmpty()) {
-    			for(CMD comm : listCommandInChain) {
-    				setCommandAttribute(comm);
-    			}
-    		}
-    	}
     }
 
     /**

@@ -100,12 +100,14 @@ class ConfigRegisterRule extends Rule {
                  * generics to the most base types possible. */
                 Catalog<String, Object, Map<String, Object>> catalog =
                         (Catalog<String, Object, Map<String, Object>>) next;
+                command.setParent(catalog);
                 catalog.addCommand(nameValue, command);
             }
         } else if (next instanceof Chain) {
             /* Like above - the chain is being dynamically generated,
              * so we can add a generic context signature at compile-time. */
             Chain<String, Object, Map<String, Object>> chain = (Chain<String, Object, Map<String, Object>>) next;
+            command.setParent(chain);
             chain.addCommand(command);
         }
     }

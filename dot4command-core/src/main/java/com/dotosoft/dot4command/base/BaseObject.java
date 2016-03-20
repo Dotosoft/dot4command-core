@@ -7,8 +7,9 @@ import org.slf4j.event.Level;
 
 public class BaseObject {
 	
+	private Object parent;
 	private Logger logger;
-	private boolean showLog = false;
+	private Boolean showLog;
 
 	//-- Private Method
 	private Logger getLogger() {
@@ -19,11 +20,26 @@ public class BaseObject {
 	}
 	
 	//-- Public Method
-	public boolean isShowLog() {
+	public Boolean isShowLog() {
+		if(showLog == null) {
+			if(parent != null && parent instanceof BaseObject) {
+				showLog = (((BaseObject)parent).isShowLog() != null) ? ((BaseObject) parent).isShowLog() : false;
+			} else {
+				showLog = false;
+			}
+		}
 		return showLog;
 	}
 
-	public void setShowLog(boolean showLog) {
+	public Object getParent() {
+		return parent;
+	}
+
+	public void setParent(Object parent) {
+		this.parent = parent;
+	}
+
+	public void setShowLog(Boolean showLog) {
 		this.showLog = showLog;
 	}
 	

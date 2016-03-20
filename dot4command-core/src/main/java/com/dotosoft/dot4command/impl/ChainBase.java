@@ -16,6 +16,7 @@
  */
 package com.dotosoft.dot4command.impl;
 
+import com.dotosoft.dot4command.base.BaseObject;
 import com.dotosoft.dot4command.chain.Chain;
 import com.dotosoft.dot4command.chain.ChainException;
 import com.dotosoft.dot4command.chain.Command;
@@ -37,7 +38,7 @@ import java.util.Map;
  *
  * @version $Id$
  */
-public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> implements Chain<K, V, C> {
+public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> extends BaseObject implements Chain<K, V, C> {
 
     // ----------------------------------------------------------- Constructors
 

@@ -16,6 +16,7 @@
  */
 package com.dotosoft.dot4command.config.xml;
 
+import com.dotosoft.dot4command.base.BaseObject;
 import com.dotosoft.dot4command.chain.Command;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
@@ -27,7 +28,7 @@ import com.dotosoft.dot4command.chain.Processing;
  * </p>
  */
 
-public class TestCommand implements
+public class TestCommand extends BaseObject implements
 		Command<String, Object, Context<String, Object>> {
 
 	private String bar = null;
