@@ -63,7 +63,7 @@ public class PrintCommand<K extends String, V extends Object, C extends Map<K, V
 			print( Arrays.toString(paramMessages.toArray() ));
 		}
 
-		return Processing.CONTINUE;
+		return Processing.FINISHED;
 	}
 
 }

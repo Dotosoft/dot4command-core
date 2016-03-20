@@ -1,13 +1,21 @@
-<catalog name="foo" showLog="true">
+<catalog name="foo">
 
 	<!-- Define command and chain aliases -->
 	<define name="print" className="com.dotosoft.dot4command.commands.PrintCommand" />
 	<define name="loop" className="com.dotosoft.dot4command.commands.LoopCommand" />
+	<define name="if" className="com.dotosoft.dot4command.commands.IfCommand" />
+	<define name="else" className="com.dotosoft.dot4command.commands.ElseCommand" />
+	<define name="setProperty" className="com.dotosoft.dot4command.commands.SetPropertyCommand"/>
 
 	<!-- Single command "chains" from CatalogBaseTestCase -->
 	<loop name="testPrint" doWhile="true" loopTime="10">
-		<print message="log" showLog="false"/>
-		<print message="std" showLog="false"/>
+		<setProperty type="boolean" value="true" toKey="isLogging"/> 
+		<if evaluate="isLogging == false">
+			<print message="log" showLog="true"/>
+		</if>
+		<else>
+			<print message="std" showLog="false"/>
+		</else>
 	</loop>
 
 </catalog>

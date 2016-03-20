@@ -36,7 +36,7 @@ public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> 
 			isValid = false;
 		}
 
-		Processing result = Processing.CONTINUE;
+		Processing result = Processing.FINISHED;
 		if (isValid) {
 			result = super.execute(context);
 		} else {
@@ -84,6 +84,10 @@ public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> 
 			result = matcher.group(2);
 		} else if("null".equalsIgnoreCase(part)) {
 			result = null;
+		} else if("true".equalsIgnoreCase(part)) {
+			result = true;
+		} else if("false".equalsIgnoreCase(part)) {
+			result = false;
 		} else {
 			result = BeanUtils.getProperty(context, part);
 		}
