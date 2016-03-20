@@ -58,7 +58,7 @@ public class IterateCollectionCommand<K extends String, V extends Object, C exte
 				context.put(incrementKey, (V) index);
 			}
 		}
-		return Processing.CONTINUE;
+		return Processing.FINISHED;
 	}
 
 }

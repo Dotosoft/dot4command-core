@@ -51,13 +51,14 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 		
 		Command command = getCommand(context);
 		if (command != null) {
-			Processing result = Processing.CONTINUE;
+			Processing result = Processing.FINISHED;
 			Integer index = (Integer) BeanUtils.getProperty(context, indexKey, 0);
 			context.put(indexKey, (V) index);
 			
 			boolean isLoopTime = (loopTime > 0);
 			if (doWhile) {
 				result = command.execute(context);
+				if (result == Processing.TERMINATE) System.exit(0);
 				if(isLoopTime) loopTime -= 1;
 				index++;
 				context.put(indexKey, (V) index);
@@ -67,12 +68,13 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 				if (isLoopTime) loopTime -= 1;
 				if (result == Processing.BREAK) break;
 				if (result == Processing.CONTINUE) continue;
+				if (result == Processing.TERMINATE) System.exit(0);
 				index++;
 				context.put(indexKey, (V) index);
 			}
 			return result;
 		} else {
-			return Processing.CONTINUE;
+			return Processing.FINISHED;
 		}
 	}
 

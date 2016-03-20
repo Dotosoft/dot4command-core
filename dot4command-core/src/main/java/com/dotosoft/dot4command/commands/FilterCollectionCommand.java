@@ -63,7 +63,7 @@ public class FilterCollectionCommand<K extends String, V extends Object, C exten
 			context.put(toKey, (V) dataCollection);
 		}
 
-		return Processing.CONTINUE;
+		return Processing.FINISHED;
 	}
 
 }
