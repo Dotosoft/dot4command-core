@@ -104,7 +104,7 @@ public class LookupCommandTestCase {
 
         // use default catalog
         catalog.addCommand("foo", new NonDelegatingCommand("1a"));
-        command.setName("foo");
+        command.setCommandName("foo");
 
         try {
             assertEquals("Command should return finished",
@@ -127,7 +127,7 @@ public class LookupCommandTestCase {
 
         // use default catalog
         catalog.addCommand("foo", chain);
-        command.setName("foo");
+        command.setCommandName("foo");
 
         try {
             assertEquals("Command should return finished",
@@ -189,7 +189,7 @@ public class LookupCommandTestCase {
         catalog.addCommand("foo",
                 new NonDelegatingCommand("3a"));
         command.setIgnoreExecuteResult(true);
-        command.setName("foo");
+        command.setCommandName("foo");
 
         try {
             assertEquals("Command should return continue",

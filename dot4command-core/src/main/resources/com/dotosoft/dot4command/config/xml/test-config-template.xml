@@ -1,4 +1,4 @@
-<catalog name="foo">
+<catalog name="foo" showLog="true">
 
 	<!-- Define command and chain aliases -->
 	<define name="print" className="com.dotosoft.dot4command.commands.PrintCommand" />
@@ -6,16 +6,23 @@
 	<define name="if" className="com.dotosoft.dot4command.commands.IfCommand" />
 	<define name="else" className="com.dotosoft.dot4command.commands.ElseCommand" />
 	<define name="setProperty" className="com.dotosoft.dot4command.commands.SetPropertyCommand"/>
-
-	<!-- Single command "chains" from CatalogBaseTestCase -->
-	<loop name="testPrint" doWhile="true" loopTime="10">
-		<setProperty type="boolean" value="true" toKey="isLogging"/> 
-		<if evaluate="isLogging == false">
-			<print message="log" showLog="true"/>
-		</if>
-		<else>
-			<print message="std" showLog="false"/>
-		</else>
-	</loop>
+	<define name="template" className="com.dotosoft.dot4command.commands.TemplateCommand"/>
+	<define name="callTemplate" className="com.dotosoft.dot4command.commands.CallTemplateCommand"/>
+	
+	<template name="printTemplate">
+		<loop name="testPrint" doWhile="true" loopTime="10">
+			<setProperty type="boolean" value="true" toKey="isLogging"/> 
+			<if evaluate="isLogging == false">
+				<print message="${messageKey1}" showLog="true"/>
+				<print message="${messageKey2}" showLog="true"/>
+			</if>
+			<else>
+				<print message="${messageKey1}" showLog="false"/>
+				<print message="${messageKey2}" showLog="false"/>
+			</else>
+		</loop>
+	</template>
+	
+	<callTemplate name="testPrint" commandName="printTemplate" catalogName="foo" keyMap="messageKey1:test1,messageKey2:test2"/>
 
 </catalog>

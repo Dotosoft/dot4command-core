@@ -102,7 +102,7 @@ public class DispatchLookupCommandTestCase {
         catalog.addCommand("fooCommand", new TestCommand<Context<String, Object>>("1"));
 
         // command should lookup the fooCommand and execute the fooMethod
-        command.setName("fooCommand");
+        command.setCommandName("fooCommand");
         command.setMethod("fooMethod");
 
         try {
@@ -135,7 +135,7 @@ public class DispatchLookupCommandTestCase {
         catalog.addCommand("barCommand", new TestCommand<Context<String, Object>>("2"));
 
         // command should lookup the fooCommand and execute the fooMethod
-        command.setName("fooCommand");
+        command.setCommandName("fooCommand");
         command.setMethod("fooMethod");
 
         try {
@@ -159,7 +159,7 @@ public class DispatchLookupCommandTestCase {
         catalog.addCommand("fooCommand", new TestCommand<Context<String, Object>>("3"));
 
         // command should lookup the fooCommand and execute the fooMethod
-        command.setName("fooCommand");
+        command.setCommandName("fooCommand");
         command.setMethodKey("methodKey");
         context.put("methodKey", "fooMethod");
 

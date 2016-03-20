@@ -24,10 +24,13 @@ import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Filter;
 import com.dotosoft.dot4command.chain.Processing;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.text.StrSubstitutor;
 
 /**
  * <p>Convenience base class for {@link Chain} implementations.</p>
@@ -135,6 +138,15 @@ public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> 
         }
         commands.add( command );
     }
+    
+    public void modifyAttributes(Map valuesMap) {
+    	super.modifyAttributes(valuesMap);
+    	
+		List<Command<K, V, C>> listOfCommands = getCommands();
+		for(Command comm : listOfCommands) {
+			comm.modifyAttributes(valuesMap);
+		}
+	}
 
     /**
      * See the {@link Chain} JavaDoc.

@@ -35,6 +35,14 @@ public class PrintCommand<K extends String, V extends Object, C extends Map<K, V
 		this.message = message;
 	}
 
+	public String getMessage() {
+		return message;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
 	public void setKey(String key) {
 		this.key = key;
 	}

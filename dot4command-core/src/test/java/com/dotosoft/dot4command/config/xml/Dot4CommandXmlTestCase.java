@@ -90,7 +90,6 @@ public class Dot4CommandXmlTestCase {
     public void testDefault() throws Exception {
     	
     	assertNotNull(catalog.getCommand("testPrint").execute(context));
-
     }
 
     // Load the specified catalog from the specified resource path

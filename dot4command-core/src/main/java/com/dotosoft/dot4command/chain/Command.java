@@ -103,7 +103,6 @@ public interface Command<K extends String, V extends Object, C extends Map<K, V>
      *  enclosing chain.
      */
     Processing execute(C context);
-    
     void setParent(Object parent);
-
+    void modifyAttributes(Map valuesMap);
 }

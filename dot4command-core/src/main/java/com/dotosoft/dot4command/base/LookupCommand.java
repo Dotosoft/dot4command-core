@@ -121,15 +121,15 @@ public class LookupCommand<K extends String, V extends Object, C extends Map<K, 
         this.catalogName = catalogName;
     }
 
-    private String name = null;
+    private String commandName = null;
 
     /**
      * <p>Return the name of the {@link Command} that we will look up and
      * delegate execution to.</p>
      * @return The name of the Command.
      */
-    public String getName() {
-        return this.name;
+    public String getCommandName() {
+        return this.commandName;
     }
 
     /**
@@ -138,8 +138,8 @@ public class LookupCommand<K extends String, V extends Object, C extends Map<K, 
      *
      * @param name The new command name
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setCommandName(String commandName) {
+        this.commandName = commandName;
     }
 
     private String nameKey = null;
@@ -390,7 +390,7 @@ public class LookupCommand<K extends String, V extends Object, C extends Map<K, 
      * @since Chain 1.2
      */
     protected String getCommandName(C context) {
-        String name = getName();
+        String name = getCommandName();
         if (name == null) {
             name = (String) context.get(getNameKey());
         }

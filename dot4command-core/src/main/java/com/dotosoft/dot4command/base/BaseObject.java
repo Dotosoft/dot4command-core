@@ -1,9 +1,17 @@
 package com.dotosoft.dot4command.base;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.util.Map;
+
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.reflect.FieldUtils;
+import org.apache.commons.lang.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
+
+import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class BaseObject {
 	
@@ -12,7 +20,7 @@ public class BaseObject {
 	private Boolean showLog;
 
 	//-- Private Method
-	private Logger getLogger() {
+	public Logger getLogger() {
 		if (logger == null) {
 			logger = LoggerFactory.getLogger(getClass().getName());
 		}
@@ -41,6 +49,19 @@ public class BaseObject {
 
 	public void setShowLog(Boolean showLog) {
 		this.showLog = showLog;
+	}
+	
+	public void modifyAttributes(Map valuesMap) {
+		StrSubstitutor sub = new StrSubstitutor(valuesMap);
+		Field[] allFields = getClass().getDeclaredFields();
+	    for (Field field : allFields) {
+	    	try {
+		    	Object value = BeanUtils.getProperty(this, field.getName());
+		    	if(value instanceof String) {
+		    		PropertyUtils.setProperty(this, field.getName(), sub.replace(value));
+		    	}
+	    	} catch (Exception ex) {}
+	    }
 	}
 	
 	public final void print(String message) {

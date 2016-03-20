@@ -20,7 +20,9 @@ public abstract class CommandBase<K extends String, V extends Object, C extends 
 	public abstract Processing onExecute(C context) throws Exception;
 	
 	public void onSuccess(C context)				{ /* DO NOTHING */ }
-	public void onError(C context, Exception ex)	{ /* DO NOTHING */ }
+	public void onError(C context, Exception ex)	{
+		getLogger().error(ex.getMessage(), ex);
+	}
 
 	@Override
 	public boolean postprocess(C context, Exception exception) {
