@@ -21,7 +21,6 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class IterateCollectionCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 	private K collectionKey;
@@ -42,7 +41,7 @@ public class IterateCollectionCommand<K extends String, V extends Object, C exte
 
 	@Override
 	public Processing onExecute(C context) throws Exception {
-		List coll = (List) BeanUtils.getProperty(context, collectionKey); 
+		List coll = (List) getProperty(context, collectionKey); 
 		if(coll != null && !coll.isEmpty()) {
 			Integer index = (Integer) context.get(incrementKey);
 			if(index == null) {

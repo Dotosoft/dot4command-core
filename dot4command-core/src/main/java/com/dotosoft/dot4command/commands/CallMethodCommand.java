@@ -23,7 +23,6 @@ import java.util.WeakHashMap;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 import com.dotosoft.dot4command.utils.ReflectionsUtil;
 import com.dotosoft.dot4command.utils.StringUtils;
 
@@ -73,7 +72,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 				if (staticFlag) {
 					returnValue = (V) methodObject.invoke(null, getArguments(context));
 				} else {
-					Object objectValue = BeanUtils.getProperty(context, methodKey);
+					Object objectValue = getProperty(context, methodKey);
 					returnValue = (V) methodObject.invoke(objectValue, getArguments(context));
 				}
 				
@@ -128,7 +127,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 			return Class.forName(getMethodKey());
 		}
 
-		Object objectValue = BeanUtils.getProperty(context, methodKey);
+		Object objectValue = getProperty(context, methodKey);
 		if(objectValue != null) { 
 			return objectValue.getClass();
 		}
@@ -168,7 +167,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 			Class[] clazz = new Class[keys.length];
 			for (int i = 0; i < keys.length; i++) {
 				String key = keys[i];
-				Object param = BeanUtils.getProperty(context, key);
+				Object param = getProperty(context, key);
 				clazz[i] = param.getClass();
 			}
 			return clazz;
@@ -209,7 +208,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 			Object[] objects = new Object[keys.length];
 			for (int i = 0; i < keys.length; i++) {
 				String key = keys[i];
-				Object param = BeanUtils.getProperty(context, key);
+				Object param = getProperty(context, key);
 				objects[i] = param;
 			}
 			return objects;

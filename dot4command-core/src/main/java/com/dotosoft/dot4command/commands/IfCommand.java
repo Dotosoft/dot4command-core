@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 
 import com.dotosoft.dot4command.chain.Processing;
 import com.dotosoft.dot4command.impl.ChainBase;
-import com.dotosoft.dot4command.utils.BeanUtils;
 import com.dotosoft.dot4command.utils.EqualsHelper;
 
 public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> extends ChainBase<K, V, C> {
@@ -105,7 +104,7 @@ public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> 
 		} else if("false".equalsIgnoreCase(part)) {
 			result = false;
 		} else {
-			result = BeanUtils.getProperty(context, part);
+			result = getProperty(context, part);
 		}
 		return (V) result;
 	}

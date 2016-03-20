@@ -21,7 +21,6 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class GetCollectionByIndexCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
@@ -43,9 +42,9 @@ public class GetCollectionByIndexCommand<K extends String, V extends Object, C e
 
 	public Processing onExecute(C context) throws Exception {
 
-		Collection collection = (Collection) BeanUtils.getProperty(context, collectionKey);
+		Collection collection = (Collection) getProperty(context, collectionKey);
 		
-		Object index = BeanUtils.getProperty(context, indexKey);
+		Object index = getProperty(context, indexKey);
 		Integer indexCollection;
 		if(index instanceof Integer) {
 			indexCollection = (Integer) index;

@@ -24,7 +24,6 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class FilterCollectionCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C>{
 
@@ -52,7 +51,7 @@ public class FilterCollectionCommand<K extends String, V extends Object, C exten
 	@Override
 	public Processing onExecute(C context) {
 
-		Collection dataCollection = (Collection) BeanUtils.getProperty(context, fromKey);
+		Collection dataCollection = (Collection) getProperty(context, fromKey);
 		BeanPropertyValueEqualsPredicate predicate = new BeanPropertyValueEqualsPredicate(
 				filterExpression, filterValue);
 		CollectionUtils.filter(dataCollection, predicate);

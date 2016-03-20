@@ -20,7 +20,6 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
@@ -55,9 +54,9 @@ public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, 
 
 	private boolean evaluate(C context, String[] parts) throws Exception {
 		boolean result = false;
-		Object obj1 = BeanUtils.getProperty(context, parts[0]);
+		Object obj1 = getProperty(context, parts[0]);
 		String op = parts[1];
-		Object obj2 = BeanUtils.getProperty(context, parts[2]);
+		Object obj2 = getProperty(context, parts[2]);
 
 		switch (op) {
 		case "!=":

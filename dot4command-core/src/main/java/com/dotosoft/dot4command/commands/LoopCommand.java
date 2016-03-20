@@ -21,7 +21,6 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.chain.Processing;
 import com.dotosoft.dot4command.impl.ChainBase;
-import com.dotosoft.dot4command.utils.BeanUtils;
 import com.dotosoft.dot4command.utils.StringUtils;
 
 public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>> extends ChainBase<K, V, C> {
@@ -56,14 +55,14 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 	public Processing execute(C context) {
 		
 		if(StringUtils.hasValue(checkCollectionKey)) {
-			Collection collection = (Collection) BeanUtils.getProperty(context, checkCollectionKey);
+			Collection collection = (Collection) getProperty(context, checkCollectionKey);
 			loopTime = collection.size();
 		}
 		
 		Processing result = Processing.FINISHED;
 		Integer index = 0;
 		if(StringUtils.hasValue(indexKey)) {
-			index = (Integer) BeanUtils.getProperty(context, indexKey, 0);
+			index = (Integer) getProperty(context, indexKey, 0);
 			context.put(indexKey, (V) index);
 		}
 		
@@ -80,7 +79,7 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 				context.put(indexKey, (V) index);
 			}
 		}
-		while((isLoopTime && loopTimeCheck > 0) || (StringUtils.hasValue(checkKey) && BeanUtils.getProperty(context, checkKey) != null)) {
+		while((isLoopTime && loopTimeCheck > 0) || (StringUtils.hasValue(checkKey) && getProperty(context, checkKey) != null)) {
 			result = super.execute(context);
 			if (isLoopTime) loopTimeCheck -= 1;
 			if (result == Processing.BREAK) break;

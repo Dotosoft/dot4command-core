@@ -21,7 +21,6 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class SplitCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
@@ -43,7 +42,7 @@ public class SplitCommand<K extends String, V extends Object, C extends Map<K, V
 
 	@Override
 	public Processing onExecute(C context) throws Exception {
-		String data = (String) BeanUtils.getProperty(context, fromKey);
+		String data = (String) getProperty(context, fromKey);
 		String[] results = data.split(separator);
 		context.put(toKey, (V) Arrays.asList(results));
 		

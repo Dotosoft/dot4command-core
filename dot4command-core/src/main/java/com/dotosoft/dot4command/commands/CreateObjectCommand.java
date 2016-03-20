@@ -20,7 +20,6 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 import com.dotosoft.dot4command.utils.SingletonFactory;
 import com.dotosoft.dot4command.utils.StringUtils;
 
@@ -76,7 +75,7 @@ public class CreateObjectCommand<K extends String, V extends Object, C extends M
 	    	Object[] obj = new Object[keys.length];
 	    	for(int i = 0; i<keys.length; i++) {
 	    		String key = keys[i];
-	    		Object param = BeanUtils.getProperty(context, key);
+	    		Object param = getProperty(context, key);
 	    		obj[i] = param;
 	    	}
 	    	return obj;

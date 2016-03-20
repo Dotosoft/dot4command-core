@@ -21,18 +21,17 @@ import java.util.Map;
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class GetPropertyCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     // -------------------------------------------------------------- Properties
-    private K fromKey = null;
+    private String fromKey = null;
 
     /**
      * <p>Return the context attribute key for the source attribute.</p>
      * @return The source attribute key.
      */
-    public K getFromKey() {
+    public String getFromKey() {
     	return (this.fromKey);
     }
 
@@ -77,7 +76,7 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
      */
     public Processing onExecute(C context) throws Exception {
 
-        V value = BeanUtils.getProperty(context, fromKey);
+        V value = (V) getProperty(context, fromKey);
 
         if (value != null) {
             context.put(toKey, value);

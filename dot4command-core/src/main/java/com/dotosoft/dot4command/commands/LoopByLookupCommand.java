@@ -21,7 +21,6 @@ import java.util.Map;
 import com.dotosoft.dot4command.base.LookupCommand;
 import com.dotosoft.dot4command.chain.Command;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class LoopByLookupCommand<K extends String, V extends Object, C extends Map<K, V>> extends LookupCommand<K, V, C> {
 
@@ -52,7 +51,7 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 		Command command = getCommand(context);
 		if (command != null) {
 			Processing result = Processing.FINISHED;
-			Integer index = (Integer) BeanUtils.getProperty(context, indexKey, 0);
+			Integer index = (Integer) getProperty(context, indexKey, 0);
 			context.put(indexKey, (V) index);
 			
 			boolean isLoopTime = (loopTime > 0);
@@ -63,7 +62,7 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 				index++;
 				context.put(indexKey, (V) index);
 			}
-			while((isLoopTime && loopTime > 0) || BeanUtils.getProperty(context, checkKey) != null) {
+			while((isLoopTime && loopTime > 0) || getProperty(context, checkKey) != null) {
 				result = command.execute(context);
 				if (isLoopTime) loopTime -= 1;
 				if (result == Processing.BREAK) break;

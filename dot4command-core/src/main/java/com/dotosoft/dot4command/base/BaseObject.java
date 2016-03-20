@@ -25,8 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 
-import com.dotosoft.dot4command.utils.BeanUtils;
-
 public class BaseObject {
 	
 	private Object parent;
@@ -70,9 +68,9 @@ public class BaseObject {
 		Field[] allFields = getClass().getDeclaredFields();
 	    for (Field field : allFields) {
 	    	try {
-		    	Object value = BeanUtils.getProperty(this, field.getName());
+		    	Object value = getProperty(this, field.getName());
 		    	if(value instanceof String) {
-		    		PropertyUtils.setProperty(this, field.getName(), sub.replace(value));
+		    		setProperty(this, field.getName(), sub.replace(value));
 		    	}
 	    	} catch (Exception ex) {}
 	    }
@@ -114,6 +112,12 @@ public class BaseObject {
 
 	public final Object getProperty(Object data, String expression) {
 		return getProperty(data, expression, null);
+	}
+	
+	public final void setProperty(Object data, String expression, Object value) {
+		try {
+			PropertyUtils.setProperty(data, expression, value);
+		} catch (Exception e) {}
 	}
 
 	public final Object getProperty(Object data, String expression,
