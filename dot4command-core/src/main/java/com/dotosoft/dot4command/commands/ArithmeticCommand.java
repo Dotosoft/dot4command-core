@@ -26,13 +26,25 @@ public class ArithmeticCommand<K extends String, V extends Object, C extends Map
 	private static final String regexStr = "(?=[-/*+])|(?<=[-/*+])";
 	
 	private String evaluate;
-	private K toKey;
+	private String toKey;
 
-	public void setEvaluate(K evaluate) {
+	public static String getRegexstr() {
+		return regexStr;
+	}
+
+	public String getEvaluate() {
+		return evaluate;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
+
+	public void setEvaluate(String evaluate) {
 		this.evaluate = evaluate;
 	}
 
-	public void setToKey(K toKey) {
+	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
 
@@ -41,7 +53,7 @@ public class ArithmeticCommand<K extends String, V extends Object, C extends Map
 		evaluate = evaluate.replaceAll("\\s+", "");
 		String[] parts = evaluate.split(regexStr);
 		V result = calculate(parts);
-		context.put(toKey, result);
+		context.put((K) toKey, result);
 		
 		return Processing.FINISHED;
 	}

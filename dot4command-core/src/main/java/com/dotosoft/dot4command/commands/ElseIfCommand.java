@@ -27,6 +27,14 @@ public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, 
 
 	private String evaluate;
 
+	public static String getRegexstr() {
+		return regexStr;
+	}
+
+	public String getEvaluate() {
+		return evaluate;
+	}
+
 	public void setEvaluate(String evaluate) {
 		this.evaluate = evaluate;
 	}

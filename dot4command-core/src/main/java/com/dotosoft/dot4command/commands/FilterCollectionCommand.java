@@ -27,24 +27,40 @@ import com.dotosoft.dot4command.chain.Processing;
 
 public class FilterCollectionCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C>{
 
-	private K fromKey;
-	private K toKey;
-	private K filterExpression;
-	private K filterValue;
+	private String fromKey;
+	private String toKey;
+	private String filterExpression;
+	private String filterValue;
 
-	public void setFromKey(K fromKey) {
+	public String getFromKey() {
+		return fromKey;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
+
+	public String getFilterExpression() {
+		return filterExpression;
+	}
+
+	public String getFilterValue() {
+		return filterValue;
+	}
+
+	public void setFromKey(String fromKey) {
 		this.fromKey = fromKey;
 	}
 
-	public void setToKey(K toKey) {
+	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
 
-	public void setFilterExpression(K filterExpression) {
+	public void setFilterExpression(String filterExpression) {
 		this.filterExpression = filterExpression;
 	}
 
-	public void setFilterValue(K filterValue) {
+	public void setFilterValue(String filterValue) {
 		this.filterValue = filterValue;
 	}
 
@@ -59,7 +75,7 @@ public class FilterCollectionCommand<K extends String, V extends Object, C exten
 		if(dataCollection.isEmpty()) {
 			context.remove(toKey);
 		} else {
-			context.put(toKey, (V) dataCollection);
+			context.put((K) toKey, (V) dataCollection);
 		}
 
 		return Processing.FINISHED;

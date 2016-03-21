@@ -39,20 +39,32 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 		PRIMITIVE_NAME_TYPE_MAP.put("double", Double.class);
 	}
 	
-	private K type;
-	private K value;
-	private K toKey;
+	private String type;
+	private String value;
+	private String toKey;
 	
-	public void setType(K type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
-	public void setValue(K value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 
-	public void setToKey(K toKey) {
+	public void setToKey(String toKey) {
 		this.toKey = toKey;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public String getToKey() {
+		return toKey;
 	}
 
 	@Override
@@ -60,9 +72,9 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 		if(PRIMITIVE_NAME_TYPE_MAP.containsKey(type.toLowerCase())) {
 			Class clazz = (Class) PRIMITIVE_NAME_TYPE_MAP.get(type.toLowerCase());
 			Object returnValue = clazz.getConstructor(String.class).newInstance(value);
-			context.put(toKey, (V) returnValue);
+			context.put((K) toKey, (V) returnValue);
 		} else {
-			context.put(toKey, (V) value);
+			context.put((K) toKey, (V) value);
 		}
 		
 		return Processing.FINISHED;

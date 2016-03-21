@@ -24,19 +24,31 @@ import com.dotosoft.dot4command.chain.Processing;
 
 public class GetCollectionByIndexCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
-	private K collectionKey;
-	private K indexKey;
-	private K toKey;
+	private String collectionKey;
+	private String indexKey;
+	private String toKey;
 
-	public void setCollectionKey(K collectionKey) {
+	public void setCollectionKey(String collectionKey) {
 		this.collectionKey = collectionKey;
 	}
 
-	public void setIndexKey(K indexKey) {
+	public void setIndexKey(String indexKey) {
 		this.indexKey = indexKey;
 	}
 
-	public void setToKey(K toKey) {
+	public String getCollectionKey() {
+		return collectionKey;
+	}
+
+	public String getIndexKey() {
+		return indexKey;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
+
+	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
 
@@ -53,7 +65,7 @@ public class GetCollectionByIndexCommand<K extends String, V extends Object, C e
 		}
 
 		if (collection != null && indexCollection < collection.size()) {
-			context.put(toKey, (V) collection.toArray()[indexCollection]);
+			context.put((K) toKey, (V) collection.toArray()[indexCollection]);
 		} else {
 			context.remove(toKey);
 		}

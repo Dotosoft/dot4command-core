@@ -24,27 +24,39 @@ import com.dotosoft.dot4command.chain.Processing;
 
 public class SplitCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
-	private K fromKey;
-	private K separator;
-	private K toKey;
+	private String fromKey;
+	private String separator;
+	private String toKey;
 
-	public void setFromKey(K fromKey) {
+	public void setFromKey(String fromKey) {
 		this.fromKey = fromKey;
 	}
 
-	public void setSeparator(K separator) {
+	public void setSeparator(String separator) {
 		this.separator = separator;
 	}
 
-	public void setToKey(K toKey) {
+	public void setToKey(String toKey) {
 		this.toKey = toKey;
+	}
+
+	public String getFromKey() {
+		return fromKey;
+	}
+
+	public String getSeparator() {
+		return separator;
+	}
+
+	public String getToKey() {
+		return toKey;
 	}
 
 	@Override
 	public Processing onExecute(C context) throws Exception {
 		String data = (String) getProperty(context, fromKey);
 		String[] results = data.split(separator);
-		context.put(toKey, (V) Arrays.asList(results));
+		context.put((K) toKey, (V) Arrays.asList(results));
 		
 		return Processing.FINISHED;
 	}

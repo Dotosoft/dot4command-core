@@ -26,16 +26,36 @@ import com.dotosoft.dot4command.utils.StringUtils;
 public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>> extends ChainBase<K, V, C> {
 
 	private boolean doWhile = false;
-	private K checkKey;
-	private K checkCollectionKey;
+	private String checkKey;
+	private String checkCollectionKey;
 	private int loopTime = 0;
-	private K indexKey;
+	private String indexKey;
 
-	public void setCheckCollectionKey(K checkCollectionKey) {
+	public boolean isDoWhile() {
+		return doWhile;
+	}
+
+	public String getCheckKey() {
+		return checkKey;
+	}
+
+	public String getCheckCollectionKey() {
+		return checkCollectionKey;
+	}
+
+	public int getLoopTime() {
+		return loopTime;
+	}
+
+	public String getIndexKey() {
+		return indexKey;
+	}
+
+	public void setCheckCollectionKey(String checkCollectionKey) {
 		this.checkCollectionKey = checkCollectionKey;
 	}
 
-	public void setIndexKey(K indexKey) {
+	public void setIndexKey(String indexKey) {
 		this.indexKey = indexKey;
 	}
 
@@ -47,7 +67,7 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 		this.loopTime = loopTime;
 	}
 
-	public void setCheckKey(K checkKey) {
+	public void setCheckKey(String checkKey) {
 		this.checkKey = checkKey;
 	}
 
@@ -63,7 +83,7 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 		Integer index = 0;
 		if(StringUtils.hasValue(indexKey)) {
 			index = (Integer) getProperty(context, indexKey, 0);
-			context.put(indexKey, (V) index);
+			context.put((K) indexKey, (V) index);
 		}
 		
 		int loopTimeCheck = loopTime;
@@ -76,7 +96,7 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 			
 			index++;
 			if(StringUtils.hasValue(indexKey)) {
-				context.put(indexKey, (V) index);
+				context.put((K) indexKey, (V) index);
 			}
 		}
 		while((isLoopTime && loopTimeCheck > 0) || (StringUtils.hasValue(checkKey) && getProperty(context, checkKey) != null)) {
@@ -88,7 +108,7 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 			
 			index++;
 			if(StringUtils.hasValue(indexKey)) {
-				context.put(indexKey, (V) index);
+				context.put((K) indexKey, (V) index);
 			}
 		}
 		

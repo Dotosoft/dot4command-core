@@ -41,17 +41,17 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
      *
      * @param fromKey The new key
      */
-    public void setFromKey(K fromKey) {
+    public void setFromKey(String fromKey) {
     	this.fromKey = fromKey;
     }
 
-    private K toKey = null;
+    private String toKey = null;
     
     /**
      * <p>Return the context attribute key for the destination attribute.</p>
      * @return The destination attribute key.
      */
-    public K getToKey() {
+    public String getToKey() {
     	return (this.toKey);
     }
 
@@ -60,7 +60,7 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
      *
      * @param toKey The new key
      */
-    public void setToKey(K toKey) {
+    public void setToKey(String toKey) {
     	this.toKey = toKey;
     }
 
@@ -79,7 +79,7 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
         V value = (V) getProperty(context, fromKey);
 
         if (value != null) {
-            context.put(toKey, value);
+            context.put((K) toKey, value);
         } else {
             context.remove(toKey);
         }

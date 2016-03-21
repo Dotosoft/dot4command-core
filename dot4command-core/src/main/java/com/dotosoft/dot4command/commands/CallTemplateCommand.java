@@ -27,6 +27,7 @@ public class CallTemplateCommand <K extends String, V extends Object, C extends 
 	
 	private Map keyMap;
 	public void setKeyMap(String inputString) {
+		inputString = inputString.replaceAll("\n", "").replaceAll("\r", "").replaceAll(" ", "");
 		keyMap = Splitter.on(",").withKeyValueSeparator(":").split(inputString);
 	}
 	

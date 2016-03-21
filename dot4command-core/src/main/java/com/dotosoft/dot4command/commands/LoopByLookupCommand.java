@@ -25,11 +25,11 @@ import com.dotosoft.dot4command.chain.Processing;
 public class LoopByLookupCommand<K extends String, V extends Object, C extends Map<K, V>> extends LookupCommand<K, V, C> {
 
 	private boolean doWhile = false;
-	private K checkKey;
+	private String checkKey;
 	private int loopTime = 0;
-	private K indexKey;
+	private String indexKey;
 
-	public void setIndexKey(K indexKey) {
+	public void setIndexKey(String indexKey) {
 		this.indexKey = indexKey;
 	}
 
@@ -41,8 +41,24 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 		this.loopTime = loopTime;
 	}
 
-	public void setCheckKey(K checkKey) {
+	public void setCheckKey(String checkKey) {
 		this.checkKey = checkKey;
+	}
+
+	public boolean isDoWhile() {
+		return doWhile;
+	}
+
+	public String getCheckKey() {
+		return checkKey;
+	}
+
+	public int getLoopTime() {
+		return loopTime;
+	}
+
+	public String getIndexKey() {
+		return indexKey;
 	}
 
 	@Override
@@ -52,7 +68,7 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 		if (command != null) {
 			Processing result = Processing.FINISHED;
 			Integer index = (Integer) getProperty(context, indexKey, 0);
-			context.put(indexKey, (V) index);
+			context.put((K) indexKey, (V) index);
 			
 			boolean isLoopTime = (loopTime > 0);
 			if (doWhile) {
@@ -60,7 +76,7 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 				if (result == Processing.TERMINATE) System.exit(0);
 				if(isLoopTime) loopTime -= 1;
 				index++;
-				context.put(indexKey, (V) index);
+				context.put((K) indexKey, (V) index);
 			}
 			while((isLoopTime && loopTime > 0) || getProperty(context, checkKey) != null) {
 				result = command.execute(context);
@@ -69,7 +85,7 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 				if (result == Processing.CONTINUE) continue;
 				if (result == Processing.TERMINATE) System.exit(0);
 				index++;
-				context.put(indexKey, (V) index);
+				context.put((K) indexKey, (V) index);
 			}
 			return result;
 		} else {

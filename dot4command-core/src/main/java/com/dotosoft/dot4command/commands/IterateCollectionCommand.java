@@ -23,19 +23,31 @@ import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
 
 public class IterateCollectionCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
-	private K collectionKey;
-	private K incrementKey;
-	private K toKey;
+	private String collectionKey;
+	private String incrementKey;
+	private String toKey;
 
-	public void setToKey(K toKey) {
+	public String getCollectionKey() {
+		return collectionKey;
+	}
+
+	public String getIncrementKey() {
+		return incrementKey;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
+
+	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
 
-	public void setCollectionKey(K collectionKey) {
+	public void setCollectionKey(String collectionKey) {
 		this.collectionKey = collectionKey;
 	}
 
-	public void setIncrementKey(K incrementKey) {
+	public void setIncrementKey(String incrementKey) {
 		this.incrementKey = incrementKey;
 	}
 
@@ -52,9 +64,9 @@ public class IterateCollectionCommand<K extends String, V extends Object, C exte
 				context.remove(toKey);
 				context.remove(incrementKey);
 			} else {
-				context.put(toKey, (V) coll.get(index));
+				context.put((K) toKey, (V) coll.get(index));
 				index++;
-				context.put(incrementKey, (V) index);
+				context.put((K) incrementKey, (V) index);
 			}
 		}
 		return Processing.FINISHED;

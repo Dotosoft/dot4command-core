@@ -25,19 +25,31 @@ import com.dotosoft.dot4command.utils.StringUtils;
 
 public class CreateObjectCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
-	private K objectClass;
-	private K argumentsKey;
-	private K toKey;
+	private String objectClass;
+	private String argumentsKey;
+	private String toKey;
 
-	public void setObjectClass(K objectClass) {
+	public void setObjectClass(String objectClass) {
 		this.objectClass = objectClass;
 	}
 	
-	public void setArgumentsKey(K argumentsKey) {
+	public void setArgumentsKey(String argumentsKey) {
 		this.argumentsKey = argumentsKey;
 	}
 
-	public void setToKey(K toKey) {
+	public String getObjectClass() {
+		return objectClass;
+	}
+
+	public String getArgumentsKey() {
+		return argumentsKey;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
+
+	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
 
@@ -52,7 +64,7 @@ public class CreateObjectCommand<K extends String, V extends Object, C extends M
 			webClient = (V) SingletonFactory.getInstance(objectClazz);
 		}
 
-		context.put(toKey, webClient);
+		context.put((K) toKey, webClient);
 		
 		return Processing.FINISHED;
 	}

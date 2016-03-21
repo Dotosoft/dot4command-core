@@ -32,12 +32,12 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 	private Map methods = new WeakHashMap();
 
 	/** Method Properties */
-	private K method;
-	private K methodKey;
-	private K argumentsKey;
+	private String method;
+	private String methodKey;
+	private String argumentsKey;
 	private boolean staticFlag = false;
 
-	private K toKey;
+	private String toKey;
 
 	/**
 	 * Look up the method specified by either "method" or "methodKey" and invoke
@@ -77,7 +77,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 				}
 				
 				if(StringUtils.hasValue(toKey)) {
-					context.put(toKey, returnValue);
+					context.put((K) toKey, returnValue);
 				}
 				
 			} catch (Exception e) {
@@ -241,7 +241,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 	 * @param method
 	 *            The method name.
 	 */
-	public void setMethod(K method) {
+	public void setMethod(String method) {
 		this.method = method;
 	}
 
@@ -251,11 +251,11 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 	 * @param methodKey
 	 *            The Context key for the method name.
 	 */
-	public void setMethodKey(K methodKey) {
+	public void setMethodKey(String methodKey) {
 		this.methodKey = methodKey;
 	}
 
-	public void setToKey(K toKey) {
+	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
 
@@ -263,19 +263,23 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 		this.methods = methods;
 	}
 
-	public void setArgumentsKey(K argumentsKey) {
+	public void setArgumentsKey(String argumentsKey) {
 		this.argumentsKey = argumentsKey;
+	}
+
+	public boolean isStaticFlag() {
+		return staticFlag;
 	}
 
 	public Map getMethods() {
 		return methods;
 	}
 
-	public K getToKey() {
+	public String getToKey() {
 		return toKey;
 	}
 
-	public K getArgumentsKey() {
+	public String getArgumentsKey() {
 		return argumentsKey;
 	}
 
