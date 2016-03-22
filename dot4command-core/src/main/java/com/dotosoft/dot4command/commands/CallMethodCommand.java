@@ -18,8 +18,8 @@ package com.dotosoft.dot4command.commands;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
@@ -29,7 +29,7 @@ import com.dotosoft.dot4command.utils.StringUtils;
 public class CallMethodCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
 	/** Cache of methods */
-	private Map methods = new WeakHashMap();
+	private Map methods = new HashMap();
 
 	/** Method Properties */
 	private String method;

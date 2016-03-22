@@ -34,6 +34,8 @@ public class CallTemplateCommand <K extends String, V extends Object, C extends 
         	Command newTemp = (Command) command.clone();
         	newTemp.modifyAttributes(keyMap);
             Processing result = newTemp.execute(context);
+            newTemp = null;
+            System.gc();
             if (isIgnoreExecuteResult()) {
                 return Processing.CONTINUE;
             }

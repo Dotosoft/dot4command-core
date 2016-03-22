@@ -18,8 +18,8 @@ package com.dotosoft.dot4command.base;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Command;
@@ -88,7 +88,7 @@ public class DispatchLookupCommand<K extends String, V extends Object, C extends
 
     // ----------------------------------------------------- Instance Variables
 
-    private final WeakHashMap<String, Method> methods = new WeakHashMap<String, Method>();
+    private final Map<String, Method> methods = new HashMap<String, Method>();
 
     // ------------------------------------------------------------- Properties
 

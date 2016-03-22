@@ -18,8 +18,8 @@ package com.dotosoft.dot4command.base;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
@@ -39,7 +39,7 @@ import com.dotosoft.dot4command.chain.Processing;
 public abstract class DispatchCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
     /** Cache of methods */
-    private final Map<String, Method> methods = new WeakHashMap<String, Method>();
+    private final Map<String, Method> methods = new HashMap<String, Method>();
 
     /** Method name */
     private String method = null;

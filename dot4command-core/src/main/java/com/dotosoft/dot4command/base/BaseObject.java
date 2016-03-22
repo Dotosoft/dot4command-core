@@ -16,16 +16,18 @@
 
 package com.dotosoft.dot4command.base;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 
-public class BaseObject implements Cloneable{
+public class BaseObject implements Cloneable, Serializable {
 	
 	private Object parent;
 	private Logger logger;
@@ -134,7 +136,7 @@ public class BaseObject implements Cloneable{
 	}
 
 	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
+	public Object clone() {
+		return SerializationUtils.clone(this);
 	}
 }

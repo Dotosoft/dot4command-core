@@ -16,6 +16,7 @@
 
 package com.dotosoft.dot4command.impl;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -36,7 +37,7 @@ import com.dotosoft.dot4command.chain.Command;
  * @param <C> Type of the context associated with this command
  * @version $Id$
  */
-public class CatalogFactoryBase<K extends String, V extends Object, C extends Map<K, V>> implements CatalogFactory<K, V, C> {
+public class CatalogFactoryBase<K extends String, V extends Object, C extends Map<K, V>> implements CatalogFactory<K, V, C>, Serializable {
 
     // ----------------------------------------------------------- Constructors
 
