@@ -19,8 +19,8 @@ package com.dotosoft.dot4command.testutils;
 import static com.dotosoft.dot4command.testutils.HasLog.hasLog;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.collection.IsMapContaining.hasKey;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.UUID;
 
@@ -29,7 +29,6 @@ import org.junit.Test;
 
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.testutils.NonDelegatingCommand;
 
 /**
  * @version $Id$
@@ -44,7 +43,7 @@ public class NonDelegatingCommandTestCase {
     @Before
     public void setUp() throws Exception {
         command = new NonDelegatingCommand(ID);
-        context = new TestContext<String, Object>();
+        context = new TestContext();
     }
 
     @Test(expected = IllegalArgumentException.class)

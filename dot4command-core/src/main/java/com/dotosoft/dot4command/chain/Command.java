@@ -105,4 +105,5 @@ public interface Command<K extends String, V extends Object, C extends Map<K, V>
     Processing execute(C context);
     void setParent(Object parent);
     void modifyAttributes(Map valuesMap);
+    Object clone() throws CloneNotSupportedException;
 }

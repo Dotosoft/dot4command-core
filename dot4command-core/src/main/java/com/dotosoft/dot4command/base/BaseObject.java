@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 
-public class BaseObject {
+public class BaseObject implements Cloneable{
 	
 	private Object parent;
 	private Logger logger;
@@ -131,5 +131,10 @@ public class BaseObject {
 		}
 
 		return defaultValue;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 }

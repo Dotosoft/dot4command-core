@@ -31,8 +31,9 @@ public class CallTemplateCommand <K extends String, V extends Object, C extends 
 	public Processing onExecute(C context) throws Exception {
 		Command<K, V, C> command = getCommand(context);
         if (command != null) {
-        	command.modifyAttributes(keyMap);
-            Processing result = command.execute(context);
+        	Command newTemp = (Command) command.clone();
+        	newTemp.modifyAttributes(keyMap);
+            Processing result = newTemp.execute(context);
             if (isIgnoreExecuteResult()) {
                 return Processing.CONTINUE;
             }
