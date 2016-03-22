@@ -18,6 +18,9 @@ package com.dotosoft.dot4command.base;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -67,7 +70,7 @@ public class BaseObject implements Cloneable, Serializable {
 	
 	public void modifyAttributes(Map valuesMap) {
 		StrSubstitutor sub = new StrSubstitutor(valuesMap);
-		Field[] allFields = getClass().getDeclaredFields();
+		List<Field> allFields = listAllFields();
 	    for (Field field : allFields) {
 	    	try {
 		    	Object value = getProperty(this, field.getName());
@@ -76,6 +79,16 @@ public class BaseObject implements Cloneable, Serializable {
 		    	}
 	    	} catch (Exception ex) {}
 	    }
+	}
+	
+	private List<Field> listAllFields() {
+		List<Field> fieldList = new ArrayList<Field>();
+	    Class tmpClass = getClass();
+	    while (tmpClass != null) {
+	        fieldList.addAll(Arrays.asList(tmpClass .getDeclaredFields()));
+	        tmpClass = tmpClass .getSuperclass();
+	    }
+	    return fieldList;
 	}
 	
 	public final void print(String message) {

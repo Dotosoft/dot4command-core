@@ -16,18 +16,18 @@
 
 package com.dotosoft.dot4command.commands;
 
+import java.util.List;
 import java.util.Map;
 
-import com.dotosoft.dot4command.base.CommandBase;
+import org.apache.commons.lang.text.StrSubstitutor;
+
+import com.dotosoft.dot4command.chain.Command;
 import com.dotosoft.dot4command.chain.Processing;
 
-public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
-
-	private static final String regexStr = "(?=[!=&|][=&|])|(?<=[!=&|][=&|])";
-	private String evaluate;
+public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, V>> extends IfCommand<K, V, C> {
 
 	@Override
-	public Processing onExecute(C context) {
+	public Processing execute(C context) {
 
 		Processing result = Processing.FINISHED;
 		if (!IfCommand.getIfCommandKey()) {
@@ -45,38 +45,5 @@ public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, 
 		}
 
 		return result;
-	}
-
-	private boolean evaluate(C context, String[] parts) throws Exception {
-		boolean result = false;
-		Object obj1 = getProperty(context, parts[0]);
-		String op = parts[1];
-		Object obj2 = getProperty(context, parts[2]);
-
-		switch (op) {
-		case "!=":
-			result = obj1 != obj2;
-			break;
-		case "==":
-			result = obj1 == obj2;
-			break;
-		case "||":
-			result = ((Boolean) obj1 || (Boolean) obj2);
-			break;
-		case "&&":
-			result = ((Boolean) obj1 && (Boolean) obj2);
-			break;
-		default:
-			throw new Exception("Expression is not valid");
-		}
-		return result;
-	}
-
-	public String getEvaluate() {
-		return evaluate;
-	}
-
-	public void setEvaluate(String evaluate) {
-		this.evaluate = evaluate;
 	}
 }

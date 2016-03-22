@@ -76,7 +76,11 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 				}
 				
 				if(StringUtils.hasValue(toKey)) {
-					context.put((K) toKey, returnValue);
+					if(returnValue != null) {
+						context.put((K) toKey, returnValue);
+					} else {
+						context.remove((K) toKey);
+					}
 				}
 				
 			} catch (Exception e) {

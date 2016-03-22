@@ -26,35 +26,32 @@ import com.dotosoft.dot4command.utils.EqualsHelper;
 
 public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> extends ChainBase<K, V, C> {
 
-	private static Pattern pattern = Pattern.compile("([\"'])((?:(?=(\\\\?))\\3.)*?)\\1");
-	private static final String regexStr = "(?=[!=&|][=&|])|(?<=[!=&|][=&|])";
-	private static boolean ifFlag = true;
+	protected static Pattern pattern = Pattern.compile("([\"'])((?:(?=(\\\\?))\\3.)*?)\\1");
+	protected static final String regexStr = "(?=[!=&|][=&|])|(?<=[!=&|][=&|])";
+	protected static boolean ifFlag = true;
 	
-	private String evaluate;
+	protected String evaluate;
 
 	@Override
 	public Processing execute(C context) {
 		IfCommand.ifFlag = true;
 		evaluate = evaluate.replaceAll("\\s+", "");
 		String[] parts = evaluate.split(regexStr);
-		boolean isValid = false;
 		try {
-			isValid = evaluate(context, parts);
+			IfCommand.ifFlag = evaluate(context, parts);
 		} catch (Exception ex) {
-			isValid = false;
+			IfCommand.ifFlag = false;
 		}
 
 		Processing result = Processing.FINISHED;
-		if (isValid) {
+		if (IfCommand.ifFlag) {
 			result = super.execute(context);
-		} else {
-			IfCommand.ifFlag = false;
 		}
 
 		return result;
 	}
 
-	private boolean evaluate(C context, String[] parts) throws Exception {
+	protected boolean evaluate(C context, String[] parts) throws Exception {
 		boolean result = false;
 		V obj1 = extractValue(context, parts[0]);
 		String op = parts[1];

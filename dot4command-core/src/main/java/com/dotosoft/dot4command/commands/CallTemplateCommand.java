@@ -37,7 +37,7 @@ public class CallTemplateCommand <K extends String, V extends Object, C extends 
             newTemp = null;
             System.gc();
             if (isIgnoreExecuteResult()) {
-                return Processing.CONTINUE;
+                return Processing.FINISHED;
             }
             return result;
         }

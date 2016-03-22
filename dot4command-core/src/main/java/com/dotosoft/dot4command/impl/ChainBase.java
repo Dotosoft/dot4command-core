@@ -274,7 +274,7 @@ public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> 
      * {@link Chain}.  This method is package private, and is used only
      * for the unit tests.</p>
      */
-    List<Command<K, V, C>> getCommands() {
+    protected List<Command<K, V, C>> getCommands() {
         return commands;
     }
 
