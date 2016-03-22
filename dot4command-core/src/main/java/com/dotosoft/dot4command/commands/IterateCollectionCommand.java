@@ -27,30 +27,6 @@ public class IterateCollectionCommand<K extends String, V extends Object, C exte
 	private String incrementKey;
 	private String toKey;
 
-	public String getCollectionKey() {
-		return collectionKey;
-	}
-
-	public String getIncrementKey() {
-		return incrementKey;
-	}
-
-	public String getToKey() {
-		return toKey;
-	}
-
-	public void setToKey(String toKey) {
-		this.toKey = toKey;
-	}
-
-	public void setCollectionKey(String collectionKey) {
-		this.collectionKey = collectionKey;
-	}
-
-	public void setIncrementKey(String incrementKey) {
-		this.incrementKey = incrementKey;
-	}
-
 	@Override
 	public Processing onExecute(C context) throws Exception {
 		List coll = (List) getProperty(context, collectionKey); 
@@ -72,4 +48,27 @@ public class IterateCollectionCommand<K extends String, V extends Object, C exte
 		return Processing.FINISHED;
 	}
 
+	public String getCollectionKey() {
+		return collectionKey;
+	}
+	
+	public void setCollectionKey(String collectionKey) {
+		this.collectionKey = collectionKey;
+	}
+
+	public String getIncrementKey() {
+		return incrementKey;
+	}
+	
+	public void setIncrementKey(String incrementKey) {
+		this.incrementKey = incrementKey;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
+
+	public void setToKey(String toKey) {
+		this.toKey = toKey;
+	}
 }

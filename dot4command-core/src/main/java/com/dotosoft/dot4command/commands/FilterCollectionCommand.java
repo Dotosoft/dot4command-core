@@ -32,38 +32,6 @@ public class FilterCollectionCommand<K extends String, V extends Object, C exten
 	private String filterExpression;
 	private String filterValue;
 
-	public String getFromKey() {
-		return fromKey;
-	}
-
-	public String getToKey() {
-		return toKey;
-	}
-
-	public String getFilterExpression() {
-		return filterExpression;
-	}
-
-	public String getFilterValue() {
-		return filterValue;
-	}
-
-	public void setFromKey(String fromKey) {
-		this.fromKey = fromKey;
-	}
-
-	public void setToKey(String toKey) {
-		this.toKey = toKey;
-	}
-
-	public void setFilterExpression(String filterExpression) {
-		this.filterExpression = filterExpression;
-	}
-
-	public void setFilterValue(String filterValue) {
-		this.filterValue = filterValue;
-	}
-
 	@Override
 	public Processing onExecute(C context) {
 
@@ -81,4 +49,35 @@ public class FilterCollectionCommand<K extends String, V extends Object, C exten
 		return Processing.FINISHED;
 	}
 
+	public void setFromKey(String fromKey) {
+		this.fromKey = fromKey;
+	}
+	
+	public String getFromKey() {
+		return fromKey;
+	}
+
+	public void setToKey(String toKey) {
+		this.toKey = toKey;
+	}
+	
+	public String getToKey() {
+		return toKey;
+	}
+	
+	public void setFilterExpression(String filterExpression) {
+		this.filterExpression = filterExpression;
+	}
+
+	public String getFilterExpression() {
+		return filterExpression;
+	}
+
+	public void setFilterValue(String filterValue) {
+		this.filterValue = filterValue;
+	}
+	
+	public String getFilterValue() {
+		return filterValue;
+	}
 }

@@ -26,18 +26,11 @@ import com.dotosoft.dot4command.utils.EqualsHelper;
 
 public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> extends ChainBase<K, V, C> {
 
+	private static Pattern pattern = Pattern.compile("([\"'])((?:(?=(\\\\?))\\3.)*?)\\1");
 	private static final String regexStr = "(?=[!=&|][=&|])|(?<=[!=&|][=&|])";
 	private static boolean ifFlag = true;
 	
 	private String evaluate;
-	
-	public void setEvaluate(String evaluate) {
-		this.evaluate = evaluate;
-	}
-	
-	public static boolean getIfCommandKey() {
-		return ifFlag;
-	}
 
 	@Override
 	public Processing execute(C context) {
@@ -86,11 +79,6 @@ public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> 
 		return result;
 	}
 	
-	Pattern pattern;
-	public IfCommand() {
-		pattern = Pattern.compile("([\"'])((?:(?=(\\\\?))\\3.)*?)\\1");
-	}
-	
 	private V extractValue(C context, String part) {
 		// "(["'])(?:(?=(\\?))\2.)*?\1"
 		Object result = null;
@@ -108,5 +96,16 @@ public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> 
 		}
 		return (V) result;
 	}
+	
+	public void setEvaluate(String evaluate) {
+		this.evaluate = evaluate;
+	}
+	
+	public String getEvaluate() {
+		return evaluate;
+	}
 
+	public static boolean getIfCommandKey() {
+		return ifFlag;
+	}
 }

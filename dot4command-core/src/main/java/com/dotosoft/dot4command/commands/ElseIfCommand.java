@@ -24,20 +24,7 @@ import com.dotosoft.dot4command.chain.Processing;
 public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
 	private static final String regexStr = "(?=[!=&|][=&|])|(?<=[!=&|][=&|])";
-
 	private String evaluate;
-
-	public static String getRegexstr() {
-		return regexStr;
-	}
-
-	public String getEvaluate() {
-		return evaluate;
-	}
-
-	public void setEvaluate(String evaluate) {
-		this.evaluate = evaluate;
-	}
 
 	@Override
 	public Processing onExecute(C context) {
@@ -83,5 +70,13 @@ public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, 
 			throw new Exception("Expression is not valid");
 		}
 		return result;
+	}
+
+	public String getEvaluate() {
+		return evaluate;
+	}
+
+	public void setEvaluate(String evaluate) {
+		this.evaluate = evaluate;
 	}
 }

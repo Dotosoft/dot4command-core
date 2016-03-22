@@ -25,41 +25,9 @@ import com.dotosoft.dot4command.chain.Processing;
 public class LoopByLookupCommand<K extends String, V extends Object, C extends Map<K, V>> extends LookupCommand<K, V, C> {
 
 	private boolean doWhile = false;
-	private String checkKey;
 	private int loopTime = 0;
+	private String checkKey;
 	private String indexKey;
-
-	public void setIndexKey(String indexKey) {
-		this.indexKey = indexKey;
-	}
-
-	public void setDoWhile(boolean doWhile) {
-		this.doWhile = doWhile;
-	}
-
-	public void setLoopTime(int loopTime) {
-		this.loopTime = loopTime;
-	}
-
-	public void setCheckKey(String checkKey) {
-		this.checkKey = checkKey;
-	}
-
-	public boolean isDoWhile() {
-		return doWhile;
-	}
-
-	public String getCheckKey() {
-		return checkKey;
-	}
-
-	public int getLoopTime() {
-		return loopTime;
-	}
-
-	public String getIndexKey() {
-		return indexKey;
-	}
 
 	@Override
 	public Processing onExecute(C context) throws Exception {
@@ -93,4 +61,35 @@ public class LoopByLookupCommand<K extends String, V extends Object, C extends M
 		}
 	}
 
+	public void setIndexKey(String indexKey) {
+		this.indexKey = indexKey;
+	}
+	
+	public String getIndexKey() {
+		return indexKey;
+	}
+
+	public void setDoWhile(boolean doWhile) {
+		this.doWhile = doWhile;
+	}
+	
+	public boolean isDoWhile() {
+		return doWhile;
+	}
+
+	public void setLoopTime(int loopTime) {
+		this.loopTime = loopTime;
+	}
+	
+	public int getLoopTime() {
+		return loopTime;
+	}
+
+	public void setCheckKey(String checkKey) {
+		this.checkKey = checkKey;
+	}
+
+	public String getCheckKey() {
+		return checkKey;
+	}
 }

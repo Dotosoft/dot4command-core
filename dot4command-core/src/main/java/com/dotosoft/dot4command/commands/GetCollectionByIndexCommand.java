@@ -28,6 +28,26 @@ public class GetCollectionByIndexCommand<K extends String, V extends Object, C e
 	private String indexKey;
 	private String toKey;
 
+	public Processing onExecute(C context) throws Exception {
+		Collection collection = (Collection) getProperty(context, collectionKey);
+		
+		Object index = getProperty(context, indexKey);
+		Integer indexCollection;
+		if(index instanceof Integer) {
+			indexCollection = (Integer) index;
+		} else {
+			indexCollection = Integer.parseInt(String.valueOf(index));
+		}
+
+		if (collection != null && indexCollection < collection.size()) {
+			context.put((K) toKey, (V) collection.toArray()[indexCollection]);
+		} else {
+			context.remove(toKey);
+		}
+		
+		return Processing.FINISHED;
+	}
+
 	public void setCollectionKey(String collectionKey) {
 		this.collectionKey = collectionKey;
 	}
@@ -51,27 +71,4 @@ public class GetCollectionByIndexCommand<K extends String, V extends Object, C e
 	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
-
-	public Processing onExecute(C context) throws Exception {
-
-		Collection collection = (Collection) getProperty(context, collectionKey);
-		
-		Object index = getProperty(context, indexKey);
-		Integer indexCollection;
-		if(index instanceof Integer) {
-			indexCollection = (Integer) index;
-		} else {
-			indexCollection = Integer.parseInt(String.valueOf(index));
-		}
-
-		if (collection != null && indexCollection < collection.size()) {
-			context.put((K) toKey, (V) collection.toArray()[indexCollection]);
-		} else {
-			context.remove(toKey);
-		}
-
-		return Processing.FINISHED;
-
-	}
-
 }

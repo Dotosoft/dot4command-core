@@ -35,9 +35,8 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 	private String method;
 	private String methodKey;
 	private String argumentsKey;
-	private boolean staticFlag = false;
-
 	private String toKey;
+	private boolean staticFlag = false;
 
 	/**
 	 * Look up the method specified by either "method" or "methodKey" and invoke
@@ -239,7 +238,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 	 * Set the method name.
 	 * 
 	 * @param method
-	 *            The method name.
+	 * The method name.
 	 */
 	public void setMethod(String method) {
 		this.method = method;
@@ -249,18 +248,30 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 	 * Set the Context key for the method name.
 	 * 
 	 * @param methodKey
-	 *            The Context key for the method name.
+	 * The Context key for the method name.
 	 */
 	public void setMethodKey(String methodKey) {
 		this.methodKey = methodKey;
 	}
 
+	public String getToKey() {
+		return toKey;
+	}
+	
 	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
 
+	public Map getMethods() {
+		return methods;
+	}
+	
 	public void setMethods(Map methods) {
 		this.methods = methods;
+	}
+	
+	public String getArgumentsKey() {
+		return argumentsKey;
 	}
 
 	public void setArgumentsKey(String argumentsKey) {
@@ -269,18 +280,6 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 
 	public boolean isStaticFlag() {
 		return staticFlag;
-	}
-
-	public Map getMethods() {
-		return methods;
-	}
-
-	public String getToKey() {
-		return toKey;
-	}
-
-	public String getArgumentsKey() {
-		return argumentsKey;
 	}
 
 	public void setStaticFlag(boolean staticFlag) {

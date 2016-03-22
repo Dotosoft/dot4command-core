@@ -28,30 +28,6 @@ public class SplitCommand<K extends String, V extends Object, C extends Map<K, V
 	private String separator;
 	private String toKey;
 
-	public void setFromKey(String fromKey) {
-		this.fromKey = fromKey;
-	}
-
-	public void setSeparator(String separator) {
-		this.separator = separator;
-	}
-
-	public void setToKey(String toKey) {
-		this.toKey = toKey;
-	}
-
-	public String getFromKey() {
-		return fromKey;
-	}
-
-	public String getSeparator() {
-		return separator;
-	}
-
-	public String getToKey() {
-		return toKey;
-	}
-
 	@Override
 	public Processing onExecute(C context) throws Exception {
 		String data = (String) getProperty(context, fromKey);
@@ -59,5 +35,29 @@ public class SplitCommand<K extends String, V extends Object, C extends Map<K, V
 		context.put((K) toKey, (V) Arrays.asList(results));
 		
 		return Processing.FINISHED;
+	}
+	
+	public String getFromKey() {
+		return fromKey;
+	}
+	
+	public void setFromKey(String fromKey) {
+		this.fromKey = fromKey;
+	}
+
+	public String getSeparator() {
+		return separator;
+	}
+	
+	public void setSeparator(String separator) {
+		this.separator = separator;
+	}
+	
+	public String getToKey() {
+		return toKey;
+	}
+
+	public void setToKey(String toKey) {
+		this.toKey = toKey;
 	}
 }

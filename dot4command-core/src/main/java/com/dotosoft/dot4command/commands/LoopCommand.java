@@ -31,46 +31,6 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 	private int loopTime = 0;
 	private String indexKey;
 
-	public boolean isDoWhile() {
-		return doWhile;
-	}
-
-	public String getCheckKey() {
-		return checkKey;
-	}
-
-	public String getCheckCollectionKey() {
-		return checkCollectionKey;
-	}
-
-	public int getLoopTime() {
-		return loopTime;
-	}
-
-	public String getIndexKey() {
-		return indexKey;
-	}
-
-	public void setCheckCollectionKey(String checkCollectionKey) {
-		this.checkCollectionKey = checkCollectionKey;
-	}
-
-	public void setIndexKey(String indexKey) {
-		this.indexKey = indexKey;
-	}
-
-	public void setDoWhile(boolean doWhile) {
-		this.doWhile = doWhile;
-	}
-
-	public void setLoopTime(int loopTime) {
-		this.loopTime = loopTime;
-	}
-
-	public void setCheckKey(String checkKey) {
-		this.checkKey = checkKey;
-	}
-
 	@Override
 	public Processing execute(C context) {
 		
@@ -119,4 +79,43 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 		return result;
 	}
 
+	public boolean isDoWhile() {
+		return doWhile;
+	}
+	
+	public void setDoWhile(boolean doWhile) {
+		this.doWhile = doWhile;
+	}
+
+	public void setCheckKey(String checkKey) {
+		this.checkKey = checkKey;
+	}
+	
+	public String getCheckKey() {
+		return checkKey;
+	}
+
+	public void setCheckCollectionKey(String checkCollectionKey) {
+		this.checkCollectionKey = checkCollectionKey;
+	}
+	
+	public String getCheckCollectionKey() {
+		return checkCollectionKey;
+	}
+	
+	public void setLoopTime(int loopTime) {
+		this.loopTime = loopTime;
+	}
+
+	public int getLoopTime() {
+		return loopTime;
+	}
+
+	public String getIndexKey() {
+		return indexKey;
+	}
+	
+	public void setIndexKey(String indexKey) {
+		this.indexKey = indexKey;
+	}
 }

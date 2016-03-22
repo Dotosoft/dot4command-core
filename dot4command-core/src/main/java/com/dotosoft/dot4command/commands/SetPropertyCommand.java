@@ -25,7 +25,11 @@ import com.dotosoft.dot4command.chain.Processing;
 public class SetPropertyCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
 	/** Primitive type name -> class map. */
-	private static final Map PRIMITIVE_NAME_TYPE_MAP = new HashMap();
+	private static final Map<String, Class> PRIMITIVE_NAME_TYPE_MAP = new HashMap<String, Class>();
+	
+	private String type;
+	private String value;
+	private String toKey;
 
 	/** Setup the primitives map. */
 	static {
@@ -37,34 +41,6 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 		PRIMITIVE_NAME_TYPE_MAP.put("long", Long.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("float", Float.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("double", Double.class);
-	}
-	
-	private String type;
-	private String value;
-	private String toKey;
-	
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-	public void setToKey(String toKey) {
-		this.toKey = toKey;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public String getToKey() {
-		return toKey;
 	}
 
 	@Override
@@ -80,4 +56,27 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 		return Processing.FINISHED;
 	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	public String getValue() {
+		return value;
+	}
+
+	public void setToKey(String toKey) {
+		this.toKey = toKey;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
 }

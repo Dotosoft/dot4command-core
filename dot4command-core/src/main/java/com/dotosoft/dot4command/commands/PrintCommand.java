@@ -30,22 +30,6 @@ public class PrintCommand<K extends String, V extends Object, C extends Map<K, V
 	private String message;
 	private String key;
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
-
 	@Override
 	public Processing onExecute(C context) throws Exception {
 
@@ -73,4 +57,19 @@ public class PrintCommand<K extends String, V extends Object, C extends Map<K, V
 		return Processing.FINISHED;
 	}
 
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+	
+	public String getKey() {
+		return key;
+	}
 }

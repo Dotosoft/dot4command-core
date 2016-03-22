@@ -26,10 +26,6 @@ import com.google.common.base.Splitter;
 public class CallTemplateCommand <K extends String, V extends Object, C extends Map<K, V>> extends LookupCommand<K, V, C> {
 	
 	private Map keyMap;
-	public void setKeyMap(String inputString) {
-		inputString = inputString.replaceAll("\n", "").replaceAll("\r", "").replaceAll(" ", "");
-		keyMap = Splitter.on(",").withKeyValueSeparator(":").split(inputString);
-	}
 	
 	@Override
 	public Processing onExecute(C context) throws Exception {
@@ -43,5 +39,10 @@ public class CallTemplateCommand <K extends String, V extends Object, C extends 
             return result;
         }
         return Processing.FINISHED;
+	}
+	
+	public void setKeyMap(String inputString) {
+		inputString = inputString.replaceAll("\n", "").replaceAll("\r", "").replaceAll(" ", "");
+		keyMap = Splitter.on(",").withKeyValueSeparator(":").split(inputString);
 	}
 }

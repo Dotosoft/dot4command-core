@@ -28,26 +28,6 @@ public class ArithmeticCommand<K extends String, V extends Object, C extends Map
 	private String evaluate;
 	private String toKey;
 
-	public static String getRegexstr() {
-		return regexStr;
-	}
-
-	public String getEvaluate() {
-		return evaluate;
-	}
-
-	public String getToKey() {
-		return toKey;
-	}
-
-	public void setEvaluate(String evaluate) {
-		this.evaluate = evaluate;
-	}
-
-	public void setToKey(String toKey) {
-		this.toKey = toKey;
-	}
-
 	@Override
 	public Processing onExecute(C context) {
 		evaluate = evaluate.replaceAll("\\s+", "");
@@ -80,6 +60,23 @@ public class ArithmeticCommand<K extends String, V extends Object, C extends Map
 		    }
 		}
 		return (V) result;
+	}
+
+	
+	public String getEvaluate() {
+		return evaluate;
+	}
+	
+	public void setEvaluate(String evaluate) {
+		this.evaluate = evaluate;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
+
+	public void setToKey(String toKey) {
+		this.toKey = toKey;
 	}
 
 }

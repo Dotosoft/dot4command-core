@@ -26,43 +26,7 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
 
     // -------------------------------------------------------------- Properties
     private String fromKey = null;
-
-    /**
-     * <p>Return the context attribute key for the source attribute.</p>
-     * @return The source attribute key.
-     */
-    public String getFromKey() {
-    	return (this.fromKey);
-    }
-
-
-    /**
-     * <p>Set the context attribute key for the source attribute.</p>
-     *
-     * @param fromKey The new key
-     */
-    public void setFromKey(String fromKey) {
-    	this.fromKey = fromKey;
-    }
-
     private String toKey = null;
-    
-    /**
-     * <p>Return the context attribute key for the destination attribute.</p>
-     * @return The destination attribute key.
-     */
-    public String getToKey() {
-    	return (this.toKey);
-    }
-
-    /**
-     * <p>Set the context attribute key for the destination attribute.</p>
-     *
-     * @param toKey The new key
-     */
-    public void setToKey(String toKey) {
-    	this.toKey = toKey;
-    }
 
     // ---------------------------------------------------------- Filter Methods
     /**
@@ -88,5 +52,38 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
 
     }
 
+    /**
+     * <p>Return the context attribute key for the source attribute.</p>
+     * @return The source attribute key.
+     */
+    public String getFromKey() {
+    	return (this.fromKey);
+    }
 
+
+    /**
+     * <p>Set the context attribute key for the source attribute.</p>
+     *
+     * @param fromKey The new key
+     */
+    public void setFromKey(String fromKey) {
+    	this.fromKey = fromKey;
+    }
+    
+    /**
+     * <p>Return the context attribute key for the destination attribute.</p>
+     * @return The destination attribute key.
+     */
+    public String getToKey() {
+    	return (this.toKey);
+    }
+
+    /**
+     * <p>Set the context attribute key for the destination attribute.</p>
+     *
+     * @param toKey The new key
+     */
+    public void setToKey(String toKey) {
+    	this.toKey = toKey;
+    }
 }

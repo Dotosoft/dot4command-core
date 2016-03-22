@@ -29,30 +29,6 @@ public class CreateObjectCommand<K extends String, V extends Object, C extends M
 	private String argumentsKey;
 	private String toKey;
 
-	public void setObjectClass(String objectClass) {
-		this.objectClass = objectClass;
-	}
-	
-	public void setArgumentsKey(String argumentsKey) {
-		this.argumentsKey = argumentsKey;
-	}
-
-	public String getObjectClass() {
-		return objectClass;
-	}
-
-	public String getArgumentsKey() {
-		return argumentsKey;
-	}
-
-	public String getToKey() {
-		return toKey;
-	}
-
-	public void setToKey(String toKey) {
-		this.toKey = toKey;
-	}
-
 	@Override
 	public Processing onExecute(C context) throws Exception {
 		Class objectClazz = Class.forName(objectClass);
@@ -96,4 +72,28 @@ public class CreateObjectCommand<K extends String, V extends Object, C extends M
         return null;
     }
 
+    
+    public void setObjectClass(String objectClass) {
+		this.objectClass = objectClass;
+	}
+    
+    public String getObjectClass() {
+		return objectClass;
+	}
+	
+	public void setArgumentsKey(String argumentsKey) {
+		this.argumentsKey = argumentsKey;
+	}
+
+	public String getArgumentsKey() {
+		return argumentsKey;
+	}
+
+	public String getToKey() {
+		return toKey;
+	}
+
+	public void setToKey(String toKey) {
+		this.toKey = toKey;
+	}
 }
