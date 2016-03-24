@@ -14,13 +14,14 @@
 	limitations under the License.
  */
 
-package com.dotosoft.dot4command.base;
+package com.dotosoft.dot4command.commands;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.dotosoft.dot4command.base.DispatchException;
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Command;
 import com.dotosoft.dot4command.chain.Context;
@@ -157,7 +158,7 @@ public class DispatchLookupCommand<K extends String, V extends Object, C extends
                     Processing result = (Processing) obj;
                     return result;
                 } else {
-                    return Processing.CONTINUE;
+                    return Processing.FINISHED;
                 }
             } catch (NoSuchMethodException e) {
                 throw new DispatchException("Error extracting method from context", e, context, this);
@@ -168,7 +169,7 @@ public class DispatchLookupCommand<K extends String, V extends Object, C extends
                 throw new DispatchException("Error in reflected dispatched command", cause, context, this);
             }
         }
-        return Processing.CONTINUE;
+        return Processing.FINISHED;
     }
 
     // ------------------------------------------------------ Protected Methods

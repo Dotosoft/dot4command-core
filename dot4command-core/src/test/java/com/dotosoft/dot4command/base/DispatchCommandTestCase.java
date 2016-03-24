@@ -18,9 +18,9 @@ package com.dotosoft.dot4command.base;
 
 import org.junit.Test;
 
-import com.dotosoft.dot4command.base.DispatchCommand;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.commands.DispatchCommand;
 import com.dotosoft.dot4command.impl.ContextBase;
 
 import static org.junit.Assert.*;
@@ -51,7 +51,7 @@ public class DispatchCommandTestCase {
         context.put("foo", "testMethodKey");
         assertNull(context.get("bar"));
         Processing result = test.execute(context);
-        assertEquals(Processing.CONTINUE, result);
+        assertEquals(Processing.FINISHED, result);
         assertNotNull(context.get("bar"));
         assertEquals("bar", context.get("bar"));
 
@@ -82,7 +82,7 @@ public class DispatchCommandTestCase {
         public Processing testMethodKey(Context<String, Object> context) {
 
             context.put("bar", "bar");
-            return Processing.CONTINUE;
+            return Processing.FINISHED;
         }
         
     }

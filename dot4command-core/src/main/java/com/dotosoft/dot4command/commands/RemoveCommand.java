@@ -14,10 +14,11 @@
 	limitations under the License.
  */
 
-package com.dotosoft.dot4command.base;
+package com.dotosoft.dot4command.commands;
 
 import java.util.Map;
 
+import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
 
@@ -34,24 +35,7 @@ public class RemoveCommand<K extends String, V extends Object, C extends Map<K, 
 
     // -------------------------------------------------------------- Properties
 
-    private K fromKey = null;
-
-    /**
-     * <p>Return the context attribute key for the attribute.</p>
-     * @return The context attribute key.
-     */
-    public K getFromKey() {
-        return this.fromKey;
-    }
-
-    /**
-     * <p>Set the context attribute key for the attribute.</p>
-     *
-     * @param fromKey The new key
-     */
-    public void setFromKey(K fromKey) {
-        this.fromKey = fromKey;
-    }
+    private String fromKey = null;
 
     // ---------------------------------------------------------- Filter Methods
 
@@ -67,7 +51,23 @@ public class RemoveCommand<K extends String, V extends Object, C extends Map<K, 
     @Override
     public Processing onExecute(C context) throws Exception {
         context.remove(getFromKey());
-        return Processing.CONTINUE;
+        return Processing.FINISHED;
     }
 
+    /**
+     * <p>Return the context attribute key for the attribute.</p>
+     * @return The context attribute key.
+     */
+    public String getFromKey() {
+        return this.fromKey;
+    }
+
+    /**
+     * <p>Set the context attribute key for the attribute.</p>
+     *
+     * @param fromKey The new key
+     */
+    public void setFromKey(String fromKey) {
+        this.fromKey = fromKey;
+    }
 }

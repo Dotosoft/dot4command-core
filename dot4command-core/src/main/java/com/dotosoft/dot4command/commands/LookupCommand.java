@@ -14,10 +14,11 @@
 	limitations under the License.
  */
 
-package com.dotosoft.dot4command.base;
+package com.dotosoft.dot4command.commands;
 
 import java.util.Map;
 
+import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Catalog;
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Command;
@@ -278,11 +279,11 @@ public class LookupCommand<K extends String, V extends Object, C extends Map<K, 
         if (command != null) {
             Processing result = command.execute(context);
             if (isIgnoreExecuteResult()) {
-                return Processing.CONTINUE;
+                return Processing.FINISHED;
             }
             return result;
         }
-        return Processing.CONTINUE;
+        return Processing.FINISHED;
     }
 
 

@@ -14,10 +14,11 @@
 	limitations under the License.
  */
 
-package com.dotosoft.dot4command.base;
+package com.dotosoft.dot4command.commands;
 
 import java.util.Map;
 
+import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
 
 /**
@@ -34,43 +35,8 @@ public class CopyCommand<K extends String, V extends Object, C extends Map<K, V>
 
     // -------------------------------------------------------------- Properties
 
-    private K fromKey = null;
-
-    /**
-     * <p>Return the context attribute key for the source attribute.</p>
-     * @return The source attribute key.
-     */
-    public K getFromKey() {
-        return this.fromKey;
-    }
-
-    /**
-     * <p>Set the context attribute key for the source attribute.</p>
-     *
-     * @param fromKey The new key
-     */
-    public void setFromKey(K fromKey) {
-        this.fromKey = fromKey;
-    }
-
-    private K toKey = null;
-
-    /**
-     * <p>Return the context attribute key for the destination attribute.</p>
-     * @return The destination attribute key.
-     */
-    public K getToKey() {
-        return this.toKey;
-    }
-
-    /**
-     * <p>Set the context attribute key for the destination attribute.</p>
-     *
-     * @param toKey The new key
-     */
-    public void setToKey(K toKey) {
-        this.toKey = toKey;
-    }
+    private String fromKey = null;
+    private String toKey = null;
 
     // ---------------------------------------------------------- Filter Methods
 
@@ -85,15 +51,46 @@ public class CopyCommand<K extends String, V extends Object, C extends Map<K, V>
      */
     @Override
     public Processing onExecute(C context) throws Exception {
-        if (containsKeys(context)) {
-            V value = context.get(getFromKey());
-            context.put(getToKey(), value);
-        }
-        return Processing.CONTINUE;
+    	if(getFromKey() != null && getToKey() != null) {
+	    	Object fromValue = getProperty(context, getFromKey());
+	        if (fromValue != null) {
+	        	setProperty(context, getToKey(), fromValue);
+	        }
+    	}
+        return Processing.FINISHED;
+    }
+    
+    /**
+     * <p>Return the context attribute key for the destination attribute.</p>
+     * @return The destination attribute key.
+     */
+    public String getToKey() {
+        return this.toKey;
     }
 
-    private boolean containsKeys(C context) {
-        return context.containsKey(getFromKey()) && context.containsKey(getToKey());
+    /**
+     * <p>Set the context attribute key for the destination attribute.</p>
+     *
+     * @param toKey The new key
+     */
+    public void setToKey(String toKey) {
+        this.toKey = toKey;
+    }
+    
+    /**
+     * <p>Return the context attribute key for the source attribute.</p>
+     * @return The source attribute key.
+     */
+    public String getFromKey() {
+        return this.fromKey;
     }
 
+    /**
+     * <p>Set the context attribute key for the source attribute.</p>
+     *
+     * @param fromKey The new key
+     */
+    public void setFromKey(String fromKey) {
+        this.fromKey = fromKey;
+    }
 }

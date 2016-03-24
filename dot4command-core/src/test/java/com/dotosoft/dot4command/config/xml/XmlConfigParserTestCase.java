@@ -174,7 +174,7 @@ public class XmlConfigParserTestCase {
     @Test
     public void testExecute2b() throws Exception {
 
-        assertEquals(Processing.CONTINUE, catalog.getCommand("Execute2b").execute(context));
+        assertEquals(Processing.FINISHED, catalog.getCommand("Execute2b").execute(context));
         assertThat(context, hasLog("1/2/3"));
 
     }
@@ -224,7 +224,7 @@ public class XmlConfigParserTestCase {
     @Test
     public void testExecute4b() throws Exception {
 
-        assertEquals(Processing.CONTINUE, catalog.getCommand("Execute4b").execute(context));
+        assertEquals(Processing.FINISHED, catalog.getCommand("Execute4b").execute(context));
         assertThat(context, hasLog("1/2/3/b"));
 
     }

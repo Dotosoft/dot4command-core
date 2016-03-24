@@ -144,7 +144,7 @@ public class ChainBaseTestCase {
     public void testExecute1b() {
         chain.addCommand(new DelegatingCommand("1"));
         try {
-            assertEquals(Processing.CONTINUE, chain.execute(context));
+            assertEquals(Processing.FINISHED, chain.execute(context));
         } catch (Exception e) {
             fail("Threw exception: " + e);
         }
@@ -204,7 +204,7 @@ public class ChainBaseTestCase {
         chain.addCommand(new DelegatingCommand("2"));
         chain.addCommand(new DelegatingCommand("3"));
         try {
-            assertEquals(Processing.CONTINUE, chain.execute(context));
+            assertEquals(Processing.FINISHED, chain.execute(context));
         } catch (Exception e) {
             fail("Threw exception: " + e);
         }
@@ -264,7 +264,7 @@ public class ChainBaseTestCase {
     public void testExecute3b() {
         chain.addCommand(new DelegatingFilter("1", "a"));
         try {
-            assertEquals(Processing.CONTINUE, chain.execute(context));
+            assertEquals(Processing.FINISHED, chain.execute(context));
         } catch (Exception e) {
             fail("Threw exception: " + e);
         }
@@ -309,7 +309,7 @@ public class ChainBaseTestCase {
         chain.addCommand(new DelegatingFilter("2", "b"));
         chain.addCommand(new DelegatingCommand("3"));
         try {
-            assertEquals(Processing.CONTINUE, chain.execute(context));
+            assertEquals(Processing.FINISHED, chain.execute(context));
         } catch (Exception e) {
             fail("Threw exception: " + e);
         }

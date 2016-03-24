@@ -43,7 +43,7 @@ public abstract class CommandBase<K extends String, V extends Object, C extends 
 	public final Processing execute(C context) {
 		// log(">> START");
 		onStart(context);
-		Processing result = Processing.CONTINUE;
+		Processing result = Processing.FINISHED;
 		try {
 			// log(">> EXECUTE");
 			result = onExecute(context);

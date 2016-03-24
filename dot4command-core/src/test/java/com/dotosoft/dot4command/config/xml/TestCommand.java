@@ -52,7 +52,7 @@ public class TestCommand extends BaseObject implements
 	}
 
 	public Processing execute(Context<String, Object> context) {
-		return Processing.CONTINUE;
+		return Processing.FINISHED;
 	}
 
 }

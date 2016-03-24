@@ -18,7 +18,6 @@ package com.dotosoft.dot4command.commands;
 
 import java.util.Map;
 
-import com.dotosoft.dot4command.base.LookupCommand;
 import com.dotosoft.dot4command.chain.Command;
 import com.dotosoft.dot4command.chain.Processing;
 

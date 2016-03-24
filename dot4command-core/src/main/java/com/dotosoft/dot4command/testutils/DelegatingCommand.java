@@ -54,7 +54,7 @@ public class DelegatingCommand extends NonDelegatingCommand {
     public Processing onExecute(Context<String, Object> context) {
 
         super.onExecute(context);
-        return Processing.CONTINUE;
+        return Processing.FINISHED;
 
     }
 

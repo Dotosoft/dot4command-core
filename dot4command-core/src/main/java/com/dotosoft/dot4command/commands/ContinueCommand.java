@@ -16,8 +16,6 @@
 
 package com.dotosoft.dot4command.commands;
 
-import static com.dotosoft.dot4command.chain.Processing.CONTINUE;
-
 import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
@@ -27,7 +25,7 @@ public class ContinueCommand<K extends String, V extends Object, C extends Map<K
 
 	@Override
 	public Processing onExecute(C context) {
-		return CONTINUE;
+		return Processing.FINISHED;
 	}
 
 }

@@ -14,13 +14,15 @@
 	limitations under the License.
  */
 
-package com.dotosoft.dot4command.base;
+package com.dotosoft.dot4command.commands;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.dotosoft.dot4command.base.CommandBase;
+import com.dotosoft.dot4command.base.DispatchException;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
 
@@ -132,7 +134,7 @@ public abstract class DispatchCommand<K extends String, V extends Object, C exte
             Processing result = (Processing) obj;
             return result;
         } else {
-            return Processing.CONTINUE;
+            return Processing.FINISHED;
         }
     }
 

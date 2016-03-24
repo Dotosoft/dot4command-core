@@ -22,6 +22,15 @@ import java.util.Map;
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
 
+/**
+ * <p>Set any context property stored under the <code>toKey</code> with <code>value</code>.</p>
+ *
+ * @param <K> the type of keys maintained by the context associated with this catalog
+ * @param <V> the type of mapped values
+ * @param <C> Type of the context associated with this command
+ *
+ * @version $Id$
+ */
 public class SetPropertyCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
 	/** Primitive type name -> class map. */
@@ -56,26 +65,53 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 		return Processing.FINISHED;
 	}
 
+	/**
+     * <p>Set the type that should override context attribute with key <code>type</code>.</p>
+     *
+     * @param value The new value
+     */
 	public void setType(String type) {
 		this.type = type;
 	}
 	
+	/**
+     * <p>Return the type that should override context attribute with key <code>type</code>.</p>
+     * @return The value.
+     */
 	public String getType() {
 		return type;
 	}
 
+	/**
+     * <p>Set the value that should override context attribute with key <code>key</code>.</p>
+     *
+     * @param value The new value
+     */
 	public void setValue(String value) {
 		this.value = value;
 	}
 	
+	/**
+     * <p>Return the value that should override context attribute with key <code>key</code>.</p>
+     * @return The value.
+     */
 	public String getValue() {
 		return value;
 	}
 
+	/**
+     * <p>Set the context attribute key for the attribute to override.</p>
+     *
+     * @param key The new key
+     */
 	public void setToKey(String toKey) {
 		this.toKey = toKey;
 	}
 
+	/**
+     * <p>Return the context attribute key for the attribute to override.</p>
+     * @return The context attribute key.
+     */
 	public String getToKey() {
 		return toKey;
 	}

@@ -30,8 +30,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dotosoft.dot4command.base.CopyCommand;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.commands.CopyCommand;
 
 /**
  * @version $Id$
@@ -97,7 +97,7 @@ public class CopyCommandTestCase {
 
     private void execute() {
         // make sure execute always returns continue
-        assertEquals(Processing.CONTINUE, command.execute(context));
+        assertEquals(Processing.FINISHED, command.execute(context));
     }
 
 }

@@ -25,12 +25,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dotosoft.dot4command.base.LookupCommand;
 import com.dotosoft.dot4command.chain.Catalog;
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Chain;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.commands.LookupCommand;
 import com.dotosoft.dot4command.impl.CatalogBase;
 import com.dotosoft.dot4command.impl.CatalogFactoryBase;
 import com.dotosoft.dot4command.impl.ChainBase;
@@ -190,7 +190,7 @@ public class LookupCommandTestCase {
 
         try {
             assertEquals("Command should return continue",
-                Processing.CONTINUE, command.execute(context));
+                Processing.FINISHED, command.execute(context));
         } catch (Exception e) {
             fail("Threw exception: " + e);
         }

@@ -23,8 +23,8 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dotosoft.dot4command.base.RemoveCommand;
 import com.dotosoft.dot4command.chain.Context;
+import com.dotosoft.dot4command.commands.RemoveCommand;
 import com.dotosoft.dot4command.impl.TestContext;
 
 /**

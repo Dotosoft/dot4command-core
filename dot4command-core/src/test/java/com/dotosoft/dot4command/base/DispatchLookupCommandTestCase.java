@@ -25,11 +25,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dotosoft.dot4command.base.DispatchLookupCommand;
 import com.dotosoft.dot4command.chain.Catalog;
 import com.dotosoft.dot4command.chain.CatalogFactory;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.commands.DispatchLookupCommand;
 import com.dotosoft.dot4command.impl.CatalogBase;
 import com.dotosoft.dot4command.impl.CatalogFactoryBase;
 import com.dotosoft.dot4command.impl.ContextBase;

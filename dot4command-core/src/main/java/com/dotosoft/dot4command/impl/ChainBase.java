@@ -175,7 +175,7 @@ public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> 
 
         // Execute the commands in this list until one returns something else 
         // than Processing.CONTINUE or throws an exception
-        Processing saveResult = Processing.CONTINUE;
+        Processing saveResult = Processing.FINISHED;
         Exception saveException = null;
         int i = 0;
         int n = commands.size();
