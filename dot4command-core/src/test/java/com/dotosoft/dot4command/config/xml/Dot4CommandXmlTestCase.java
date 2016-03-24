@@ -19,8 +19,11 @@ package com.dotosoft.dot4command.config.xml;
 import static org.junit.Assert.assertNotNull;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -87,6 +90,16 @@ public class Dot4CommandXmlTestCase {
     // Load the default test-config.xml file and examine the results
     @Test
     public void testDefault() throws Exception {
+    	
+//    	Map test = new HashMap();
+//    	test.put("data1", "data1 value");
+//    	test.put("data2", "data2 value");
+    	
+    	List dataList = new ArrayList();
+    	dataList.add("test1");
+    	dataList.add("test2");
+    	
+    	context.put("dataList", dataList);
     	
     	assertNotNull(catalog.getCommand("testPrint").execute(context));
     }

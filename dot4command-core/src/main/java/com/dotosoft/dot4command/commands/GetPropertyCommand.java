@@ -16,6 +16,7 @@
 
 package com.dotosoft.dot4command.commands;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,11 +52,22 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
     	// Check if data has argument or not
     	if(matcher.find()) {
     		String key = fromKey.substring(0, fromKey.indexOf("["));
-    		String argumentKey = matcher.group(1);
-    		
-    		Object valueTmp = getProperty(context, fromKey);
+    		String argumentKey = matcher.group(0);
+    		Object valueTmp = getProperty(context, key);
     		if(valueTmp != null) {
-    			value = (V) getProperty(valueTmp, argumentKey);
+    			if(valueTmp instanceof Collection) {
+    				Collection collection = (Collection) valueTmp;
+    				Object parameterKey = getProperty(context, argumentKey);
+    				Integer index;
+    				if(parameterKey instanceof Integer) {
+    					index = (Integer) parameterKey;
+    				} else {
+    					index = Integer.parseInt(String.valueOf(argumentKey));
+    				}
+    				value = (V) collection.toArray()[index];
+    			} else {
+    				value = (V) getProperty(valueTmp, argumentKey);
+    			}
     		}
     	} else {
     		value = (V) getProperty(context, fromKey);
