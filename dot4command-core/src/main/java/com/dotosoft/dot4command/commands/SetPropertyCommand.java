@@ -38,7 +38,7 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 	
 	private String type;
 	private String value;
-	private String toKey;
+	private String key;
 
 	/** Setup the primitives map. */
 	static {
@@ -57,9 +57,9 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 		if(PRIMITIVE_NAME_TYPE_MAP.containsKey(type.toLowerCase())) {
 			Class clazz = (Class) PRIMITIVE_NAME_TYPE_MAP.get(type.toLowerCase());
 			Object returnValue = clazz.getConstructor(String.class).newInstance(value);
-			context.put((K) toKey, (V) returnValue);
+			context.put((K) key, (V) returnValue);
 		} else {
-			context.put((K) toKey, (V) value);
+			context.put((K) key, (V) value);
 		}
 		
 		return Processing.FINISHED;
@@ -104,15 +104,15 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
      *
      * @param key The new key
      */
-	public void setToKey(String toKey) {
-		this.toKey = toKey;
+	public void setKey(String toKey) {
+		this.key = toKey;
 	}
 
 	/**
      * <p>Return the context attribute key for the attribute to override.</p>
      * @return The context attribute key.
      */
-	public String getToKey() {
-		return toKey;
+	public String getKey() {
+		return key;
 	}
 }

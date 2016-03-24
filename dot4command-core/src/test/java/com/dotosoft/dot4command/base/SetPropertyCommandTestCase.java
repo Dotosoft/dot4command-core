@@ -26,20 +26,20 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.dotosoft.dot4command.base.OverrideCommand;
+import com.dotosoft.dot4command.commands.SetPropertyCommand;
 
 /**
  * @version $Id$
  */
-public class OverrideCommandTestCase {
+public class SetPropertyCommandTestCase {
 
 
-    private OverrideCommand<String, Object, Map<String, Object>> command;
+    private SetPropertyCommand<String, Object, Map<String, Object>> command;
     private Map<String, Object> context;
 
     @Before
     public void setUp() throws Exception {
-        command = new OverrideCommand<String, Object, Map<String, Object>>();
+        command = new SetPropertyCommand<String, Object, Map<String, Object>>();
 
         context = new HashMap<String, Object>();
         context.put("Key", "Value");
