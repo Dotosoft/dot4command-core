@@ -17,6 +17,8 @@
 package com.dotosoft.dot4command.commands;
 
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
@@ -24,8 +26,11 @@ import com.dotosoft.dot4command.chain.Processing;
 
 public class GetPropertyCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
 
+	private final Pattern patternArgument = Pattern.compile("(?<=\\[).+?(?=\\])");
+	
     // -------------------------------------------------------------- Properties
-    private String fromKey = null;
+    
+	private String fromKey = null;
     private String toKey = null;
 
     // ---------------------------------------------------------- Filter Methods
@@ -40,7 +45,21 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
      */
     public Processing onExecute(C context) throws Exception {
 
-        V value = (V) getProperty(context, fromKey);
+    	Matcher matcher = patternArgument.matcher(fromKey);
+    	V value = null;
+    	
+    	// Check if data has argument or not
+    	if(matcher.find()) {
+    		String key = fromKey.substring(0, fromKey.indexOf("["));
+    		String argumentKey = matcher.group(1);
+    		
+    		Object valueTmp = getProperty(context, fromKey);
+    		if(valueTmp != null) {
+    			value = (V) getProperty(valueTmp, argumentKey);
+    		}
+    	} else {
+    		value = (V) getProperty(context, fromKey);
+    	}
 
         if (value != null) {
             context.put((K) toKey, value);
