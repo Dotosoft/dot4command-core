@@ -19,7 +19,6 @@ package com.dotosoft.dot4command.base;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.collection.IsMapContaining.hasEntry;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 import java.util.Collections;
@@ -31,20 +30,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.commands.CopyCommand;
+import com.dotosoft.dot4command.commands.GetPropertyCommand;
 
 /**
  * @version $Id$
  */
-public class CopyCommandTestCase {
+public class GetPropertyCommandTestCase {
 
-    private CopyCommand<String, Object, Map<String, Object>> command;
+    private GetPropertyCommand<String, Object, Map<String, Object>> command;
     private Map<String, Object> context;
     private Map<String, Object> originalContext;
 
     @Before
     public void setUp() throws Exception {
-        command = new CopyCommand<String, Object, Map<String, Object>>();
+        command = new GetPropertyCommand<String, Object, Map<String, Object>>();
 
         context = new HashMap<String, Object>();
         context.put("one", "one");
