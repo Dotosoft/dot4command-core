@@ -62,7 +62,7 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
     				if(parameterKey instanceof Integer) {
     					index = (Integer) parameterKey;
     				} else {
-    					index = Integer.parseInt(String.valueOf(argumentKey));
+    					index = Integer.parseInt(String.valueOf(parameterKey));
     				}
     				value = (V) collection.toArray()[index];
     			} else {

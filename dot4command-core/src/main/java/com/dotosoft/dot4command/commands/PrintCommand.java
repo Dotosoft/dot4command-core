@@ -44,7 +44,7 @@ public class PrintCommand<K extends String, V extends Object, C extends Map<K, V
 			String[] splitKeys = key.split(",");
 			for(String splitKey : splitKeys) {
 				Object param = getProperty(context, splitKey);
-				paramMessages.add(param);
+				paramMessages.add(String.valueOf(param));
 			}
 		}
 		
