@@ -66,7 +66,8 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
     				}
     				value = (V) collection.toArray()[index];
     			} else {
-    				value = (V) getProperty(valueTmp, argumentKey);
+    				String parameterKey = (String) getProperty(context, argumentKey);
+    				value = (V) getProperty(valueTmp, parameterKey);
     			}
     		}
     	} else {
