@@ -179,15 +179,16 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 		return null;
 	}
 	
-	protected Class[] getSignatureObject(C context) {
+	protected Object[] getSignatureObject(C context) {
 
 		if (StringUtils.hasValue(getArgumentsKey())) {
 			String[] keys = getArgumentsKey().split(",");
-			Class[] clazz = new Class[keys.length];
+			Object[] objects = new Object[keys.length];
 			for (int i = 0; i < keys.length; i++) {
-				clazz[i] = Object.class;
+				Object param = getProperty(context, keys[i]);
+				objects[i] = param;
 			}
-			return clazz;
+			return objects;
 		}
 
 		return null;
