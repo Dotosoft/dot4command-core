@@ -16,6 +16,8 @@
 
 package com.dotosoft.dot4command.commands;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +41,9 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 	private String type;
 	private String value;
 	private String key;
+	
+	private String valueKey;
+	private String valueKeyMap;
 
 	/** Setup the primitives map. */
 	static {
@@ -50,15 +55,58 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 		PRIMITIVE_NAME_TYPE_MAP.put("long", Long.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("float", Float.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("double", Double.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("object", Object.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("collection", Collection.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("map", Map.class);
 	}
 
 	@Override
 	public Processing onExecute(C context) throws Exception {
 		if(PRIMITIVE_NAME_TYPE_MAP.containsKey(type.toLowerCase())) {
 			Class clazz = (Class) PRIMITIVE_NAME_TYPE_MAP.get(type.toLowerCase());
-			Object returnValue = clazz.getConstructor(String.class).newInstance(value);
-			context.put((K) key, (V) returnValue);
-		} else {
+			
+			Object returnValue = null;
+			if(clazz == Map.class) {
+				String[] valueSplit = getValue().split(",");
+				valueKey = valueSplit[1];
+				valueKeyMap = String.valueOf(getProperty(context, valueSplit[0]));
+			} else {
+				valueKey = value;
+			}
+			
+			if(clazz == Object.class || clazz == Collection.class || clazz == Map.class) {
+				
+				returnValue = getProperty(context, valueKey);
+			}
+			else {
+				returnValue = clazz.getConstructor(String.class).newInstance(value);
+			}
+			
+			if(clazz == Collection.class) {
+				Collection valueTmp;
+				if(context.containsKey(key)) {
+					valueTmp = (Collection) getProperty(context, key);
+				} else {
+					valueTmp = new ArrayList();
+				}
+				valueTmp.add(returnValue);
+				context.put((K) key, (V) valueTmp);
+			} 
+			else if(clazz == Map.class) {
+				Map valueTmp;
+				if(context.containsKey(key)) {
+					valueTmp = (Map) getProperty(context, key);
+				} else {
+					valueTmp = new HashMap();
+				}
+				valueTmp.put(valueKeyMap, returnValue);
+				context.put((K) key, (V) valueTmp);
+			}
+			else {
+				context.put((K) key, (V) returnValue);
+			}
+		}
+		else {
 			context.put((K) key, (V) value);
 		}
 		
