@@ -16,6 +16,7 @@
 
 package com.dotosoft.dot4command.commands;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
 
@@ -35,8 +36,14 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 	public Processing execute(C context) {
 		
 		if(StringUtils.hasValue(checkCollectionKey)) {
-			Collection collection = (Collection) getProperty(context, checkCollectionKey);
-			loopTime = collection.size();
+			Object collection = (Object) getProperty(context, checkCollectionKey);
+			if(collection != null) {
+				if(collection.getClass().isArray()) { 
+					loopTime = Array.getLength(collection);
+				} else if(collection instanceof Collection) {
+					loopTime = ((Collection) collection).size();
+				}
+			}
 		}
 		
 		Processing result = Processing.FINISHED;

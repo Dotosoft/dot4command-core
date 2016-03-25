@@ -16,6 +16,7 @@
 
 package com.dotosoft.dot4command.commands;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -55,9 +56,13 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
     		String argumentKey = matcher.group(0);
     		Object valueTmp = getProperty(context, key);
     		if(valueTmp != null) {
-    			if(valueTmp instanceof Collection) {
+    			Object parameterKey = getProperty(context, argumentKey);
+    			if(valueTmp.getClass().isArray()) {
+    				int indexKey = Integer.parseInt(String.valueOf(parameterKey));
+    				value = (V) Array.get(valueTmp, indexKey);
+    			}
+    			else if(valueTmp instanceof Collection) {
     				Collection collection = (Collection) valueTmp;
-    				Object parameterKey = getProperty(context, argumentKey);
     				Integer index;
     				if(parameterKey instanceof Integer) {
     					index = (Integer) parameterKey;
@@ -66,8 +71,7 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
     				}
     				value = (V) collection.toArray()[index];
     			} else {
-    				String parameterKey = (String) getProperty(context, argumentKey);
-    				value = (V) getProperty(valueTmp, parameterKey);
+    				value = (V) getProperty(valueTmp, String.valueOf(parameterKey));
     			}
     		}
     	} else {
