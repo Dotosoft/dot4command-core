@@ -23,12 +23,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.SerializationUtils;
 import org.apache.commons.lang.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
+
+import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class BaseObject implements Cloneable, Serializable {
 	
@@ -119,33 +120,16 @@ public class BaseObject implements Cloneable, Serializable {
 		}
 	}
 	
-	public final void setPropertyValue(Object data, String name, Object value) {
-		try {
-			PropertyUtils.setProperty(data, name, value);
-		}catch (Exception ex) {}
+	protected final void setProperty(Object data, String name, Object value) {
+		BeanUtils.setPropertyValue(data, name, value);
 	}
 
-	public final Object getProperty(Object data, String expression) {
-		return getProperty(data, expression, null);
+	protected final <T extends Object> T getProperty(Object data, String expression) {
+		return BeanUtils.getProperty(data, expression, null);
 	}
 	
-	public final void setProperty(Object data, String expression, Object value) {
-		try {
-			PropertyUtils.setProperty(data, expression, value);
-		} catch (Exception e) {}
-	}
-
-	public final Object getProperty(Object data, String expression,
-			Object defaultValue) {
-		try {
-			Object returnValue = PropertyUtils.getProperty(data, expression);
-			if (returnValue != null) {
-				return returnValue;
-			}
-		} catch (Exception ex) {
-		}
-
-		return defaultValue;
+	protected final <T extends Object> T getProperty(Object data, String expression, T defaultValue) {
+		return BeanUtils.getProperty(data, expression, defaultValue);
 	}
 
 	@Override

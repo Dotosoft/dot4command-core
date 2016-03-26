@@ -20,46 +20,18 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.utils.ExpressionTools;
 
 public class ArithmeticCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
-
-	private static final String regexStr = "(?=[-/*+])|(?<=[-/*+])";
 	
 	private String evaluate;
 	private String toKey;
 
 	@Override
 	public Processing onExecute(C context) {
-		evaluate = evaluate.replaceAll("\\s+", "");
-		String[] parts = evaluate.split(regexStr);
-		V result = calculate(parts);
-		context.put((K) toKey, result);
-		
+		Double result = ExpressionTools.calculate(context, evaluate);
+		context.put((K) toKey, (V) result);
 		return Processing.FINISHED;
-	}
-	
-	private V calculate(String[] parts) {
-		Double result = Double.parseDouble(parts[0]);
-
-		for (int i = 1; i < parts.length; i += 2) {
-		    String op = parts[i];
-		    double val = Double.parseDouble(parts[i+1]);
-		    switch (op) {
-		        case "*" :
-		            result *= val;
-		            break;
-		        case "/" :
-		            result /= val;
-		            break;
-		        case "+" :
-		            result += val;
-		            break;
-		        case "-" :
-		            result -= val;
-		            break;
-		    }
-		}
-		return (V) result;
 	}
 
 	

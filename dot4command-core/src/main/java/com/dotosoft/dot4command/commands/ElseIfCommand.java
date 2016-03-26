@@ -16,13 +16,10 @@
 
 package com.dotosoft.dot4command.commands;
 
-import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.text.StrSubstitutor;
-
-import com.dotosoft.dot4command.chain.Command;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.utils.ExpressionTools;
 
 public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, V>> extends IfCommand<K, V, C> {
 
@@ -31,11 +28,9 @@ public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, 
 
 		Processing result = Processing.FINISHED;
 		if (!IfCommand.getIfCommandKey()) {
-			evaluate = evaluate.replaceAll("\\s+", "");
-			String[] parts = evaluate.split(regexStr);
 			boolean isValid = false;
 			try {
-				isValid = evaluate(context, parts);
+				isValid = ExpressionTools.evaluate(context, evaluate);
 			} catch (Exception ex) { 
 				isValid = false;
 			}

@@ -16,13 +16,13 @@
 
 package com.dotosoft.dot4command.commands;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.utils.ExpressionTools;
 import com.dotosoft.dot4command.utils.ReflectionsUtil;
 import com.dotosoft.dot4command.utils.StringUtils;
 
@@ -68,11 +68,12 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 		if(methodObject != null) {
 			try {
 				V returnValue = null;
+				Object[] argumentsObject = ExpressionTools.getArgumentsObject(context, argumentsKey);
 				if (staticFlag) {
-					returnValue = (V) methodObject.invoke(null, getArguments(context));
+					returnValue = (V) methodObject.invoke(null, argumentsObject);
 				} else {
 					Object objectValue = getProperty(context, methodKey);
-					returnValue = (V) methodObject.invoke(objectValue, getArguments(context));
+					returnValue = (V) methodObject.invoke(objectValue, argumentsObject);
 				}
 				
 				if(StringUtils.hasValue(toKey)) {
@@ -113,10 +114,10 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 		Class objectClass = getClassObject(context);
 		if(objectClass != null) {
 			try {			
-				theMethod = ReflectionsUtil.method(objectClass, getMethod(), getSignature(context));
+				theMethod = ReflectionsUtil.method(objectClass, getMethod(), ExpressionTools.getSignature(context, getArgumentsKey()));
 			} catch (Exception ex) {
 				try {
-					theMethod = ReflectionsUtil.method(objectClass, getMethod(), getSignatureObject(context));
+					theMethod = ReflectionsUtil.method(objectClass, getMethod(), ExpressionTools.getArgumentsObject(context, getArgumentsKey()));
 				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
@@ -152,73 +153,6 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 		Boolean result = (Boolean) o;
 		return (result != null && result.booleanValue());
 
-	}
-
-	/**
-	 * Return a <code>Class[]</code> describing the expected signature of the
-	 * method.
-	 * 
-	 * @return The method signature.
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 */
-	protected Class[] getSignature(C context) throws Exception {
-
-		if (StringUtils.hasValue(getArgumentsKey())) {
-			String[] keys = getArgumentsKey().split(",");
-			Class[] clazz = new Class[keys.length];
-			for (int i = 0; i < keys.length; i++) {
-				String key = keys[i];
-				Object param = getProperty(context, key);
-				clazz[i] = param.getClass();
-			}
-			return clazz;
-		}
-
-		return null;
-	}
-	
-	protected Object[] getSignatureObject(C context) {
-
-		if (StringUtils.hasValue(getArgumentsKey())) {
-			String[] keys = getArgumentsKey().split(",");
-			Object[] objects = new Object[keys.length];
-			for (int i = 0; i < keys.length; i++) {
-				Object param = getProperty(context, keys[i]);
-				objects[i] = param;
-			}
-			return objects;
-		}
-
-		return null;
-	}
-
-	/**
-	 * Get the arguments to be passed into the dispatch method. Default
-	 * implementation simply returns the context which was passed in, but
-	 * subclasses could use this to wrap the context in some other type, or
-	 * extract key values from the context to pass in. The length and types of
-	 * values returned by this must coordinate with the return value of
-	 * <code>getSignature()</code>
-	 * 
-	 * @param context
-	 *            The Context being processed by this Command.
-	 * @return The method arguments.
-	 */
-	protected Object[] getArguments(C context) throws Exception {
-		if (StringUtils.hasValue(getArgumentsKey())) {
-			String[] keys = getArgumentsKey().split(",");
-			Object[] objects = new Object[keys.length];
-			for (int i = 0; i < keys.length; i++) {
-				String key = keys[i];
-				Object param = getProperty(context, key);
-				objects[i] = param;
-			}
-			return objects;
-		}
-
-		return null;
 	}
 
 	/**
