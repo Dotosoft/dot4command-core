@@ -4,18 +4,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.dotosoft.dot4command.base.Dot4commandConstant;
-
 public class ExpressionTools {
+	
+	public static final String EVALUATE_REGEX_STRING = "(?=[-/*+][!=&|][=&|])|(?<=[-/*+][!=&|][=&|])";
+	public static final String EXPRESSION_REGEX_STRING = "([\"'])((?:(?=(\\\\?))\\3.)*?)\\1";
 	
 	private static Pattern pattern;
 	
 	static {
-		pattern  = Pattern.compile(Dot4commandConstant.EVALUATE_REGEX_STRING);
+		pattern  = Pattern.compile(ExpressionTools.EVALUATE_REGEX_STRING);
 	}
 	
 	public static final <T extends Boolean> T evaluate(Object context, String evaluate) throws Exception {
-		String[] parts = extractEvaluationExpression(evaluate, Dot4commandConstant.EVALUATE_REGEX_STRING);
+		String[] parts = extractEvaluationExpression(evaluate, ExpressionTools.EVALUATE_REGEX_STRING);
 		
 		Boolean result = false;
 		Object obj1 = extractValue(context, parts[0]);
@@ -42,7 +43,7 @@ public class ExpressionTools {
 	}
 	
 	public static final <T extends Double> T calculate(Object context, String evaluate) {
-		String[] parts = extractEvaluationExpression(evaluate, Dot4commandConstant.EVALUATE_REGEX_STRING);
+		String[] parts = extractEvaluationExpression(evaluate, ExpressionTools.EVALUATE_REGEX_STRING);
 		
 		Double result = Double.parseDouble(parts[0]);
 		for (int i = 1; i < parts.length; i += 2) {
