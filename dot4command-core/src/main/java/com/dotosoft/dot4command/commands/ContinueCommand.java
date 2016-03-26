@@ -25,7 +25,7 @@ public class ContinueCommand<K extends String, V extends Object, C extends Map<K
 
 	@Override
 	public Processing onExecute(C context) {
-		return Processing.FINISHED;
+		return Processing.CONTINUE;
 	}
 
 }
