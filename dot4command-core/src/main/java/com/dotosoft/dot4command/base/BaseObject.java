@@ -21,10 +21,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.SerializationUtils;
-import org.apache.commons.lang.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
@@ -64,32 +62,13 @@ public class BaseObject implements Cloneable, Serializable {
 	public void setParent(Object parent) {
 		this.parent = parent;
 	}
+	
+	public final void modify(ModifierHandler handler, Object...params) {
+		handler.modifier(params);
+	}
 
 	public void setShowLog(Boolean showLog) {
 		this.showLog = showLog;
-	}
-	
-	public void modifyAttributes(Map valuesMap) {
-		StrSubstitutor sub = new StrSubstitutor(valuesMap);
-		List<Field> allFields = listAllFields();
-	    for (Field field : allFields) {
-	    	try {
-		    	Object value = getProperty(this, field.getName());
-		    	if(value instanceof String) {
-		    		setProperty(this, field.getName(), sub.replace(value));
-		    	}
-	    	} catch (Exception ex) {}
-	    }
-	}
-	
-	private List<Field> listAllFields() {
-		List<Field> fieldList = new ArrayList<Field>();
-	    Class tmpClass = getClass();
-	    while (tmpClass != null) {
-	        fieldList.addAll(Arrays.asList(tmpClass .getDeclaredFields()));
-	        tmpClass = tmpClass .getSuperclass();
-	    }
-	    return fieldList;
 	}
 	
 	public final void print(String message) {

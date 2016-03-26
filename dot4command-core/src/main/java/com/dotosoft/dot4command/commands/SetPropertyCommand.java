@@ -23,6 +23,7 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.utils.ExpressionTools;
 
 /**
  * <p>Set any context property stored under the <code>toKey</code> with <code>value</code>.</p>
@@ -34,9 +35,6 @@ import com.dotosoft.dot4command.chain.Processing;
  * @version $Id$
  */
 public class SetPropertyCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
-
-	/** Primitive type name -> class map. */
-	private static final Map<String, Class> PRIMITIVE_NAME_TYPE_MAP = new HashMap<String, Class>();
 	
 	private String type;
 	private String value;
@@ -45,37 +43,21 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 	private String valueKey;
 	private String valueKeyMap;
 
-	/** Setup the primitives map. */
-	static {
-		PRIMITIVE_NAME_TYPE_MAP.put("boolean", Boolean.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("byte", Byte.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("char", Character.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("short", Short.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("int", Integer.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("long", Long.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("float", Float.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("double", Double.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("object", Object.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("collection", Collection.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("map", Map.class);
-	}
-
 	@Override
 	public Processing onExecute(C context) throws Exception {
-		if(PRIMITIVE_NAME_TYPE_MAP.containsKey(type.toLowerCase())) {
-			Class clazz = (Class) PRIMITIVE_NAME_TYPE_MAP.get(type.toLowerCase());
-			
+		Class clazz = ExpressionTools.getClass(getType());
+		if(clazz != null) {
 			Object returnValue = null;
 			if(clazz == Map.class) {
 				String[] valueSplit = getValue().split(",");
 				valueKey = valueSplit[1];
 				valueKeyMap = String.valueOf(getProperty(context, valueSplit[0]));
-			} else {
+			}
+			else {
 				valueKey = value;
 			}
 			
 			if(clazz == Object.class || clazz == Collection.class || clazz == Map.class) {
-				
 				returnValue = getProperty(context, valueKey);
 			}
 			else {

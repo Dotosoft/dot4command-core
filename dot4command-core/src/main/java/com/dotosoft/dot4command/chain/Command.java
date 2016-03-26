@@ -18,6 +18,8 @@ package com.dotosoft.dot4command.chain;
 
 import java.util.Map;
 
+import com.dotosoft.dot4command.base.ModifierHandler;
+
 /**
  * <p>A {@link Command} encapsulates a unit of processing work to be
  * performed, whose purpose is to examine and/or modify the state of a
@@ -104,6 +106,6 @@ public interface Command<K extends String, V extends Object, C extends Map<K, V>
      */
     Processing execute(C context);
     void setParent(Object parent);
-    void modifyAttributes(Map valuesMap);
+    void modify(ModifierHandler handler, Object...params);
     Object clone();
 }

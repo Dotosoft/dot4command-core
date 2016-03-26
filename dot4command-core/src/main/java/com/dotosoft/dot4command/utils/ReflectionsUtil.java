@@ -26,6 +26,9 @@ import java.util.Map;
 public class ReflectionsUtil {
 	private static Map<String, Method> methods = new HashMap<>();
     private static Map<String, Constructor> constructors = new HashMap<>();
+    
+    /** Primitive type name -> class map. */
+	private static final Map<String, Class> PRIMITIVE_NAME_TYPE_MAP = new HashMap<String, Class>();
 
     /**
      * Returns the {@code Method}  present on the class provided by clazz, with the name given on the name
@@ -66,7 +69,9 @@ public class ReflectionsUtil {
         final String fullName = clazz.getCanonicalName() + "." + name + "(" + join("+", paramClassNames) + ")";
         if (!methods.containsKey(fullName)) {
             Method method = getSpecificMethodByFilter(clazz, name, params);
-            methods.put(fullName, method);
+            if(method != null) {
+            	methods.put(fullName, method);
+            }
         }
         return methods.get(fullName);
     }
@@ -75,9 +80,9 @@ public class ReflectionsUtil {
     	Method[] methods = clazz.getDeclaredMethods();
     	Method findMethod = null;
     	for(Method method : methods) {
-    		
-    		if(!method.getName().equals(name)) continue;
-    		
+    		if(!method.getName().equals(name)) {
+    			continue;
+    		}
     		boolean isMatch = true;
     		Class[] parameterClass = method.getParameterTypes();
     		if(params.length == parameterClass.length) {

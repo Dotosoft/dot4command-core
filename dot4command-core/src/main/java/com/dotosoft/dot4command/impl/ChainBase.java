@@ -139,14 +139,16 @@ public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> 
         commands.add( command );
     }
     
-    public void modifyAttributes(Map valuesMap) {
-    	super.modifyAttributes(valuesMap);
-    	
-		List<Command<K, V, C>> listOfCommands = getCommands();
-		for(Command comm : listOfCommands) {
-			comm.modifyAttributes(valuesMap);
-		}
-	}
+//    public void modifyAttributes(Map valuesMap) {
+//    	super.modifyAttributes(valuesMap);
+//    	
+//		List<Command<K, V, C>> listOfCommands = getCommands();
+//		for(Command comm : listOfCommands) {
+//			comm.modifyAttributes(valuesMap);
+//		}
+//	}
+    
+    
 
     /**
      * See the {@link Chain} JavaDoc.
@@ -274,7 +276,7 @@ public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> 
      * {@link Chain}.  This method is package private, and is used only
      * for the unit tests.</p>
      */
-    protected List<Command<K, V, C>> getCommands() {
+    public List<Command<K, V, C>> getCommands() {
         return commands;
     }
 

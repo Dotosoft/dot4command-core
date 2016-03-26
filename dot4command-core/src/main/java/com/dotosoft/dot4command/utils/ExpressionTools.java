@@ -1,18 +1,58 @@
 package com.dotosoft.dot4command.utils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ExpressionTools {
 	
-	public static final String EVALUATE_REGEX_STRING = "(?=[-/*+][!=&|][=&|])|(?<=[-/*+][!=&|][=&|])";
+	public static final String EVALUATE_REGEX_STRING = "(?=[-/*+]|[!=&|][=&|])|(?<=[-/*+]|[!=&|][=&|])";
 	public static final String EXPRESSION_REGEX_STRING = "([\"'])((?:(?=(\\\\?))\\3.)*?)\\1";
 	
-	private static Pattern pattern;
+	/** Primitive type name -> class map. */
+	private static final Map<String, Class> PRIMITIVE_NAME_TYPE_MAP = new HashMap<String, Class>();
+	
+	private static Pattern evaluatePattern;
+	private static Pattern expressionPattern;
 	
 	static {
-		pattern  = Pattern.compile(ExpressionTools.EVALUATE_REGEX_STRING);
+		evaluatePattern  = Pattern.compile(ExpressionTools.EVALUATE_REGEX_STRING);
+		expressionPattern  = Pattern.compile(ExpressionTools.EXPRESSION_REGEX_STRING);
+		
+		/** Setup the primitives map. */
+		PRIMITIVE_NAME_TYPE_MAP.put("boolean", Boolean.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("boolean[]", Boolean[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("byte", Byte.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("byte[]", Byte[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("char", Character.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("char[]", Character[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("short", Short.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("short[]", Short[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("int", Integer.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("int[]", Integer[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("long", Long.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("long", Long[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("float", Float.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("float", Float[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("double", Double.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("double", Double[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("object", Object.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("object", Object[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("collection", Collection.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("collection", Collection[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("map", Map.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("map", Map[].class);
+	}
+	
+	public static final Class getClass(String type) {
+		Class clazz = null;
+		if(ExpressionTools.PRIMITIVE_NAME_TYPE_MAP.containsKey(type.toLowerCase())) {
+			clazz = (Class) ExpressionTools.PRIMITIVE_NAME_TYPE_MAP.get(type.toLowerCase()); 
+		}
+		return clazz;
 	}
 	
 	public static final <T extends Boolean> T evaluate(Object context, String evaluate) throws Exception {
@@ -75,7 +115,7 @@ public class ExpressionTools {
 	private static final Object extractValue(Object context, String evaluate) {
 		Object result = null;
 		
-		Matcher matcher = pattern.matcher(evaluate);
+		Matcher matcher = expressionPattern.matcher(evaluate);
 		if(matcher.find()) {
 			result = matcher.group(2);
 		} else if("null".equalsIgnoreCase(evaluate)) {
@@ -134,8 +174,7 @@ public class ExpressionTools {
 			String[] keys = argumentsKey.split(",");
 			Object[] objects = new Object[keys.length];
 			for (int i = 0; i < keys.length; i++) {
-				Object param = BeanUtils.getProperty(context, keys[i]);
-				objects[i] = param;
+				objects[i] = extractValue(context, keys[i]);
 			}
 			return objects;
 		}
