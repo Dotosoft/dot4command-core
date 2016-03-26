@@ -56,6 +56,7 @@ public class ReflectionsUtil {
     }
     
     public static Method method(Class clazz, String name, Object... params) throws NoSuchMethodException {
+    	System.out.println(clazz.getCanonicalName() + " -> " + name);
         List<String> paramClassNames = new ArrayList<>();
         if(params != null) {
 	        for (Object c : params) {

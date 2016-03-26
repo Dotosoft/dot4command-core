@@ -39,26 +39,14 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 	private String type;
 	private String value;
 	private String key;
-	
-	private String valueKey;
-	private String valueKeyMap;
 
 	@Override
 	public Processing onExecute(C context) throws Exception {
 		Class clazz = ExpressionTools.getClass(getType());
 		if(clazz != null) {
 			Object returnValue = null;
-			if(clazz == Map.class) {
-				String[] valueSplit = getValue().split(",");
-				valueKey = valueSplit[1];
-				valueKeyMap = String.valueOf(getProperty(context, valueSplit[0]));
-			}
-			else {
-				valueKey = value;
-			}
-			
-			if(clazz == Object.class || clazz == Collection.class || clazz == Map.class) {
-				returnValue = getProperty(context, valueKey);
+			if(clazz == Collection.class || clazz == Map.class) {
+				returnValue = ExpressionTools.extractValue(context, value);
 			}
 			else {
 				returnValue = clazz.getConstructor(String.class).newInstance(value);
@@ -81,7 +69,7 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 				} else {
 					valueTmp = new HashMap();
 				}
-				valueTmp.put(valueKeyMap, returnValue);
+				valueTmp.putAll((Map) returnValue);
 				context.put((K) key, (V) valueTmp);
 			}
 			else {

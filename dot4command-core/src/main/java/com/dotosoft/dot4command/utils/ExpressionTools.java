@@ -12,7 +12,7 @@ public class ExpressionTools {
 	
 	public static final String EVALUATE_REGEX_STRING = "(?=[-/*+]|[!=&|][=&|])|(?<=[-/*+]|[!=&|][=&|])";
 	public static final String EXPRESSION_REGEX_STRING = "([\"'])((?:(?=(\\\\?))\\3.)*?)\\1";
-	public static final String ARRAY_REGEX_STRING = "([\"'])((?:(?=(\\\\?))\\3.)*?)\\1";
+	public static final String ARRAY_REGEX_STRING = "(?<=\\[).+?(?=\\])";
 	
 	/** Primitive type name -> class map. */
 	private static final Map<String, Class> PRIMITIVE_NAME_TYPE_MAP = new HashMap<String, Class>();
@@ -38,17 +38,17 @@ public class ExpressionTools {
 		PRIMITIVE_NAME_TYPE_MAP.put("int", Integer.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("int[]", Integer[].class);
 		PRIMITIVE_NAME_TYPE_MAP.put("long", Long.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("long", Long[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("long[]", Long[].class);
 		PRIMITIVE_NAME_TYPE_MAP.put("float", Float.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("float", Float[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("float[]", Float[].class);
 		PRIMITIVE_NAME_TYPE_MAP.put("double", Double.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("double", Double[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("double[]", Double[].class);
 		PRIMITIVE_NAME_TYPE_MAP.put("object", Object.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("object", Object[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("object[]", Object[].class);
 		PRIMITIVE_NAME_TYPE_MAP.put("collection", Collection.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("collection", Collection[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("collection[]", Collection[].class);
 		PRIMITIVE_NAME_TYPE_MAP.put("map", Map.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("map", Map[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("map[]", Map[].class);
 	}
 	
 	public static final Class getClass(String type) {
@@ -128,6 +128,11 @@ public class ExpressionTools {
 			result = true;
 		} else if("false".equalsIgnoreCase(evaluate)) {
 			result = false;
+		} else if(evaluate.indexOf(":") > 0) {
+			String keys[] = evaluate.split(":");
+			Map resultMap = new HashMap();
+			resultMap.put(String.valueOf(extractValue(context, keys[0])), extractValue(context, keys[1]));
+			result = resultMap;
 		} else {
 			matcher = arrayPattern.matcher(evaluate);
 			if(matcher.find()) {
