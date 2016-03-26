@@ -1,5 +1,6 @@
 package com.dotosoft.dot4command.utils;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,16 +12,19 @@ public class ExpressionTools {
 	
 	public static final String EVALUATE_REGEX_STRING = "(?=[-/*+]|[!=&|][=&|])|(?<=[-/*+]|[!=&|][=&|])";
 	public static final String EXPRESSION_REGEX_STRING = "([\"'])((?:(?=(\\\\?))\\3.)*?)\\1";
+	public static final String ARRAY_REGEX_STRING = "([\"'])((?:(?=(\\\\?))\\3.)*?)\\1";
 	
 	/** Primitive type name -> class map. */
 	private static final Map<String, Class> PRIMITIVE_NAME_TYPE_MAP = new HashMap<String, Class>();
 	
 	private static Pattern evaluatePattern;
 	private static Pattern expressionPattern;
+	private static Pattern arrayPattern;
 	
 	static {
-		evaluatePattern  = Pattern.compile(ExpressionTools.EVALUATE_REGEX_STRING);
-		expressionPattern  = Pattern.compile(ExpressionTools.EXPRESSION_REGEX_STRING);
+		evaluatePattern  = Pattern.compile(EVALUATE_REGEX_STRING);
+		expressionPattern  = Pattern.compile(EXPRESSION_REGEX_STRING);
+		arrayPattern = Pattern.compile(ARRAY_REGEX_STRING);
 		
 		/** Setup the primitives map. */
 		PRIMITIVE_NAME_TYPE_MAP.put("boolean", Boolean.class);
@@ -112,7 +116,7 @@ public class ExpressionTools {
 		return evaluate.split(regexPattern);
 	}
 	
-	private static final Object extractValue(Object context, String evaluate) {
+	public static final Object extractValue(Object context, String evaluate) {
 		Object result = null;
 		
 		Matcher matcher = expressionPattern.matcher(evaluate);
@@ -125,7 +129,34 @@ public class ExpressionTools {
 		} else if("false".equalsIgnoreCase(evaluate)) {
 			result = false;
 		} else {
-			result = BeanUtils.getProperty(context, evaluate);
+			matcher = arrayPattern.matcher(evaluate);
+			if(matcher.find()) {
+				String key = evaluate.substring(0, evaluate.indexOf("["));
+	    		String argumentKey = matcher.group(0);
+	    		
+	    		Object valueTmp = BeanUtils.getProperty(context, key);
+	    		if(valueTmp != null) {
+	    			Object parameterKey = BeanUtils.getProperty(context, argumentKey);
+	    			if(valueTmp.getClass().isArray()) {
+	    				int indexKey = Integer.parseInt(String.valueOf(parameterKey));
+	    				result = Array.get(valueTmp, indexKey);
+	    			}
+	    			else if(valueTmp instanceof Collection) {
+	    				Collection collection = (Collection) valueTmp;
+	    				Integer index;
+	    				if(parameterKey instanceof Integer) {
+	    					index = (Integer) parameterKey;
+	    				} else {
+	    					index = Integer.parseInt(String.valueOf(parameterKey));
+	    				}
+	    				result = collection.toArray()[index];
+	    			} else {
+	    				result = BeanUtils.getProperty(valueTmp, String.valueOf(parameterKey));
+	    			}
+	    		}
+			} else {
+				result = BeanUtils.getProperty(context, evaluate);
+			}
 		}
 		return result;
 	}

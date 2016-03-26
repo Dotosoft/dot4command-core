@@ -16,19 +16,14 @@
 
 package com.dotosoft.dot4command.commands;
 
-import java.lang.reflect.Array;
-import java.util.Collection;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Context;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.utils.ExpressionTools;
 
 public class GetPropertyCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
-
-	private final Pattern patternArgument = Pattern.compile("(?<=\\[).+?(?=\\])");
 	
     // -------------------------------------------------------------- Properties
     
@@ -47,39 +42,9 @@ public class GetPropertyCommand<K extends String, V extends Object, C extends Ma
      */
     public Processing onExecute(C context) throws Exception {
 
-    	Matcher matcher = patternArgument.matcher(fromKey);
-    	V value = null;
-    	
-    	// Check if data has argument or not
-    	if(matcher.find()) {
-    		String key = fromKey.substring(0, fromKey.indexOf("["));
-    		String argumentKey = matcher.group(0);
-    		Object valueTmp = getProperty(context, key);
-    		if(valueTmp != null) {
-    			Object parameterKey = getProperty(context, argumentKey);
-    			if(valueTmp.getClass().isArray()) {
-    				int indexKey = Integer.parseInt(String.valueOf(parameterKey));
-    				value = (V) Array.get(valueTmp, indexKey);
-    			}
-    			else if(valueTmp instanceof Collection) {
-    				Collection collection = (Collection) valueTmp;
-    				Integer index;
-    				if(parameterKey instanceof Integer) {
-    					index = (Integer) parameterKey;
-    				} else {
-    					index = Integer.parseInt(String.valueOf(parameterKey));
-    				}
-    				value = (V) collection.toArray()[index];
-    			} else {
-    				value = (V) getProperty(valueTmp, String.valueOf(parameterKey));
-    			}
-    		}
-    	} else {
-    		value = (V) getProperty(context, fromKey);
-    	}
-
+    	Object value = ExpressionTools.extractValue(context, fromKey);
         if (value != null) {
-            context.put((K) toKey, value);
+            context.put((K) toKey, (V) value);
         } else {
             context.remove(toKey);
         }
