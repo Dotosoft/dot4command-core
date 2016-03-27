@@ -16,6 +16,7 @@
 
 package com.dotosoft.dot4command.commands;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -47,6 +48,14 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 			Object returnValue = null;
 			if(clazz == Collection.class || clazz == Map.class) {
 				returnValue = ExpressionTools.extractValue(context, value);
+			}
+			else if(type.indexOf("[]") > 0) {
+				Object[] objects = ExpressionTools.getArgumentsObject(context, value);
+				int n = objects.length;
+				returnValue = Array.newInstance(clazz, n);
+				for (int i = 0; i < n; i++) {
+                    Array.set(returnValue, i, objects[i]);
+                }
 			}
 			else {
 				returnValue = clazz.getConstructor(String.class).newInstance(value);

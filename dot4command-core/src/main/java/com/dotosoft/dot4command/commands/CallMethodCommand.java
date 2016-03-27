@@ -88,6 +88,8 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 				e.printStackTrace();
 				throw e;
 			}
+		} else {
+			throw new Exception("method is not found");
 		}
 		
 		return Processing.FINISHED;
@@ -123,6 +125,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 				}
 			}
 		}
+		
 		return theMethod;
 	}
 

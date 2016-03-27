@@ -28,27 +28,29 @@ public class ExpressionTools {
 		
 		/** Setup the primitives map. */
 		PRIMITIVE_NAME_TYPE_MAP.put("boolean", Boolean.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("boolean[]", Boolean[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("boolean[]", Boolean.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("byte", Byte.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("byte[]", Byte[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("byte[]", Byte.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("char", Character.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("char[]", Character[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("char[]", Character.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("short", Short.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("short[]", Short[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("short[]", Short.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("int", Integer.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("int[]", Integer[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("int[]", Integer.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("long", Long.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("long[]", Long[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("long[]", Long.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("float", Float.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("float[]", Float[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("float[]", Float.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("double", Double.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("double[]", Double[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("double[]", Double.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("object", Object.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("object[]", Object[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("object[]", Object.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("string", String.class);
+		PRIMITIVE_NAME_TYPE_MAP.put("string[]", String.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("collection", Collection.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("collection[]", Collection[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("collection[]", Collection.class);
 		PRIMITIVE_NAME_TYPE_MAP.put("map", Map.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("map[]", Map[].class);
+		PRIMITIVE_NAME_TYPE_MAP.put("map[]", Map.class);
 	}
 	
 	public static final Class getClass(String type) {
