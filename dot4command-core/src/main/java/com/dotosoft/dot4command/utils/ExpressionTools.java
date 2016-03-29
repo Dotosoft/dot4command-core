@@ -1,6 +1,7 @@
 package com.dotosoft.dot4command.utils;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,52 +14,53 @@ public class ExpressionTools {
 	public static final String EVALUATE_REGEX_STRING = "(?=[-/*+]|[!=&|][=&|])|(?<=[-/*+]|[!=&|][=&|])";
 	public static final String EXPRESSION_REGEX_STRING = "([\"'])((?:(?=(\\\\?))\\3.)*?)\\1";
 	public static final String ARRAY_REGEX_STRING = "(?<=\\[).+?(?=\\])";
-	
-	/** Primitive type name -> class map. */
-	private static final Map<String, Class> PRIMITIVE_NAME_TYPE_MAP = new HashMap<String, Class>();
+	public static final String TYPE_CLASS_STRING = "^\\s*(\\S+)\\s*(\\[\\]){0,1}";
 	
 	private static Pattern evaluatePattern;
 	private static Pattern expressionPattern;
 	private static Pattern arrayPattern;
+	private static Pattern typeClassPattern;
 	
 	static {
 		evaluatePattern  = Pattern.compile(EVALUATE_REGEX_STRING);
 		expressionPattern  = Pattern.compile(EXPRESSION_REGEX_STRING);
 		arrayPattern = Pattern.compile(ARRAY_REGEX_STRING);
-		
-		/** Setup the primitives map. */
-		PRIMITIVE_NAME_TYPE_MAP.put("boolean", Boolean.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("boolean[]", Boolean.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("byte", Byte.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("byte[]", Byte.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("char", Character.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("char[]", Character.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("short", Short.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("short[]", Short.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("int", Integer.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("int[]", Integer.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("long", Long.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("long[]", Long.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("float", Float.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("float[]", Float.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("double", Double.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("double[]", Double.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("object", Object.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("object[]", Object.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("string", String.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("string[]", String.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("collection", Collection.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("collection[]", Collection.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("map", Map.class);
-		PRIMITIVE_NAME_TYPE_MAP.put("map[]", Map.class);
+		typeClassPattern = Pattern.compile(TYPE_CLASS_STRING);
 	}
 	
-	public static final Class getClass(String type) {
-		Class clazz = null;
-		if(ExpressionTools.PRIMITIVE_NAME_TYPE_MAP.containsKey(type.toLowerCase())) {
-			clazz = (Class) ExpressionTools.PRIMITIVE_NAME_TYPE_MAP.get(type.toLowerCase()); 
-		}
-		return clazz;
+	public static final Object createDynamicObject(Object context, String value, String type) {
+		Matcher m = typeClassPattern.matcher(type);
+		Object result = null;
+        if (m.find()) {
+        	String cName = m.group(1);
+            boolean isArray = m.group(2) != null ? true : false;
+            try {
+	            Class<?> c = Class.forName(cName);
+	            if(isArray) {
+	            	Object[] objectValues = getArgumentsObject(context, value);
+		            int n = objectValues.length;
+	            	result = Array.newInstance(c, n);
+		            for (int i = 0; i < n; i++) {
+	                    String v = objectValues[i] == null ? null : String.valueOf(objectValues[i]);
+	                    Constructor ctor = c.getConstructor(String.class);
+	                    Object val = ctor.newInstance(v);
+	                    Array.set(result, i, val);
+	                }
+	            } else {
+	            	Object tmpObject = ExpressionTools.extractValue(context, value);
+	            	if(c.isInstance(tmpObject)) {
+	            		result = tmpObject;
+	            	} else {
+	            		Constructor ctor = c.getConstructor(String.class);
+	                    result = ctor.newInstance(tmpObject);
+	            	}
+	            }
+            } catch (Exception ex) {
+            	ex.printStackTrace();
+            }
+        }
+		
+		return result;
 	}
 	
 	public static final <T extends Boolean> T evaluate(Object context, String evaluate) throws Exception {

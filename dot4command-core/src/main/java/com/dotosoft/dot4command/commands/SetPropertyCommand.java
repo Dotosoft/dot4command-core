@@ -16,7 +16,6 @@
 
 package com.dotosoft.dot4command.commands;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -43,50 +42,31 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 
 	@Override
 	public Processing onExecute(C context) throws Exception {
-		Class clazz = ExpressionTools.getClass(getType());
-		if(clazz != null) {
-			Object returnValue = null;
-			if(clazz == Collection.class || clazz == Map.class) {
-				returnValue = ExpressionTools.extractValue(context, value);
+		
+		Object returnValue = ExpressionTools.createDynamicObject(context, value, type);
+		Class clazz = returnValue.getClass();
+		if(clazz == Collection.class) {
+			Collection valueTmp;
+			if(context.containsKey(key)) {
+				valueTmp = (Collection) getProperty(context, key);
+			} else {
+				valueTmp = new ArrayList();
 			}
-			else if(type.indexOf("[]") > 0) {
-				Object[] objects = ExpressionTools.getArgumentsObject(context, value);
-				int n = objects.length;
-				returnValue = Array.newInstance(clazz, n);
-				for (int i = 0; i < n; i++) {
-                    Array.set(returnValue, i, objects[i]);
-                }
+			valueTmp.add(returnValue);
+			context.put((K) key, (V) valueTmp);
+		} 
+		else if(clazz == Map.class) {
+			Map valueTmp;
+			if(context.containsKey(key)) {
+				valueTmp = (Map) getProperty(context, key);
+			} else {
+				valueTmp = new HashMap();
 			}
-			else {
-				returnValue = clazz.getConstructor(String.class).newInstance(value);
-			}
-			
-			if(clazz == Collection.class) {
-				Collection valueTmp;
-				if(context.containsKey(key)) {
-					valueTmp = (Collection) getProperty(context, key);
-				} else {
-					valueTmp = new ArrayList();
-				}
-				valueTmp.add(returnValue);
-				context.put((K) key, (V) valueTmp);
-			} 
-			else if(clazz == Map.class) {
-				Map valueTmp;
-				if(context.containsKey(key)) {
-					valueTmp = (Map) getProperty(context, key);
-				} else {
-					valueTmp = new HashMap();
-				}
-				valueTmp.putAll((Map) returnValue);
-				context.put((K) key, (V) valueTmp);
-			}
-			else {
-				context.put((K) key, (V) returnValue);
-			}
+			valueTmp.putAll((Map) returnValue);
+			context.put((K) key, (V) valueTmp);
 		}
 		else {
-			context.put((K) key, (V) value);
+			context.put((K) key, (V) returnValue);
 		}
 		
 		return Processing.FINISHED;
