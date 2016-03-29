@@ -45,7 +45,7 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 		
 		Object returnValue = ExpressionTools.createDynamicObject(context, value, type);
 		Class clazz = returnValue.getClass();
-		if(clazz == Collection.class) {
+		if(Collection.class.isInstance(returnValue)) {
 			Collection valueTmp;
 			if(context.containsKey(key)) {
 				valueTmp = (Collection) getProperty(context, key);
@@ -55,7 +55,7 @@ public class SetPropertyCommand<K extends String, V extends Object, C extends Ma
 			valueTmp.add(returnValue);
 			context.put((K) key, (V) valueTmp);
 		} 
-		else if(clazz == Map.class) {
+		else if(Map.class.isInstance(returnValue)) {
 			Map valueTmp;
 			if(context.containsKey(key)) {
 				valueTmp = (Map) getProperty(context, key);

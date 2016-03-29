@@ -89,7 +89,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 				throw e;
 			}
 		} else {
-			throw new Exception("method is not found");
+			getLogger().error("method [" + getMethod() + "] is error");
 		}
 		
 		return Processing.FINISHED;
