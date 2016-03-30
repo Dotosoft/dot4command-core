@@ -68,15 +68,16 @@ public class LoopCommand<K extends String, V extends Object, C extends Map<K, V>
 		}
 		while((isLoopTime && loopTimeCheck > 0) || (StringUtils.hasValue(checkKey) && getProperty(context, checkKey) != null)) {
 			result = super.execute(context);
-			if (isLoopTime) loopTimeCheck -= 1;
-			if (result == Processing.BREAK) break;
-			if (result == Processing.CONTINUE) continue;
-			if (result == Processing.TERMINATE) System.exit(0);
 			
+			if (isLoopTime) loopTimeCheck -= 1;
 			index++;
 			if(StringUtils.hasValue(indexKey)) {
 				context.put((K) indexKey, (V) index);
 			}
+			
+			if (result == Processing.BREAK) break;
+			if (result == Processing.CONTINUE) continue;
+			if (result == Processing.TERMINATE) System.exit(0);
 		}
 		
 		if(StringUtils.hasValue(indexKey)) {

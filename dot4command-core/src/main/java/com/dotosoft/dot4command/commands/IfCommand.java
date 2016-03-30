@@ -24,7 +24,7 @@ import com.dotosoft.dot4command.utils.ExpressionTools;
 
 public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> extends ChainBase<K, V, C> {
 	
-	protected static boolean ifFlag = true;
+	private static boolean ifFlag = true;
 	
 	protected String evaluate;
 
