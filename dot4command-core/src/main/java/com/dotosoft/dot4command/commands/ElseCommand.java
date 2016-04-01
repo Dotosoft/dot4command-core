@@ -26,7 +26,7 @@ public class ElseCommand<K extends String, V extends Object, C extends Map<K, V>
 	@Override
 	public Processing execute(C context) {
 		Processing result = Processing.FINISHED;
-		if(!IfCommand.getIfCommandKey()) {
+		if(!IfCommand.getIfCommandKey(getParentId())) {
 			result = super.execute(context);
 		}
 		return result;

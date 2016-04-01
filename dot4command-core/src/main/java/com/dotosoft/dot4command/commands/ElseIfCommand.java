@@ -27,7 +27,7 @@ public class ElseIfCommand<K extends String, V extends Object, C extends Map<K, 
 	public Processing execute(C context) {
 
 		Processing result = Processing.FINISHED;
-		if (!IfCommand.getIfCommandKey()) {
+		if (!IfCommand.getIfCommandKey(getParentId())) {
 			boolean isValid = false;
 			try {
 				isValid = ExpressionTools.evaluate(context, evaluate);

@@ -17,10 +17,7 @@
 package com.dotosoft.dot4command.base;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang.SerializationUtils;
 import org.slf4j.Logger;
@@ -31,9 +28,22 @@ import com.dotosoft.dot4command.utils.BeanUtils;
 
 public class BaseObject implements Cloneable, Serializable {
 	
+	private String nodeId;
 	private Object parent;
 	private Logger logger;
 	private Boolean showLog;
+
+	public BaseObject() {
+		this.nodeId = UUID.randomUUID().toString();
+	}
+	
+	public String getNodeId() {
+		return nodeId;
+	}
+	
+	public String getParentId() {
+		return (String) getProperty(getParent(), "nodeId");
+	}
 
 	//-- Private Method
 	public Logger getLogger() {

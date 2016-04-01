@@ -16,6 +16,7 @@
 
 package com.dotosoft.dot4command.commands;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.dotosoft.dot4command.chain.Processing;
@@ -24,23 +25,29 @@ import com.dotosoft.dot4command.utils.ExpressionTools;
 
 public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> extends ChainBase<K, V, C> {
 	
-	private static boolean ifFlag = true;
+	private static Map<String, Boolean> ifFlagMap;
 	
 	protected String evaluate;
+	
+	public IfCommand() {
+		ifFlagMap = new HashMap<String, Boolean>();
+	}
 
 	@Override
 	public Processing execute(C context) {
-		IfCommand.ifFlag = true;
+		boolean ifFlag = true;
 		try {
-			IfCommand.ifFlag = ExpressionTools.evaluate(context, evaluate);
+			ifFlag = ExpressionTools.evaluate(context, evaluate);
 		} catch (Exception ex) {
-			IfCommand.ifFlag = false;
+			ifFlag = false;
 		}
 
 		Processing result = Processing.FINISHED;
-		if (IfCommand.ifFlag) {
+		if (ifFlag) {
 			result = super.execute(context);
 		}
+		
+		ifFlagMap.put(getParentId(), ifFlag);
 
 		return result;
 	}
@@ -53,7 +60,7 @@ public class IfCommand<K extends String, V extends Object, C extends Map<K, V>> 
 		return evaluate;
 	}
 
-	public static boolean getIfCommandKey() {
-		return ifFlag;
+	public static boolean getIfCommandKey(String parentId) {
+		return ifFlagMap.get(parentId);
 	}
 }
