@@ -25,8 +25,28 @@
 	<define name="callTemplate" className="com.dotosoft.dot4command.commands.CallTemplateCommand"/>
 	<define name="getProperty" className="com.dotosoft.dot4command.commands.GetPropertyCommand"/>
 	
+	<chain name="doIf">
+		<setProperty type="java.lang.Boolean" value="true" key="isLogging"/>
+		<loop doWhile="true" loopTime="1">
+			<if evaluate="isLogging == false">
+				<print message="test ini bintang A" showLog="true"/>
+			</if>
+			<else>
+				<print message="test ini bintang B" showLog="true"/>
+			</else>
+		</loop>
+		<loop doWhile="true" loopTime="1">
+			<if evaluate="isLogging == true">
+				<print message="test ini bintang C" showLog="true"/>
+			</if>
+			<else>
+				<print message="test ini bintang D" showLog="true"/>
+			</else>
+		</loop>
+	</chain>
+	
 	<loop name="printTemplate" doWhile="true" loopTime="10">
-		<setProperty type="boolean" value="true" key="isLogging"/>
+		<setProperty type="java.lang.Boolean" value="true" key="isLogging"/>
 		<setProperty type="int" value="0" key="index"/>  
 		<if evaluate="isLogging == false">
 			<print message="${messageKey1}" showLog="true"/>

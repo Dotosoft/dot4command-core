@@ -101,7 +101,8 @@ public class Dot4CommandXmlTestCase {
     	
     	context.put("dataList", dataList);
     	
-    	assertNotNull(catalog.getCommand("testPrint").execute(context));
+    	// assertNotNull(catalog.getCommand("testPrint").execute(context));
+    	assertNotNull(catalog.getCommand("doIf").execute(context));
     }
 
     // Load the specified catalog from the specified resource path
