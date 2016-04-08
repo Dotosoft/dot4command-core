@@ -158,7 +158,11 @@ public class ExpressionTools {
 	    				} else {
 	    					index = Integer.parseInt(String.valueOf(parameterKey));
 	    				}
-	    				result = collection.toArray()[index];
+	    				
+	    				Object[] myArray = collection.toArray();
+	    				if(myArray.length >= index) {
+	    					result = collection.toArray()[index];
+	    				}
 	    			} else {
 	    				result = BeanUtils.getProperty(valueTmp, String.valueOf(parameterKey));
 	    			}
