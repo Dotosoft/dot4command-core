@@ -190,7 +190,7 @@ public class ChainBase<K extends String, V extends Object, C extends Map<K, V>> 
                     String format = String.format("The command '%s' returned an invalid processing value: '%s'",
                             lastCommand.getClass().getName(), saveResult);
                     throw new ChainException(format);
-                } else if (saveResult == Processing.BREAK) {
+                } else if (saveResult == Processing.BREAK || saveResult == Processing.CONTINUE) {
                     break;
                 } else if (saveResult == Processing.TERMINATE) {
                     System.exit(0);
