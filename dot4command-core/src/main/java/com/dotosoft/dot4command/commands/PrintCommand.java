@@ -16,6 +16,7 @@
 
 package com.dotosoft.dot4command.commands;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +45,11 @@ public class PrintCommand<K extends String, V extends Object, C extends Map<K, V
 			String[] splitKeys = key.split(",");
 			for(String splitKey : splitKeys) {
 				Object param = getProperty(context, splitKey);
-				paramMessages.add(String.valueOf(param));
+				if(param.getClass().isArray()) {
+					paramMessages.add(Arrays.toString((Object[])param));
+				} else {
+					paramMessages.add(String.valueOf(param));
+				}
 			}
 		}
 		
