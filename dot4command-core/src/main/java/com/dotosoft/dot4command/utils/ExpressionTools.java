@@ -160,7 +160,7 @@ public class ExpressionTools {
 	    				}
 	    				
 	    				Object[] myArray = collection.toArray();
-	    				if(myArray.length >= index) {
+	    				if(myArray.length > index) {
 	    					result = collection.toArray()[index];
 	    				}
 	    			} else {

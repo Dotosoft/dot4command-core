@@ -37,6 +37,7 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 	private String argumentsKey;
 	private String toKey;
 	private boolean staticFlag = false;
+	private boolean stopWhenNull = false;
 
 	/**
 	 * Look up the method specified by either "method" or "methodKey" and invoke
@@ -90,6 +91,9 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 			}
 		} else {
 			getLogger().error("method [" + getMethod() + "] is error");
+			if(stopWhenNull) {
+				System.exit(1);
+			}
 		}
 		
 		return Processing.FINISHED;
@@ -226,6 +230,14 @@ public class CallMethodCommand<K extends String, V extends Object, C extends Map
 
 	public void setStaticFlag(boolean staticFlag) {
 		this.staticFlag = staticFlag;
+	}
+
+	public boolean isStopWhenNull() {
+		return stopWhenNull;
+	}
+
+	public void setStopWhenNull(boolean stopWhenNull) {
+		this.stopWhenNull = stopWhenNull;
 	}
 
 }

@@ -59,7 +59,11 @@ public class ReflectionsUtil {
         List<String> paramClassNames = new ArrayList<>();
         if(params != null) {
 	        for (Object c : params) {
-	            paramClassNames.add(c.getClass().getCanonicalName());
+	        	if(c != null) {
+	        		paramClassNames.add(c.getClass().getCanonicalName());
+	        	} else {
+	        		paramClassNames.add(null);
+	        	}
 	        }
         }
 
