@@ -61,5 +61,10 @@
 	</loop>
 	
 	<callTemplate name="testPrint" commandName="printTemplate" catalogName="foo" keyMap="messageKey1:test1,messageKey2:test2"/>
+	
+	<chain name="printMap">
+		<setProperty key="testMap" value="'testKey':'testValue'" type="java.util.HashMap" />
+		<print message="%s" key="testMap['testKey']" showLog="true"/> 
+	</chain>
 
 </catalog>

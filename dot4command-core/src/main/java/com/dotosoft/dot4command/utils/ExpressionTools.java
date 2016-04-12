@@ -29,6 +29,16 @@ public class ExpressionTools {
 	}
 	
 	public static final Object createDynamicObject(Object context, String value, String type) {
+		// if there is no value and type, it will return null value
+		if(!StringUtils.hasValue(value) && !StringUtils.hasValue(type)) {
+			return null;
+		}
+		
+		// if there is no type, it will return value directly
+		if(StringUtils.hasValue(value) && !StringUtils.hasValue(type)) {
+			return extractValue(context, value);
+		}
+		
 		Matcher m = typeClassPattern.matcher(type);
 		Object result = null;
         if (m.find()) {
@@ -36,24 +46,32 @@ public class ExpressionTools {
             boolean isArray = m.group(2) != null ? true : false;
             try {
 	            Class<?> c = Class.forName(cName);
-	            if(isArray) {
-	            	Object[] objectValues = getArgumentsObject(context, value);
-		            int n = objectValues.length;
-	            	result = Array.newInstance(c, n);
-		            for (int i = 0; i < n; i++) {
-	                    String v = objectValues[i] == null ? null : String.valueOf(objectValues[i]);
-	                    Constructor ctor = c.getConstructor(String.class);
-	                    Object val = ctor.newInstance(v);
-	                    Array.set(result, i, val);
-	                }
+	            if(!StringUtils.hasValue(value)) {
+	            	result = c.newInstance();
 	            } else {
-	            	Object tmpObject = ExpressionTools.extractValue(context, value);
-	            	if(c.isInstance(tmpObject)) {
-	            		result = tmpObject;
-	            	} else {
-	            		Constructor ctor = c.getConstructor(String.class);
-	                    result = ctor.newInstance(tmpObject);
-	            	}
+		            if(isArray) {
+		            	Object[] objectValues = getArgumentsObject(context, value);
+			            int n = objectValues.length;
+		            	result = Array.newInstance(c, n);
+			            for (int i = 0; i < n; i++) {
+		                    String v = objectValues[i] == null ? null : String.valueOf(objectValues[i]);
+		                    Constructor ctor = c.getConstructor(String.class);
+		                    Object val = ctor.newInstance(v);
+		                    Array.set(result, i, val);
+		                }
+		            } else {
+		            	Object tmpObject = ExpressionTools.extractValue(context, value);
+		            	if(c.isInstance(tmpObject)) {
+		            		result = tmpObject;
+		            	} else {
+		            		try {
+			            		Constructor ctor = c.getConstructor(String.class);
+			                    result = ctor.newInstance(tmpObject);
+		            		} catch (NoSuchMethodException ex) {
+		            			result = c.cast(tmpObject);
+		            		}
+		            	}
+		            }
 	            }
             } catch (Exception ex) {
             	ex.printStackTrace();
@@ -122,11 +140,9 @@ public class ExpressionTools {
 	
 	public static final Object extractValue(Object context, String evaluate) {
 		Object result = null;
+		Matcher matcher = arrayPattern.matcher(evaluate);
 		
-		Matcher matcher = expressionPattern.matcher(evaluate);
-		if(matcher.find()) {
-			result = matcher.group(2);
-		} else if("null".equalsIgnoreCase(evaluate)) {
+		if("null".equalsIgnoreCase(evaluate)) {
 			result = null;
 		} else if("true".equalsIgnoreCase(evaluate)) {
 			result = true;
@@ -137,36 +153,38 @@ public class ExpressionTools {
 			Map resultMap = new HashMap();
 			resultMap.put(String.valueOf(extractValue(context, keys[0])), extractValue(context, keys[1]));
 			result = resultMap;
+		} else if(matcher.find()) {
+			String key = evaluate.substring(0, evaluate.indexOf("["));
+    		String argumentKey = matcher.group(0);
+    		
+    		Object valueTmp = BeanUtils.getProperty(context, key);
+    		if(valueTmp != null) {
+    			Object parameterKey = extractValue(context, argumentKey);
+    			if(valueTmp.getClass().isArray()) {
+    				int indexKey = Integer.parseInt(String.valueOf(parameterKey));
+    				result = Array.get(valueTmp, indexKey);
+    			}
+    			else if(valueTmp instanceof Collection) {
+    				Collection collection = (Collection) valueTmp;
+    				Integer index;
+    				if(parameterKey instanceof Integer) {
+    					index = (Integer) parameterKey;
+    				} else {
+    					index = Integer.parseInt(String.valueOf(parameterKey));
+    				}
+    				
+    				Object[] myArray = collection.toArray();
+    				if(myArray.length > index) {
+    					result = collection.toArray()[index];
+    				}
+    			} else {
+    				result = BeanUtils.getProperty(valueTmp, String.valueOf(parameterKey));
+    			}
+    		}
 		} else {
-			matcher = arrayPattern.matcher(evaluate);
+			matcher = expressionPattern.matcher(evaluate);
 			if(matcher.find()) {
-				String key = evaluate.substring(0, evaluate.indexOf("["));
-	    		String argumentKey = matcher.group(0);
-	    		
-	    		Object valueTmp = BeanUtils.getProperty(context, key);
-	    		if(valueTmp != null) {
-	    			Object parameterKey = BeanUtils.getProperty(context, argumentKey);
-	    			if(valueTmp.getClass().isArray()) {
-	    				int indexKey = Integer.parseInt(String.valueOf(parameterKey));
-	    				result = Array.get(valueTmp, indexKey);
-	    			}
-	    			else if(valueTmp instanceof Collection) {
-	    				Collection collection = (Collection) valueTmp;
-	    				Integer index;
-	    				if(parameterKey instanceof Integer) {
-	    					index = (Integer) parameterKey;
-	    				} else {
-	    					index = Integer.parseInt(String.valueOf(parameterKey));
-	    				}
-	    				
-	    				Object[] myArray = collection.toArray();
-	    				if(myArray.length > index) {
-	    					result = collection.toArray()[index];
-	    				}
-	    			} else {
-	    				result = BeanUtils.getProperty(valueTmp, String.valueOf(parameterKey));
-	    			}
-	    		}
+				result = matcher.group(2);
 			} else {
 				result = BeanUtils.getProperty(context, evaluate);
 			}

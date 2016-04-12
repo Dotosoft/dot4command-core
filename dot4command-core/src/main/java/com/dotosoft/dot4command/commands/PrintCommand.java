@@ -24,6 +24,7 @@ import java.util.Map;
 
 import com.dotosoft.dot4command.base.CommandBase;
 import com.dotosoft.dot4command.chain.Processing;
+import com.dotosoft.dot4command.utils.ExpressionTools;
 import com.dotosoft.dot4command.utils.StringUtils;
 
 public class PrintCommand<K extends String, V extends Object, C extends Map<K, V>> extends CommandBase<K, V, C> {
@@ -44,7 +45,7 @@ public class PrintCommand<K extends String, V extends Object, C extends Map<K, V
 		if(StringUtils.hasValue(key)) {
 			String[] splitKeys = key.split(",");
 			for(String splitKey : splitKeys) {
-				Object param = getProperty(context, splitKey);
+				Object param = ExpressionTools.extractValue(context, splitKey);
 				if(param.getClass().isArray()) {
 					paramMessages.add(Arrays.toString((Object[])param));
 				} else {
