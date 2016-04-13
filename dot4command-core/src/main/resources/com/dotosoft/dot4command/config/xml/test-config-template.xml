@@ -23,7 +23,7 @@
 	<define name="else" className="com.dotosoft.dot4command.commands.ElseCommand" />
 	<define name="setProperty" className="com.dotosoft.dot4command.commands.SetPropertyCommand"/>
 	<define name="callTemplate" className="com.dotosoft.dot4command.commands.CallTemplateCommand"/>
-	<define name="getProperty" className="com.dotosoft.dot4command.commands.GetPropertyCommand"/>
+	<define name="copyProperty" className="com.dotosoft.dot4command.commands.CopyPropertyCommand"/>
 	
 	<chain name="doIf">
 		<setProperty type="java.lang.Boolean" value="true" key="isLogging"/>
@@ -56,7 +56,7 @@
 			<print message="${messageKey1}" showLog="false"/>
 			<print message="${messageKey2}" showLog="false"/>
 		</else>
-		<getProperty fromKey="dataList[index]" toKey="mydata" />
+		<copyProperty fromKey="dataList[index]" toKey="mydata" />
 		<print message="%s" key="mydata" showLog="true"/>
 	</loop>
 	

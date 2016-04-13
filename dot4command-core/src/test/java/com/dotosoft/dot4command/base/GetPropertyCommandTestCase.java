@@ -30,20 +30,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.dotosoft.dot4command.chain.Processing;
-import com.dotosoft.dot4command.commands.GetPropertyCommand;
+import com.dotosoft.dot4command.commands.CopyPropertyCommand;
 
 /**
  * @version $Id$
  */
 public class GetPropertyCommandTestCase {
 
-    private GetPropertyCommand<String, Object, Map<String, Object>> command;
+    private CopyPropertyCommand<String, Object, Map<String, Object>> command;
     private Map<String, Object> context;
     private Map<String, Object> originalContext;
 
     @Before
     public void setUp() throws Exception {
-        command = new GetPropertyCommand<String, Object, Map<String, Object>>();
+        command = new CopyPropertyCommand<String, Object, Map<String, Object>>();
 
         context = new HashMap<String, Object>();
         context.put("one", "one");
